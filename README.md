@@ -4,6 +4,8 @@
 
 This is the handbook for the [rTorrent](https://github.com/rakshasa/rtorrent/wiki)
 bittorrent client, written by and for the community.
+See [this link](http://rtorrent-docs.readthedocs.io/en/latest/search.html?q=todo)
+to find sections with unfinished work where you can contribute.
 
 See also the [homepage](https://rtorrent-community.github.io/) of the community project
 and the [community wiki](https://github.com/rtorrent-community/rtorrent-community.github.io/wiki).
