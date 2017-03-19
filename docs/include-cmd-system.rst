@@ -112,7 +112,18 @@
 
     system.random
 
-        **TODO**
+        ``system.random = [[<lower>,] <upper>]`` **rTorrent-PS only**
+
+        Generate *uniformly* distributed random numbers in the range
+        defined by ``lower`` … ``upper``.
+
+        The default range with no args is ``0`` … ``RAND_MAX``. Providing
+        just one argument sets an *exclusive* upper bound, and two
+        args define an *inclusive*  range.
+
+        An example use-case is adding jitter to time values that you
+        later check with :term:`elapsed.greater`, to avoid load spikes and
+        similar effects of clustered time triggers.
 
     system.time
     system.time_seconds
