@@ -3,23 +3,67 @@
 `execute.*` commands
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+.. note::
+
+    The ``.bg`` variants detach the child process from the *rTorrent* parent,
+    i.e. it runs in the background. This **must** be used if you want to call
+    back into *rTorrent* via XMLRPC, since otherwise there *will* be a deadlock.
+
+    ``throw`` means to raise an error when the called command fails,
+    while the ``nothrow`` variants will return the exit code.
+
+
 .. glossary::
 
     execute2
+    execute.throw
+    execute.throw.bg
 
-        **TODO**
+        ``execute.throw[.bg] = {command, arg1, arg2, ...}``
+
+        This will execute a system command with the provided arguments.
+        These commands either raise an error or return ``0``.
+
+        Note that ``spawn`` is used internally,
+        which means the shell is not involved
+        and things like shell redirection will not work here.
+        There is also no reason to use shell quoting in arguments,
+        just separate them by commas.
+        If you need shell features, call ``bash -c "‹command›"``
+        like shown in this example:
+
+        .. code-block:: ini
+
+            # Write a PID file into the session directory
+            execute.throw = bash, -c, (cat, "echo >", (session.path), "rtorrent.pid", " ", (system.pid))
+
+        Note that the result of the ``(cat, …)`` command ends up as a *single* argument passed on to ``bash``.
+
+
+    execute.nothrow
+    execute.nothrow.bg
+
+        Like :term:`execute.throw`, but returns the command's exit code.
+
+        The ``.bg`` variant will just indicate whether
+        the child could be successfully spawned and detached.
+
 
     execute.capture
     execute.capture_nothrow
 
-        **TODO**
+        Like ``execute.[no]throw``, but returns the command's standard output.
 
-    execute.nothrow
-    execute.nothrow.bg
-    execute.throw
-    execute.throw.bg
+        Note that any line-endings are included, so if you need a plain string value,
+        wrap the command you want to call into an ``echo -n`` command:
 
-        **TODO**
+        .. code-block:: ini
+
+            method.insert = log_stamp, private|simple,\
+                "execute.capture_nothrow = bash, -c, \"echo -n $(date +%Y-%m-%d-%H%M%S)\""
+
+        **TODO** What does "nothrow" return in case of errors?
+
 
     execute.raw
     execute.raw.bg
