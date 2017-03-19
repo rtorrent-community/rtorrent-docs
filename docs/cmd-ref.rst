@@ -5,102 +5,43 @@ The reference chapter lists all relevant XMLRPC and ‘private’ commands
 of *rTorrent* with a short explanation.
 See :doc:`scripting` on how to use these commands.
 
+**Use the search box** in the sidebar to find specific commands,
+or the :ref:`search`.
+The :ref:`generated index <genindex>` also lists all the commmand names.
+
+
 .. contents:: List of Command Groups
     :local:
-
 
 
 Download Items and Attributes
 -----------------------------
 
-`d.*` commands
-^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-**TODO**
-
-
-`f.*` commands
-^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-**TODO**
-
-
-`p.*` commands
-^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-**TODO**
-
-
-`t.*` commands
-^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-**TODO**
-
-
-`load.*` commands
-^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-**TODO**
+.. include:: include-cmd-items.rst
 
 
 Scripting
 ------------------
 
-`method.*` commands
-^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-**TODO**
-
-
-`event.*` commands
-^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-**TODO**
+.. include:: include-cmd-scripting.rst
 
 
 Logging, Files, and OS
 ----------------------
 
-`execute.*` commands
-^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-**TODO**
-
-
-`system.*` commands
-^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-**TODO**
-
-
-`log.*` commands
-^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-**TODO**
+.. include:: include-cmd-system.rst
 
 
 Bittorrent Protocol
 -------------------
 
-`throttle.*` commands
-^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-**TODO**
+.. include:: include-cmd-bt.rst
 
 
 User Interface
 --------------
 
-`ui.*` commands
-^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-**TODO**
-
-
-`view.*` commands
-^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-**TODO**
+.. include:: include-cmd-ui.rst
 
 
 Miscellaneous
