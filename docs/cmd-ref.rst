@@ -73,4 +73,53 @@ Miscellaneous
 
 **TODO (singles)**
 
-``rtlistmethods . | grep -v \\.``
+.. glossary::
+
+    add_peer
+    bind
+    cat
+    catch
+    check_hash
+    close_low_diskspace
+    close_untied
+    connection_leech
+    connection_seed
+    dht
+    dht_port
+    directory
+    download_list
+    download_rate
+    encoding_list
+    encryption
+    ip
+    key_layout
+    max_downloads
+    max_downloads_div
+    max_downloads_global
+    max_memory_usage
+    max_peers
+    max_peers_seed
+    max_uploads
+    max_uploads_div
+    max_uploads_global
+    min_downloads
+    min_peers
+    min_peers_seed
+    min_uploads
+    on_ratio
+    port_random
+    port_range
+    print
+    proxy_address
+    remove_untied
+    scgi_local
+    scgi_port
+    schedule2
+    schedule_remove2
+    session
+    start_tied
+    stop_untied
+    torrent_list_layout
+    upload_rate
+
+        **TODO**
