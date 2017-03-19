@@ -145,14 +145,24 @@ Conditional Operators
 Value Conversion & Formatting
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+The ``to_*`` forms are **deprecated**.
+
 .. glossary::
 
+    convert.kb
+    convert.mb
+    convert.xb
     to_kb
     to_mb
     to_xb
 
         **TODO**
 
+    convert.date
+    convert.elapsed_time
+    convert.gm_date
+    convert.gm_time
+    convert.time
     to_date
     to_elapsed_time
     to_gm_date
@@ -161,6 +171,7 @@ Value Conversion & Formatting
 
         **TODO**
 
+    convert.throttle
     to_throttle
 
         **TODO**
