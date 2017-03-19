@@ -3,7 +3,45 @@
 `method.*` commands
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-**TODO**
+.. glossary::
+
+    method.insert
+    method.insert.c_simple
+    method.insert.s_c_simple
+    method.insert.simple
+    method.insert.value
+
+        **TODO**
+
+    method.const
+    method.const.enable
+
+        **TODO**
+
+    method.erase
+
+        Doesn't work, don't bother.
+
+    method.get
+    method.set
+    method.has_key
+    method.set_key
+    method.list_keys
+
+        **TODO**
+
+    method.rlookup
+    method.rlookup.clear
+
+        **TODO**
+
+    method.redirect
+    method.use_deprecated
+    method.use_deprecated.set
+    method.use_intermediate
+    method.use_intermediate.set
+
+        **TODO**
 
 
 .. _event-commands:
@@ -11,7 +49,24 @@
 `event.*` commands
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-**TODO**
+.. glossary::
+
+    event.download.closed
+    event.download.erased
+    event.download.finished
+    event.download.hash_done
+    event.download.hash_failed
+    event.download.hash_final_failed
+    event.download.hash_queued
+    event.download.hash_removed
+    event.download.inserted
+    event.download.inserted_new
+    event.download.inserted_session
+    event.download.opened
+    event.download.paused
+    event.download.resumed
+
+        **TODO**
 
 
 Importing Script Files
