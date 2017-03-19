@@ -27,12 +27,18 @@ Adding Your Own Contributions
 The handbook is rendered to HTML using the `Sphinx tool`_,
 the text itself is written using `reStructuredText markup`_.
 
-The easiest way to edit text is using GitHub's `built-in editor`_,
-which when you click the edit buttom (pencil) will fork the project
-and open the rich-text web editor.
+The easiest way to edit text is using GitHub's `built-in editor`_.
+When you click the edit button (pencil), it will fork the project
+for you and then open the rich-text web editor.
+It is very convenient to fix small spelling or grammatical errors
+on the fly, while you're reading the handbook.
 
-That editor has a `Preview` button (use it) and can save directly
-into a so-called ‘pull request’ for integration into the project.
+If you're reading this on *Read the Docs*, take note of the *“Edit on GitHub”*
+button in the top-right corner of each page, which will take you to the
+under-lying text file on GitHub.
+
+The GitHub editor has a `Preview` button (use it) and can save directly
+into a so-called ‘pull request’ (PR) for integration into the project.
 Please do *not* save changes into a PR just to “try it out”,
 you can however save changes into your fork at your pleasure.
 
