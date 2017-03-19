@@ -63,8 +63,6 @@ Miscellaneous
  * file
  * group
  * group2
- * ip_tables
- * ipv4_filter
  * keys
  * pieces
  * protocol

@@ -104,4 +104,32 @@
 
         **TODO**
 
+
+`ip_tables.*` commands
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. glossary::
+
+    ip_tables.add_address
+    ip_tables.get
+    ip_tables.insert_table
+    ip_tables.size_data
+
+        **TODO**
+
+
+`ipv4_filter.*` commands
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. glossary::
+
+    ipv4_filter.add_address
+    ipv4_filter.dump
+    ipv4_filter.get
+    ipv4_filter.load
+    ipv4_filter.size_data
+
+        **TODO**
+
+
 .. END cmd-network
