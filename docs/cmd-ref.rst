@@ -21,7 +21,7 @@ Download Items and Attributes
 
 
 Scripting
-------------------
+---------
 
 .. include:: include-cmd-scripting.rst
 
@@ -30,6 +30,12 @@ Logging, Files, and OS
 ----------------------
 
 .. include:: include-cmd-system.rst
+
+
+Network (Sockets, HTTP, XMLRPC)
+-------------------------------
+
+.. include:: include-cmd-network.rst
 
 
 Bittorrent Protocol
@@ -50,10 +56,8 @@ Miscellaneous
 **TODO (Groups)**
 
  * choke_group
- * convert
  * dht
  * directory
- * elapsed
  * encoding
  * fi
  * file
@@ -62,7 +66,6 @@ Miscellaneous
  * ip_tables
  * ipv4_filter
  * keys
- * network
  * pieces
  * protocol
  * ratio
