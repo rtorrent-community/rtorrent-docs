@@ -1,8 +1,9 @@
 # rTorrent Handbook
 
-[![Documentation Status](https://readthedocs.org/projects/rtorrent-docs/badge/?version=latest)](http://rtorrent-docs.readthedocs.io/en/latest/?badge=latest)
+[![Documentation Status](https://readthedocs.org/projects/rtorrent-docs/badge/?version=latest)](https://rtorrent-docs.readthedocs.io/en/latest/?badge=latest)
 
-This is the handbook for the [rTorrent](https://github.com/rakshasa/rtorrent/wiki)
+This is [the handbook](https://rtorrent-docs.readthedocs.io/)
+for the [rTorrent](https://github.com/rakshasa/rtorrent/wiki)
 bittorrent client, written by and for the community.
 
 See also the [homepage](https://rtorrent-community.github.io/) of the community project
