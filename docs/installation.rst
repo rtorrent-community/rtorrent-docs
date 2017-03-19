@@ -29,5 +29,5 @@ Installing from Source
 rTorrent Distributions
 ----------------------
 
- * `rTorrent-PS <https://github.com/pyroscope/rtorrent-ps>`_ is a *rTorrent* distribution (not a fork of it), in form of a set of patches that improve the user experience and stability of official *rTorrent* releases. The notable additions are the more condensed ncurses UI with colorization and a network bandwidth graph, and a default configuration providing many new features, based in part on an extended command set.
+ * `rTorrent-PS <https://github.com/pyroscope/rtorrent-ps#rtorrent-ps>`_ is a *rTorrent* distribution (not a fork of it), in form of a set of patches that improve the user experience and stability of official *rTorrent* releases. The notable additions are the more condensed ncurses UI with colorization and a network bandwidth graph, and a default configuration providing many new features, based in part on an extended command set.
  * `rTorrent-PS-CH <https://github.com/chros73/rtorrent-ps_setup/wiki>`_ puts more patches and a different default configuration on top of *rTorrent-PS*. It also tries to work with the current git HEAD of *rTorrent*, which *rTorrent-PS* does not.
