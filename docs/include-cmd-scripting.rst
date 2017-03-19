@@ -69,6 +69,31 @@
         **TODO**
 
 
+Scheduling Commands
+^^^^^^^^^^^^^^^^^^^
+
+.. glossary::
+
+    schedule2
+
+        **TODO**
+
+    schedule_remove2
+
+        **TODO**
+
+    start_tied
+    stop_untied
+    close_untied
+    remove_untied
+
+        **TODO**
+
+    close_low_diskspace
+
+        **TODO**
+
+
 Importing Script Files
 ^^^^^^^^^^^^^^^^^^^^^^
 

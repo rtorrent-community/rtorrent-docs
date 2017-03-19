@@ -81,8 +81,6 @@ Miscellaneous
     cat
     catch
     check_hash
-    close_low_diskspace
-    close_untied
     connection_leech
     connection_seed
     dht
@@ -112,14 +110,9 @@ Miscellaneous
     port_range
     print
     proxy_address
-    remove_untied
     scgi_local
     scgi_port
-    schedule2
-    schedule_remove2
     session
-    start_tied
-    stop_untied
     torrent_list_layout
     upload_rate
 
