@@ -14,6 +14,7 @@ Installation Using OS Packages
  * *“Arch User Repository”* (AUR) PKGBUILDs maintained by `@xsmile <https://github.com/xsmile>`_ for
    `libtorrent-ps <https://aur.archlinux.org/packages/libtorrent-ps/>`_ and
    `rtorrent-ps <https://aur.archlinux.org/packages/rtorrent-ps/>`_.
+   See also the *Arch Linux* `wiki page <https://wiki.archlinux.org/index.php/RTorrent#Installation>`_.
 
 
 Automated Installation
