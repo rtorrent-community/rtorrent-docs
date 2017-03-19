@@ -166,4 +166,17 @@
 
         **TODO**
 
+    log.messages
+
+        ``log.messages = ‹log file path›`` **rTorrent-PS only**
+
+        Opens a log file that records all console messages.
+        Passing no argument closes an open file.
+
+        Example:
+
+        .. code-block:: ini
+
+            log.messages = (cat, (cfg.logs), "messages.log")
+
 .. END cmd-system
