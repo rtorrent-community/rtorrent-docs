@@ -3,7 +3,7 @@ Overview
 
 The :doc:`installation` has some pointers to common ways of installing
 rTorrent on your machine. It does not provide yet another way to do that,
-because there already are plentiful and redundant sources for that out there.
+because there already are plentiful and redundant sources out there.
 
 To help you with basic configuration tasks, the :doc:`cookbook`
 contains a quick start into the ‘scripting language’ rTorrent uses
