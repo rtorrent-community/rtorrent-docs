@@ -30,7 +30,7 @@ the text itself is written using `reStructuredText markup`_.
 The easiest way to edit text is using GitHub's `built-in editor`_.
 When you click the edit button (pencil), it will fork the project
 for you and then open the rich-text web editor.
-It is very convenient to fix small spelling or grammatical errors
+It is very **convenient to fix small spelling or grammatical errors**
 on the fly, while you're reading the handbook.
 
 If you're reading this on *Read the Docs*, take note of the *“Edit on GitHub”*
@@ -42,7 +42,7 @@ into a so-called ‘pull request’ (PR) for integration into the project.
 Please do *not* save changes into a PR just to “try it out”,
 you can however save changes into your fork at your pleasure.
 
-The more technical but also more powerful way is to clone the
+The **more technical but also more powerful way** is to clone the
 project to your machine.
 Here are some resources to help you with getting started,
 if you never wrote anything for a ``Sphinx`` document before:
@@ -50,8 +50,8 @@ if you never wrote anything for a ``Sphinx`` document before:
 * the `Sphinx reStructuredText Primer`_ explains the text markup language used.
 * the `project's README`_ shows you how to build the handbook on your own machine.
 
-After you wrote and reviewed your text, `open a pull request`_ as explained in
-the `GitHub help`_.
+After you wrote, spell-checked and reviewed your text, `open a pull request`_
+as explained in the `GitHub help`_.
 
 
 .. _`Sphinx tool`: http://www.sphinx-doc.org/
