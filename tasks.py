@@ -13,6 +13,17 @@ from invoke import task
 SPHINX_AUTOBUILD_PORT = 8340
 
 
+def watchdog_pid(ctx):
+    """Get watchdog PID via ``netstat``."""
+    result = ctx.run('netstat -tulpn 2>/dev/null | grep 127.0.0.1:{:d}'
+                     .format(SPHINX_AUTOBUILD_PORT), warn=True, pty=False)
+    pid = result.stdout.strip()
+    pid = pid.split()[-1] if pid else None
+    pid = pid.split('/', 1)[0] if pid and pid != '-' else None
+
+    return pid
+
+
 @task
 def docs(ctx):
     """Start watchdog to build the Sphinx docs."""
@@ -32,32 +43,25 @@ def docs(ctx):
 
     for i in range(25):
         time.sleep(2.5)
-        result = ctx.run('netstat -tulpn 2>/dev/null | grep 127.0.0.1:{:d}'
-                         .format(SPHINX_AUTOBUILD_PORT), warn=True, pty=False)
-        pid = result.stdout.strip()
-        print(pid)
+        pid = watchdog_pid(ctx)
         if pid:
             ctx.run("touch docs/index.rst")
-            pid, _ = pid.split()[-1].split('/', 1)
-            ctx.run('ps %s' % pid, pty=False)
-            url = 'http://localhost:%d/' % SPHINX_AUTOBUILD_PORT
-            print("\n*** Open '%s' in your browser..." % url)
+            ctx.run('ps {}'.format(pid), pty=False)
+            url = 'http://localhost:{port:d}/'.format(port=SPHINX_AUTOBUILD_PORT)
+            print("\n*** Open '{}' in your browser...".format(url))
             break
 
 
 @task
 def stop(ctx):
     "Stop Sphinx watchdog"
+    print("\n*** Stopping watchdog ***\n")
     for i in range(4):
-        result = ctx.run('netstat -tulpn 2>/dev/null | grep 127.0.0.1:{:d}'
-                         .format(SPHINX_AUTOBUILD_PORT), warn=True, pty=False)
-        pid = result.stdout.strip()
-        print(pid)
-        if pid:
-            pid, _ = pid.split()[-1].split('/', 1)
-            if not i:
-                ctx.run('ps %s' % pid, pty=False)
-            ctx.run('kill %s' % pid, pty=False)
-            time.sleep(.5)
-        else:
+        pid = watchdog_pid(ctx)
+        if not pid:
             break
+        else:
+            if not i:
+                ctx.run('ps {}'.format(pid), pty=False)
+            ctx.run('kill {}'.format(pid), pty=False)
+            time.sleep(.5)
