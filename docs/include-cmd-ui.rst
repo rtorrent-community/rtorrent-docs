@@ -100,4 +100,38 @@ The following are only available in *rTorrent-PS*:
 `view.*` commands
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-**TODO**
+.. glossary::
+
+    view.add
+    view.list
+    view.size
+    view.persistent
+
+        **TODO**
+
+    view.event_added
+    view.event_removed
+
+        **TODO**
+
+    view.filter
+    view.filter_all
+    view.filter_download
+    view.filter_on
+
+        **TODO**
+
+    view.set
+    view.set_visible
+    view.set_not_visible
+    view.size_not_visible
+
+        **TODO**
+
+    view.sort
+    view.sort_current
+    view.sort_new
+
+        **TODO**
+
+.. END cmd-ui
