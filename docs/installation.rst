@@ -98,6 +98,11 @@ Installing from Source
 
         Installation instructions for a working *rTorrent* instance in combination with *PyroScope* from scratch, on *Debian* and most Debian-derived distros.
 
+    `Installing the “Ultimate Torrent Setup” <https://github.com/xombiemp/ultimate-torrent-setup/wiki#ultimate-torrent-setup>`_
+
+        Guide to install *rtorrent*, *ruTorrent*, *Sonarr*, and *CouchPotato* on *Ubuntu*,
+        proxied by *Apache httpd*.
+
     `Installation Guide (JES.SC) <https://jes.sc/kb/rTorrent+ruTorrent-Seedbox-Guide.php>`_
 
         A single-page, comprehensive guide to take you step-by-step through installation and configuration
