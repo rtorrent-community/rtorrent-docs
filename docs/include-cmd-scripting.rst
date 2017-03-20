@@ -140,9 +140,13 @@ Conditional Operators
 
         Compare time stamps like created by :term:`system.time`.
 
+
     compare
 
-        ``compare = <order>, <sort_key>=[, ...]`` **rTorrent-PS only**
+        .. code-block:: ini
+
+            # rTorrent-PS only
+            compare = ‹order›, ‹sort_key›=[, ...] ≫ bool (0 or 1)
 
         Compares two items like :term:`less` or :term:`greater`, but allows
         to compare by several different sort criteria, and ascending or

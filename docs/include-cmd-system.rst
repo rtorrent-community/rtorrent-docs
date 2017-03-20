@@ -19,7 +19,9 @@
     execute.throw
     execute.throw.bg
 
-        ``execute.throw[.bg] = {command, arg1, arg2, ...}``
+        .. code-block:: ini
+
+            execute.throw[.bg] = {command, arg1, arg2, ...} ≫ 0
 
         This will execute a system command with the provided arguments.
         These commands either raise an error or return ``0``.
@@ -43,7 +45,7 @@
     execute.nothrow
     execute.nothrow.bg
 
-        Like :term:`execute.throw`, but returns the command's exit code.
+        Like :term:`execute.throw`, but return the command's exit code.
 
         The ``.bg`` variant will just indicate whether
         the child could be successfully spawned and detached.
@@ -156,7 +158,10 @@
 
     system.random
 
-        ``system.random = [[<lower>,] <upper>]`` **rTorrent-PS only**
+        .. code-block:: ini
+
+            # rTorrent-PS only
+            system.random = [[‹lower›,] ‹upper›] ≫ value
 
         Generate *uniformly* distributed random numbers in the range
         defined by ``lower`` … ``upper``.
@@ -212,7 +217,10 @@
 
     log.messages
 
-        ``log.messages = ‹log file path›`` **rTorrent-PS only**
+        .. code-block:: ini
+
+            # rTorrent-PS only
+            log.messages = ‹log file path› ≫ 0
 
         Opens a log file that records all console messages.
         Passing no argument closes an open file.

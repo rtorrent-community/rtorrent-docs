@@ -3,23 +3,39 @@
 `ui.*` commands
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Commands in this group control aspects of the ‘curses’ UI.
+
 .. glossary::
 
     ui.current_view
     ui.current_view.set
 
-        Change or query the current view (querying since ``0.9.7``).
+        .. code-block:: ini
+
+            ui.current_view ≫ string ‹viewname›
+            ui.current_view.set = ‹viewname› ≫ 0
+
+        Query or change the current view the user is seeing (querying since ``0.9.7``).
+        :term:`view.list` gives you a list of all the added views.
+
+        Typical uses are to change and then restore the active view,
+        or rotate through a set of views.
+        Rotating though views requires querying the current view and the view list,
+        to find the next one.
 
     ui.torrent_list.layout
     ui.torrent_list.layout.set
 
-        Offers a choince between ``full`` and ``compact`` layout (since ``0.9.7``).
+        Offers a choice between ``full`` and ``compact`` layout (since ``0.9.7``).
 
     ui.unfocus_download
 
-        Used before erasing an item, to move the focus away from it.
+        Used internally before erasing an item, to move the focus away from it.
 
-The following are only available in *rTorrent-PS*:
+
+.. note::
+
+    The following are only available in *rTorrent-PS*!
 
 .. glossary::
 
@@ -27,7 +43,10 @@ The following are only available in *rTorrent-PS*:
     ui.bind_key.verbose
     ui.bind_key.verbose.set
 
-        ``ui.bind_key = display, key, "command=[...]"`` **rTorrent-PS only**
+        .. code-block:: ini
+
+            # rTorrent-PS only
+            ui.bind_key = display, key, "command=[...]" ≫ 0
 
         Binds the given key on a specified display to execute the given command when pressed.
         Note that this needs to be called in a one-shot schedule, after *rTorrent* is fully initialized.
