@@ -7,7 +7,8 @@
 Welcome to the “rTorrent Handbook”!
 ===================================
 
-This is a comprehensive manual for the `rTorrent`_ bittorrent client, written by and for the community.
+This is a comprehensive manual and user guide for the `rTorrent`_ bittorrent client,
+written by and for the community.
 See also the `homepage of the community project`_ and the `community wiki`_.
 
 The :doc:`overview` chapter offers you a guided tour through this manual,
