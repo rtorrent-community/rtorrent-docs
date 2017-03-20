@@ -9,6 +9,14 @@ because there already are plentiful and redundant sources out there.
 Installation Using OS Packages
 ------------------------------
 
+While installing using pre-compiled packages is the easiest way
+to get a working *rTorrent* executable onto your system,
+it has the unfortunate side-effect that quite often these packages
+contain a rather outdated version of it.
+
+You might want to look in the “testing” or “experimental” repositories
+of your distribution, or alternatively install from source (see below).
+
  * The `rTorrent wiki <https://github.com/rakshasa/rtorrent/wiki#packages>`_ lists package names and installation commands for a lot of *Linux* distributions and other operating systems.
  * DEB packages of *rTorrent-PS* for Debian and Ubuntu are on `Bintray <https://bintray.com/pyroscope/rtorrent-ps/rtorrent-ps/>`_.
  * *“Arch User Repository”* (AUR) PKGBUILDs maintained by `@xsmile <https://github.com/xsmile>`_ for
