@@ -72,15 +72,56 @@
 Scheduling Commands
 ^^^^^^^^^^^^^^^^^^^
 
+The scheduling commands define tasks that call another command or list of commands repeatedly,
+just like a cron job, but with a resolution of seconds.
+
 .. glossary::
 
     schedule2
 
-        **TODO**
+        .. code-block:: ini
+
+            schedule2 = ‹name›, ‹start›, ‹interval›, ((‹command›[, ‹args›…])) ≫ 0
+            schedule2 = ‹name›, ‹start›, ‹interval›, "‹command›=[‹args›…][ ; ‹command›=…]" ≫ 0
+
+        Call the given command(s) every ``interval`` seconds, starting from ``start``.
+        An interval of zero calls the task once, while a start of zero calls it immediately.
+        Currently command is forwarded to the option handler (*ed note*: whatever that means).
+
+        The ``name`` serves both as a handle for :term:`schedule_remove2`,
+        and as an easy way to document what this task actually does.
+        Existing tasks can be changed at any time, just use the same name.
+
+        ``start`` and ``interval`` may optionally use a time format like ``[dd:]hh:mm:ss``.
+        An interval of ``07:00:00:00`` would mean weekly execution.
+
+        Examples:
+
+        .. code-block:: ini
+
+            # Watch directories
+            schedule2 = watch_start, 11, 10, ((load.start, (cat, (cfg.watch), "start/*.torrent")))
+            schedule2 = watch_load,  12, 10, ((load.normal, (cat, (cfg.watch), "load/*.torrent")))
+
+            # Add day break to console log
+            # → ( 0:00:00) New day: 20/03/2017
+            schedule2 = log_new_day, 00:00:00, 24:00:00,\
+                "print=\"New day: \", (convert.date, (system.time))"
+
+            # … or the equivalent using "new" syntax:
+            schedule2 = log_new_day, 00:00:05, 24:00:00,\
+                ((print, "New day: ", ((convert.date, ((system.time_seconds)) )) ))
+
 
     schedule_remove2
 
-        **TODO**
+        .. code-block:: ini
+
+            schedule_remove2 = ‹name› ≫ 0
+
+        Delete an existing task referenced by ``name`` from the scheduler.
+        Deleting a non-existing tasks is not an error.
+
 
     start_tied
     stop_untied
