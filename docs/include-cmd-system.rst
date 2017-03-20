@@ -3,6 +3,8 @@
 `execute.*` commands
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Call operating system commands, possibly catching their output for use within *rTorrent*.
+
 .. note::
 
     The ``.bg`` variants detach the child process from the *rTorrent* parent,
@@ -80,6 +82,8 @@
 `system.*` commands
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Commands related to the operating system and the XMLRPC API.
+
 .. glossary::
 
     system.listMethods
@@ -116,9 +120,23 @@
 
         **TODO**
 
+
     system.env
 
-        **TODO**
+        .. code-block:: ini
+
+            # 0.9.7+ / rTorrent-PS only
+            system.env = ‹varname› ≫ string ‹env-value›
+
+        Query the value of an environment variable,
+        returns an empty string if ``$varname`` is not defined.
+
+        Example:
+
+        .. code-block:: ini
+
+            session.path.set = (cat, (system.env, RTORRENT_HOME), "/.session")
+
 
     system.file.allocate
     system.file.allocate.set
