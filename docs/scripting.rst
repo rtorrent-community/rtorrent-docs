@@ -42,6 +42,12 @@ This is a summary about the possible variable types in
    * Standard types, ``value`` is an integer.
 
 
+Scripting Best Practices
+------------------------
+
+**TODO**
+
+
 Using XMLRPC for Remote Control
 -------------------------------
 
