@@ -17,9 +17,9 @@ Call operating system commands, possibly catching their output for use within *r
 
 .. glossary::
 
-    execute2
     execute.throw
     execute.throw.bg
+    execute2
 
         .. code-block:: ini
 
@@ -27,6 +27,7 @@ Call operating system commands, possibly catching their output for use within *r
 
         This will execute a system command with the provided arguments.
         These commands either raise an error or return ``0``.
+        ``execute2`` is the same as ``execute.throw``, and should be avoided.
 
         Since internally ``spawn`` is used to call the OS command,
         the shell is not involved and things like shell redirection will not work here.
@@ -46,6 +47,10 @@ Call operating system commands, possibly catching their output for use within *r
     execute.nothrow
     execute.nothrow.bg
 
+        .. code-block:: ini
+
+            execute.nothrow[.bg] = {command, arg1, arg2, ...} ≫ value ‹exit status›
+
         Like :term:`execute.throw`, but return the command's exit code
         (*warning:* due to a bug the return code is shifted by 8 bits, so ``1`` becomes ``0x100``).
 
@@ -55,6 +60,10 @@ Call operating system commands, possibly catching their output for use within *r
 
     execute.capture
     execute.capture_nothrow
+
+        .. code-block:: ini
+
+            execute.capture[_nothrow] = {command, arg1, arg2, ...} ≫ string ‹stdout›
 
         Like ``execute.[no]throw``, but returns the command's standard output.
         The ``nothrow`` variant returns any output that was written before an error,
