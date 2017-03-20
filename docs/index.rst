@@ -11,6 +11,12 @@ This is a comprehensive manual and user guide for the `rTorrent`_ bittorrent cli
 written by and for the community.
 See also the `homepage of the community project`_ and the `community wiki`_.
 
+*rTorrent* is written in C++ and uses the ``ncurses`` library to provide a textual user interface.
+It can be used in a (SSH) terminal session together with a terminal multiplexer like ``tmux``,
+providing a very lean bittorrent solution.
+Using its XMLRPC remote control API, alternative user interfaces can be provided by web clients
+like `ruTorrent`_, or command line clients like `pyrocore`_ and its ``rtcontrol`` command.
+
 The :doc:`overview` chapter offers you a guided tour through this manual,
 or browse through the table of contents below to find what you're looking for.
 
@@ -26,6 +32,8 @@ If everyone chimes in, we all profit in the end.
 .. _`rTorrent`: https://github.com/rakshasa/rtorrent/wiki
 .. _`homepage of the community project`: https://rtorrent-community.github.io/
 .. _`community wiki`: https://github.com/rtorrent-community/rtorrent-community.github.io/wiki
+.. _`ruTorrent`: https://github.com/Novik/ruTorrent
+.. _`pyrocore`: https://github.com/pyroscope/pyrocore
 
 
 Contents of This Manual
