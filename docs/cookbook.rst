@@ -1,16 +1,102 @@
 Configuration Cookbook
 ======================
 
-To help you with basic configuration tasks, this chapter contains a quick start
+To help you with fundamental configuration tasks, this chapter contains a quick start
 into the ‘scripting language’ rTorrent uses for its configuration files.
-It then goes on showing how to solve some :ref:`common configuration use-cases <common-tasks>`.
+:ref:`config-deconstructed` uses a basic configuration file to explain what
+the contained commands are doing, also showing common syntax constructs by example.
+
+The rest of the chapter then goes on showing
+how to implement some :ref:`common configuration use-cases <common-tasks>`,
+adding more features to that basic configuration.
+
+The `ArchLinux wiki page`_ is also a good source on *rTorrent* in general
+and its configuration in particular.
+
+.. note::
+
+    *rTorrent* started to rename a lot of configuration commands
+    with the release of version ``0.8.9``.
+    This handbook uses the new commands throughout,
+    and does not mention the old ones.
+
+    See the `RPC Migration 0.9`_ wiki page for more details.
+    That pages also links to a `sed script`_ that can transform old snippets
+    you found on the web and might want to use to using the new command names.
+
+    :ref:`rtorrent-cli` shows you how you can prevent *rTorrent* from adding
+    most of the old names as aliases for the new ones, by using the ``-D -I``
+    command line options.
+
+
+.. _`RPC Migration 0.9`: https://github.com/rakshasa/rtorrent/wiki/RPC-Migration-0.9
+.. _`sed script`: https://github.com/rakshasa/rtorrent/blob/master/doc/scripts/update_commands_0.9.sed
+.. _`ArchLinux wiki page`: https://wiki.archlinux.org/index.php/Rtorrent
 
 
 Quick Start
 -----------
 
-**TODO**
+rTorrent Basics
+^^^^^^^^^^^^^^^
 
+We're assuming you used one of the ways in the :doc:`installation` to
+add the *rTorrent* binary to your host, ready to be configured and started.
+Try calling ``rtorrent -h`` to make sure that worked.
+
+To be really useful, *rTorrent* must be given a basic configuration file,
+with some essential settings that ensure you get more than the bare-bones defaults.
+Follow the configuration steps in this chapter on a fresh installation,
+then try to start *rTorrent* and initiate your first downloads.
+Or check if you see something you want to add to your existing setup.
+
+After some time, when you're familiar with the basic operation of *rTorrent*,
+try to work through the :doc:`scripting` if you want to dive deeper into
+customizing *rTorrent*.
+
+Any configuration should start with using the modernized `rTorrent wiki config template`_.
+The configuration is loaded from the file ``~/.rtorrent.rc`` by
+default (that is the hidden file ``.rtorrent.rc`` in your user home
+directory). This command fetches the template from *GitHub* and writes it
+into that file:
+
+.. code-block:: shell
+
+    curl -Ls "https://raw.githubusercontent.com/wiki/rakshasa/rtorrent/CONFIG-Template.md" \
+        | grep -A9999 '^######' | grep -B9999 '^### END' \
+        | sed -re "s:/home/USERNAME:$HOME:" >~/.rtorrent.rc
+
+To create the directory tree this configuration expects, also call these commands:
+
+.. code-block:: shell
+
+    mkdir -p "$HOME/rtorrent"/{.session,download,log,watch/load,watch/start}
+
+That means that all files *rTorrent* uses are located
+in the ``~/rtorrent`` directory, except the main configuration file.
+
+Here is a copy of the template in full, see :ref:`config-deconstructed`
+below for a detailed explanation of its parts.
+
+.. literalinclude:: rtorrent.rc
+   :language: ini
+
+And here is a simple start script that you should use before you tackle
+auto-starting *rTorrent* at boot time. First make it work for you,
+then add the bells and whistles. Copy the script to ``~/rtorrent/start``,
+and make it executable using ``chmod a+x ~/rtorrent/start``.
+
+.. literalinclude:: start.sh
+   :language: shell
+
+You can call it in a simple shell prompt first, but for normal operation
+is must be launched in a ``tmux`` session. More on that later on.
+
+
+.. _`rTorrent wiki config template`: https://github.com/rakshasa/rtorrent/wiki/CONFIG-Template
+
+
+.. _rtorrent-cli:
 
 The rTorrent Command Line
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -38,8 +124,6 @@ The really useful ones are ``-n`` and ``-o import=‹file›``,
 to load configuration from a non-standard location.
 Everything else is better set in a configuration file.
 
-*rTorrent* renamed a lot of configuraiton commands with the release
-of version ``0.8.9``.
 It is recommended to add ``-D`` and ``-I`` to your start script,
 so that all the old command names are gone. However, some external
 software (web UIs and so on) might not be able to work with such a
@@ -48,9 +132,26 @@ Also be aware that those undocumented switches changed their semantics
 with the release of ``0.9.6`` – the above shows the current situation.
 
 
+.. _config-deconstructed:
+
+Config Template Deconstructed
+-----------------------------
+
+**TODO** format of rc file, what are commands, etc.
+
+**TODO** Include parts and explain them, linking to commands used
+
+
 .. _common-tasks:
 
 Common Tasks
 ------------
 
 **TODO**
+
+The `Common Tasks in rTorrent`_ wiki page contains more of these common configuration use-cases.
+
+
+
+
+.. _`Common Tasks in rTorrent`: https://github.com/rakshasa/rtorrent/wiki/Common-Tasks-in-rTorrent
