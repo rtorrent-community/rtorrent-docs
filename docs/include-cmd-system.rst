@@ -28,9 +28,8 @@ Call operating system commands, possibly catching their output for use within *r
         This will execute a system command with the provided arguments.
         These commands either raise an error or return ``0``.
 
-        Note that ``spawn`` is used internally,
-        which means the shell is not involved
-        and things like shell redirection will not work here.
+        Since internally ``spawn`` is used to call the OS command,
+        the shell is not involved and things like shell redirection will not work here.
         There is also no reason to use shell quoting in arguments,
         just separate them by commas.
         If you need shell features, call ``bash -c "‹command›"``
@@ -47,7 +46,8 @@ Call operating system commands, possibly catching their output for use within *r
     execute.nothrow
     execute.nothrow.bg
 
-        Like :term:`execute.throw`, but return the command's exit code.
+        Like :term:`execute.throw`, but return the command's exit code
+        (*warning:* due to a bug the return code is shifted by 8 bits, so ``1`` becomes ``0x100``).
 
         The ``.bg`` variant will just indicate whether
         the child could be successfully spawned and detached.
@@ -57,6 +57,8 @@ Call operating system commands, possibly catching their output for use within *r
     execute.capture_nothrow
 
         Like ``execute.[no]throw``, but returns the command's standard output.
+        The ``nothrow`` variant returns any output that was written before an error,
+        in case one occurs. The exit code is never returned.
 
         Note that any line-endings are included, so if you need a plain string value,
         wrap the command you want to call into an ``echo -n`` command:
@@ -65,8 +67,6 @@ Call operating system commands, possibly catching their output for use within *r
 
             method.insert = log_stamp, private|simple,\
                 "execute.capture_nothrow = bash, -c, \"echo -n $(date +%Y-%m-%d-%H%M%S)\""
-
-        **TODO** What does "nothrow" return in case of errors?
 
 
     execute.raw
