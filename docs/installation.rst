@@ -96,6 +96,9 @@ If you want to run *ruTorrent*, the default version of *PHP* is very important (
 Installing from Source
 ----------------------
 
+If you compile your own executable, you are free to chose whatever version you want,
+including the current bleeding edge of development *(git HEAD)*, or any “release tarball”.
+
 .. glossary::
 
     `Installing (rTorrent wiki) <https://github.com/rakshasa/rtorrent/wiki/Installing>`_
