@@ -2,8 +2,8 @@ Commands Reference
 ==================
 
 The reference chapter lists all relevant XMLRPC and ‘private’ commands
-of *rTorrent* with a short explanation.
-See :doc:`scripting` on how to use these commands.
+provided by *rTorrent* with a short explanation.
+See the :doc:`scripting` on how to combine them into meaningful command sequences.
 
 **Use the search box** in the sidebar to find specific commands,
 or the :ref:`search`.
@@ -12,6 +12,15 @@ The :ref:`generated index <genindex>` also lists all the commmand names.
 
 .. contents:: List of Command Groups
     :local:
+
+
+The following are similar, but incomplete resources:
+
+-  `PyroScope's reference`_
+-  `wikia.com Reference`_
+
+.. _PyroScope's reference: https://github.com/pyroscope/pyroscope/blob/wiki/RtXmlRpcReference.md
+.. _wikia.com Reference: http://scratchpad.wikia.com/wiki/RTorrentCommands
 
 
 Download Items and Attributes
