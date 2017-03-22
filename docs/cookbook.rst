@@ -147,11 +147,57 @@ Config Template Deconstructed
 Common Tasks
 ------------
 
-**TODO**
-
-The `Common Tasks in rTorrent`_ wiki page contains more of these common configuration use-cases.
-
-
-
+The `Common Tasks in rTorrent`_ wiki page contains more of these typical configuration use-cases.
 
 .. _`Common Tasks in rTorrent`: https://github.com/rakshasa/rtorrent/wiki/Common-Tasks-in-rTorrent
+
+
+Set a Download Item to “Seed Only”
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``d.seed_only`` command helps you to stop all download activity on an item.
+Select any unfinished item, press ``Ctrl-X``, and enter ``d.seed_only=`` followed by ``⏎``.
+Then all files in that item are set to ``off``, and any peers still sending you data are cut off.
+The data you have is still seeded, as long as the item is not stopped.
+
+.. code-block:: ini
+
+    method.insert = d.seed_only, private|simple,\
+        "f.multicall = *, f.priority.set=0 ;\
+         d.update_priorities= ;\
+         d.disconnect.seeders="
+
+:term:`f.multicall` calls :term:`f.priority.set` on every file,
+:term:`d.update_priorities` makes these changes known,
+and finally :term:`d.disconnect.seeders` kicks any active seeders.
+
+
+Scheduled Bandwidth Shaping
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This example shows how to use :term:`schedule2` with absolute start times,
+to set the download rate depending on the wall clock time, at 10AM and 4PM.
+The result is a very simple form of bandwidth shaping,
+with full speed transfers enabled while you're at work (about 16 MiB/s in the example),
+and only very moderate bandwidth usage when you're at home.
+
+.. code-block:: ini
+
+    schedule2 = throttle_full, 10:00:00, 24:00:00, ((throttle.global_down.max_rate.set_kb, 16000))
+    schedule2 = throttle_slow, 16:00:00, 24:00:00, ((throttle.global_down.max_rate.set_kb,  1000))
+
+Use :term:`throttle.global_up.max_rate.set_kb` for setting the upload rate.
+
+If you call these commands via XMLRPC from an outside script,
+you can implement more complex rules,
+e.g. `throttling when other computers are visible on the network`_.
+
+External scripts should also be used when saving money is the goal,
+in cases where you have to live with disadvantageous ISP plans with bandwidth caps.
+Run such a script very regularly (via ``cron``),
+to enforce the bandwidth rules continuously.
+
+
+.. _`throttling when other computers are visible on the network`: http://pyrocore.readthedocs.io/en/latest/advanced.html#global-throttling-when-other-computers-are-up
+
+.. END cookbook
