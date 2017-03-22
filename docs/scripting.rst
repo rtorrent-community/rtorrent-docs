@@ -42,6 +42,16 @@ This is a summary about the possible variable types in
    * Standard types, ``value`` is an integer.
 
 
+Advanced Concepts
+-----------------
+
+
+‘✴.multicall’ Demystified
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**TODO**
+
+
 Scripting Best Practices
 ------------------------
 
