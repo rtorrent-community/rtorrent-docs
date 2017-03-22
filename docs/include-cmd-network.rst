@@ -105,6 +105,48 @@
         **TODO**
 
 
+The following are only available in *rTorrent-PS*!
+
+.. glossary::
+
+    network.history.auto_scale
+    network.history.auto_scale.set
+    network.history.depth
+    network.history.depth.set
+    network.history.refresh
+    network.history.sample
+
+        Commands to add network traffic charts to the bottom of the collapsed
+        download display.
+
+        Add these lines to your configuration:
+
+        .. code-block:: ini
+
+            # rTorrent-PS only!
+
+            # Show traffic of the last hour (112*32 = 3584 ≈ 3600)
+            network.history.depth.set = 112
+
+            method.insert = network.history.auto_scale.toggle, simple|private,\
+                "branch=(network.history.auto_scale),\
+                    ((network.history.auto_scale.set, 0)),\
+                    ((network.history.auto_scale.set, 1))"
+            method.insert = network.history.auto_scale.ui_toggle, simple|private,\
+                "network.history.auto_scale.toggle= ; network.history.refresh="
+
+            schedule2 = network_history_sampling, 1, 32, "network.history.sample="
+            schedule2 = bind_auto_scale, 0, 0,\
+                "ui.bind_key=download_list, =, network.history.auto_scale.ui_toggle="
+
+        This will add the graph above the footer,
+        you get the upper and lower bounds of traffic
+        within your configured time window, and each bar of the graph
+        represents an interval determined by the sampling schedule.
+        Pressing ``=`` toggles between a graph display with base line 0,
+        and a zoomed view that scales it to the current bounds.
+
+
 `ip_tables.*` commands
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 

@@ -249,8 +249,10 @@ Commands related to the operating system and the XMLRPC API.
             # rTorrent-PS only
             log.messages = ‹log file path› ≫ 0
 
-        Opens a log file that records all console messages.
-        Passing no argument closes an open file.
+        (Re-)opens a log file that contains the messages normally only visible
+        on the main panel and via the ``l`` key. Each line is prefixed with the
+        current date and time in ISO8601 format. If an empty path is passed, the
+        file is closed.
 
         Example:
 

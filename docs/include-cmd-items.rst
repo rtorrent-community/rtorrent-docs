@@ -167,6 +167,25 @@
         **TODO**
 
 
+The following are only available in *rTorrent-PS*!
+
+.. glossary::
+
+    d.tracker_domain
+
+        Returns the (shortened) tracker domain of the given download item. The
+        chosen tracker is the first HTTP one with active peers (seeders or
+        leechers), or else the first one.
+
+        .. code-block:: ini
+
+            # Trackers view (all items, sorted by tracker domain and then name).
+            # This will ONLY work if you use rTorrent-PS!
+            view.add          = trackers
+            view.sort_new     = trackers, "compare=,d.tracker_domain=,d.name="
+            view.sort_current = trackers, "compare=,d.tracker_domain=,d.name="
+
+
 These are part of the default ``pyrocore`` configuration:
 
 .. glossary::
