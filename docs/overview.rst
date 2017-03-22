@@ -1,6 +1,20 @@
 Overview
 ========
 
+rTorrent Feature Summary
+------------------------
+
+ * No-frills *ncurses* interface.
+ * Runs as a daemon, using a terminal multiplexer like ``tmux`` or ``screen`` (and 0.9.7+ has a ‘real’ daemon mode).
+ * Resource-friendly, ideal to run on a *Raspberry Pi* or a small seedbox VPS.
+ * Scriptable and extensible via built-in commands and XMLRPC clients.
+ * Very large choice of web frontends.
+ * Support for DHT and PEX.
+ * Magnet links.
+ * Supported on nearly all trackers.
+ * Implemented in C++, runs on all major POSIX platforms.
+
+
 Guided Tour
 -----------
 
