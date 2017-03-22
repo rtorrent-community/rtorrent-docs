@@ -144,7 +144,15 @@
     d.up.choke_heuristics.set
     d.up.rate
     d.up.total
+
+        **TODO**
+
     d.update_priorities
+
+        After a scripted change to priorities using :term:`f.priority.set`,
+        this command **must** be called. It updates the internal state of a
+        download item based on the new priority settings.
+
     d.uploads_max
     d.uploads_max.set
     d.uploads_min
@@ -199,8 +207,16 @@ These are part of the default ``pyrocore`` configuration:
     f.prioritize_last
     f.prioritize_last.disable
     f.prioritize_last.enable
+
+        **TODO**
+
     f.priority
     f.priority.set
+
+        **TODO**
+
+        See also :term:`d.update_priorities`.
+
     f.range_first
     f.range_second
     f.set_create_queued
