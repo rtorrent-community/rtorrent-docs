@@ -37,6 +37,8 @@ and its configuration in particular.
 Quick Start
 -----------
 
+.. _rtorrent-basics:
+
 rTorrent Basics
 ^^^^^^^^^^^^^^^
 
@@ -53,6 +55,12 @@ Or check if you see something you want to add to your existing setup.
 After some time, when you're familiar with the basic operation of *rTorrent*,
 try to work through the :doc:`scripting` if you want to dive deeper into
 customizing *rTorrent*.
+
+
+.. _config-template:
+
+Modernized Configuration Template
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Any configuration should start with using the modernized `rTorrent wiki config template`_.
 The configuration is loaded from the file ``~/.rtorrent.rc`` by
@@ -130,6 +138,45 @@ software (web UIs and so on) might not be able to work with such a
 reduced command set.
 Also be aware that those undocumented switches changed their semantics
 with the release of ``0.9.6`` – the above shows the current situation.
+
+
+.. _basic-syntax:
+
+Basic Syntax Elements
+---------------------
+
+The configuration ‘scripts’ have some usual syntax elements, and some not so usual ones.
+If you're versed in *any* computer language, you surely spotted some of them in the
+:ref:`config-template`.
+Comments start with a ``#``,
+and you can break long lines apart by escaping the line ends with ``\``.
+
+The basic structure of lines is ``‹commmand› = ‹arg1›[, ‹arg2›, …]``.
+In configuration files, the ``command`` either sets some value, or has some side effect:
+defining a method or schedule, executing a OS command, and so on.
+This is the ‘old’ syntax, and still relevant on the top level of configuration files.
+
+Other elements are escaped text in quotes (these are *not* strings in the classical sense),
+lists in braces ``{…}``, and commands in single or double parentheses ``(…)``.
+At some places, a semicolon ``;`` separates multiple commands executed in sequence.
+
+Quoted text keeps words separated by spaces together,
+passing all of it as a single argument to a command – quite similar to a string.
+However, simple words do not need to be escaped; simply put,
+everything that's not a command is a string.
+
+Quoting can be nested, but the inner quotes have to be escaped using ``\``,
+and on the third level the backslashes have to be escaped too, leading to abominations like
+``"…\"…\\\"…\\\"…\"…"``.
+Just avoid that, keep it to two levels at most,
+e.g. quoted text within a quoted sequence of commands.
+If you need more complex structures, work with helper methods
+where you can ‘start fresh’ when it comes to escaping levels.
+
+Be pragmatical, and have no fear of mixing ‘old’ and ‘new’ syntax to your advantage.
+Prefer the new one with parentheses,
+but that your syntax works and does the thing you want is most important,
+readability is next, and any theoretical pureness of syntax ideas come in last.
 
 
 .. _config-deconstructed:
