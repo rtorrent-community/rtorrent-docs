@@ -1,3 +1,39 @@
+.. _pieces-commands:
+
+`pieces.*` commands
+^^^^^^^^^^^^^^^^^^^
+
+.. glossary::
+
+    pieces.hash.on_completion
+    pieces.hash.on_completion.set
+    pieces.hash.queue_size
+    pieces.memory.block_count
+    pieces.memory.current
+    pieces.memory.max
+    pieces.memory.max.set
+    pieces.memory.sync_queue
+    pieces.preload.min_rate
+    pieces.preload.min_rate.set
+    pieces.preload.min_size
+    pieces.preload.min_size.set
+    pieces.preload.type
+    pieces.preload.type.set
+    pieces.stats.total_size
+    pieces.stats_not_preloaded
+    pieces.stats_preloaded
+    pieces.sync.always_safe
+    pieces.sync.always_safe.set
+    pieces.sync.queue_size
+    pieces.sync.safe_free_diskspace
+    pieces.sync.timeout
+    pieces.sync.timeout.set
+    pieces.sync.timeout_safe
+    pieces.sync.timeout_safe.set
+
+        **TODO**
+
+
 .. _throttle-commands:
 
 `throttle.*` commands
