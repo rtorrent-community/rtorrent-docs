@@ -1,3 +1,5 @@
+.. _network-commands:
+
 `network.*` commands
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
