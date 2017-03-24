@@ -12,6 +12,10 @@ method.insert = cfg.watch,   private|const|string, (cat,(cfg.basedir),"watch/")
 method.insert = cfg.logs,    private|const|string, (cat,(cfg.basedir),"log/")
 method.insert = cfg.logfile, private|const|string, (cat,(cfg.logs),"rtorrent-",(system.time),".log")
 
+# Create instance directories
+execute.throw = bash, -c, (cat,\
+    "mkdir -p \"", (cfg.basedir), "\"{.session,download,log,watch/load,watch/start}")
+
 # Listening port for incoming peer traffic (fixed; you can also randomize it)
 network.port_range.set = 50000-50000
 network.port_random.set = no
