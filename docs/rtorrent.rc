@@ -14,7 +14,8 @@ method.insert = cfg.logfile, private|const|string, (cat,(cfg.logs),"rtorrent-",(
 
 # Create instance directories
 execute.throw = bash, -c, (cat,\
-    "mkdir -p \"", (cfg.basedir), "\"{.session,download,log,watch/load,watch/start}")
+    "builtin cd \"", (cfg.basedir), "\" ",\
+    "&& mkdir -p .session download log watch/{load,start}")
 
 # Listening port for incoming peer traffic (fixed; you can also randomize it)
 network.port_range.set = 50000-50000
