@@ -74,14 +74,8 @@ into that file:
         | grep -A9999 '^######' | grep -B9999 '^### END' \
         | sed -re "s:/home/USERNAME:$HOME:" >~/.rtorrent.rc
 
-To create the directory tree this configuration expects, also call these commands:
-
-.. code-block:: shell
-
-    mkdir -p "$HOME/rtorrent"/{.session,download,log,watch/load,watch/start}
-
-That means that all files *rTorrent* uses are located
-in the ``~/rtorrent`` directory, except the main configuration file.
+All files *rTorrent* uses or creates are located in the ``~/rtorrent`` directory,
+except the main configuration file.
 
 Here is a copy of the template in full, see :ref:`config-deconstructed`
 below for a detailed explanation of its parts.
@@ -194,7 +188,7 @@ namespaces to avoid naming collisions.
 .. literalinclude:: rtorrent.rc
    :language: ini
    :start-after: Instance layout
-   :end-before: Listening port
+   :end-before: Create instance
 
 The :term:`method.insert` defines new commands, in this case ``private`` ones that are
 only visible within *rTorrent*, but not exposed via the XMLRPC API.
@@ -208,6 +202,16 @@ which is the value that is assigned to the method's name.
 Text in parentheses are command calls, most notably ``(cfg.basedir)``
 is used to refer to the definition of the root directory everything else is based upon.
 
+The root directory and sub-folders contained in it, that are referenced by various
+commands further below, are created by calling ``mkdir``.
+It is wrapped in a call to ``bash``,
+because we ``cd`` into the instance root first and use ``&&`` to execute ``mkdir`` after it.
+Also, the ``{brace expansion}`` syntax helps to concisely list all the sub-folder names.
+
+.. literalinclude:: rtorrent.rc
+   :language: ini
+   :start-after: Create instance
+   :end-before: Listening port
 
 Next, the listening port for incoming peer traffic is set using the associated commands
 :term:`network.port_range.set` and :term:`network.port_random.set`.
