@@ -184,9 +184,127 @@ readability is next, and any theoretical pureness of syntax ideas come in last.
 Config Template Deconstructed
 -----------------------------
 
-**TODO** format of rc file, what are commands, etc.
+With the most basic elements explained, let's look at the configuration template again.
 
-**TODO** Include parts and explain them, linking to commands used
+First, some manifest constants used in later commands are defined,
+with the most important one being the instance's root directory, named ``cfg.basedir``.
+The ``cfg.`` part is nothing special, just a way to group command names and establish
+namespaces to avoid naming collisions.
+
+.. literalinclude:: rtorrent.rc
+   :language: ini
+   :start-after: Instance layout
+   :end-before: Listening port
+
+The :term:`method.insert` defines new commands, in this case ``private`` ones that are
+only visible within *rTorrent*, but not exposed via the XMLRPC API.
+They're ``const`` and thus only evaluated once – if you look at ``cfg.logfile`` that
+becomes important, because :term:`system.time` is called only once, during definition.
+Their type is ``string``, other types are ``value`` and ``simple``.
+
+The :term:`cat` command concatenates its arguments to a single string,
+in this case the 3rd argument to :term:`method.insert`,
+which is the value that is assigned to the method's name.
+Text in parentheses are command calls, most notably ``(cfg.basedir)``
+is used to refer to the definition of the root directory everything else is based upon.
+
+
+Next, the listening port for incoming peer traffic is set using the associated commands
+:term:`network.port_range.set` and :term:`network.port_random.set`.
+As shown, the single port number ``50000`` is used.
+
+.. literalinclude:: rtorrent.rc
+   :language: ini
+   :start-after: Listening port
+   :end-before: Tracker-less
+
+The settings for tracker-less torrents :term:`dht.mode.set`,
+peer exchanges :term:`protocol.pex.set`,
+and UDP tracker support :term:`trackers.use_udp.set` are
+conservative ones for 'private' trackers.
+Change them accordingly for using 'public' trackers.
+
+.. literalinclude:: rtorrent.rc
+   :language: ini
+   :start-after: conservative settings
+   :end-before: Peer settings
+
+The :ref:`throttle-commands` set minimal demands and upper limits on the amount of peers
+for incomplete and seeding items.
+
+.. literalinclude:: rtorrent.rc
+   :language: ini
+   :start-after: Peer settings
+   :end-before: Limits for file handle
+
+Next file handle resource limits are defined using some :ref:`network-commands`.
+The values used are optimized for an `ulimit` of 1024,
+which is a common default in many Linux systems.
+You **MUST** leave a ceiling of handles reserved for internal use,
+that is why they only add up to 950.
+
+.. literalinclude:: rtorrent.rc
+   :language: ini
+   :start-after: ceiling of handles
+   :end-before: Memory resource
+
+The command :term:`pieces.memory.max.set` determines the size of the memory region
+used by *rTorrent* to map chunks of files for receiving from and sending to peers.
+
+XMLRPC payloads cannot be larger than what :term:`network.xmlrpc.size_limit.set` specifies,
+the size you need depends on how many items you have loaded,
+and also what software is using the XMLRPC port.
+
+.. literalinclude:: rtorrent.rc
+   :language: ini
+   :start-after: available resources
+   :end-before: operational settings
+
+The :term:`session.path.set` command sets the location of the directory where *rTorrent*
+saves its status between starts – a command you should *always* have in your configuration.
+The default download location for data is set by :term:`directory.default.set`.
+
+.. literalinclude:: rtorrent.rc
+   :language: ini
+   :start-after: operational settings
+   :end-before: Watch directories
+
+*Watch directories* are an important concept to automatically load metafiles you drop
+into those directories.
+They use the :term:`schedule2` command to *watch* these locations,
+by calling one of the :ref:`load-commands` on a regular basis,
+taking a directory path and a pattern of files to watch out for.
+Each schedule must be given a *unique* name, in the simplest case just
+give them numbers like ``watch_01``, ``watch_02``, and so on.
+
+.. literalinclude:: rtorrent.rc
+   :language: ini
+   :start-after: Watch directories
+   :end-before: Logging
+
+Finally, the logging facility of *rTorrent* is configured,
+opening a log file using :term:`log.open_file`,
+giving it a name and a location.
+The path to that file is also shown on the console at startup,
+with the :term:`print` command.
+You can have several of these files, and if you enable the ``debug`` level
+for a logging group (see below), it is recommended to put that in a separate file.
+
+Log messages are classified into groups
+(``connection``, ``dht``, ``peer``, ``rpc``, ``storage``, ``thread``, ``tracker``, and ``torrent``),
+and have a level of ``critical``, ``error``, ``warn``, ``notice``, ``info``, or ``debug``.
+
+With :term:`log.add_output` you can add a logging scope to a named log file.
+Scopes can either be a whole level,
+or else a group on a specific level by using ``‹group›_‹level›`` as the scope's name.
+
+.. literalinclude:: rtorrent.rc
+   :language: ini
+   :start-after: Groups = connection
+   :end-before: END of
+
+And that's it, more details on using commands are in the :doc:`scripting`,
+and more examples in the following section.
 
 
 .. _common-tasks:
