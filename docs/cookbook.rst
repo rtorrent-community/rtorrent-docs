@@ -167,7 +167,7 @@ e.g. quoted text within a quoted sequence of commands.
 If you need more complex structures, work with helper methods
 where you can ‘start fresh’ when it comes to escaping levels.
 
-Be pragmatical, and have no fear of mixing ‘old’ and ‘new’ syntax to your advantage.
+Be pragmatic, and have no fear of mixing ‘old’ and ‘new’ syntax to your advantage.
 Prefer the new one with parentheses,
 but that your syntax works and does the thing you want is most important,
 readability is next, and any theoretical pureness of syntax ideas come in last.
