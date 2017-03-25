@@ -36,6 +36,48 @@ Then restart *rTorrent*, and you should see ``Hello from config.d!``
 amongst the initial console messages.
 
 
+Logs With Rotation and Pruning
+------------------------------
+
+The following longer snippet adds logs that don't endlessly grow,
+get archived after some days, and are finally deleted after a while.
+The time spans for this are set using
+``pyro.log_archival.days`` (default: 2) and
+``pyro.log_retention.days`` (default: 7).
+
+.. literalinclude:: pimp-my-box/roles/rtorrent-ps/templates/rtorrent/rtorrent.d/15-logging.rc
+   :language: ini
+   :start-after: rotating logs
+   :end-before: YYYY-mm-dd
+
+Log files are time stamped (see ``pyro.date_iso.log_stamp`` and ``pyro.log_stamp.current``).
+Full log file paths for different types are created using ``pyro.logfile_path``,
+which takes the type as an argument.
+
+.. literalinclude:: pimp-my-box/roles/rtorrent-ps/templates/rtorrent/rtorrent.d/15-logging.rc
+   :language: ini
+   :start-after: pyro.log_archival.days
+   :end-before: open all logs
+
+The ``pyro.log_rotate`` multi-method takes care of calculating a new time stamp,
+and rotating all the log files by re-opening them with their new name.
+A daily schedule calls this method and thus triggers the rotation.
+
+.. literalinclude:: pimp-my-box/roles/rtorrent-ps/templates/rtorrent/rtorrent.d/15-logging.rc
+   :language: ini
+   :start-after: cat = (cfg.logs)
+   :end-before: Log file archival
+
+Finally, two schedules take care of daily archival (2:00 AM) and pruning (2:10 AM),
+passing the command built by ``pyro._logfile_find_cmd`` to ``bash`` for execution.
+The ``pyro.log_rotate`` method is used near the end to open log files at startup.
+
+.. literalinclude:: pimp-my-box/roles/rtorrent-ps/templates/rtorrent/rtorrent.d/15-logging.rc
+   :language: ini
+   :start-after: pyro_daily_log_rotate
+   :end-before: END logging
+
+
 Set a Download to “Seed Only”
 -----------------------------
 
