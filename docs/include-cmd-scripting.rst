@@ -6,29 +6,145 @@
 .. glossary::
 
     method.insert
-    method.insert.c_simple
-    method.insert.s_c_simple
+
+        .. code-block:: ini
+
+            method.insert = ‹name›, ‹type›[|‹sub-type›…][, ‹definition›] ≫ 0
+
+        The general way to define *any* kind of command.
+        See :ref:`object-types` for the possible values in the 2nd argument.
+
+        **TODO** more details
+
+
     method.insert.simple
+
+        .. code-block:: ini
+
+            method.insert.simple = ‹name›, ‹definition› ≫ 0
+
+        This is a shortcut to define commands that are ``simple`` non-private functions.
+
+
+    method.insert.c_simple
+
+        .. code-block:: ini
+
+            method.insert.c_simple = ‹name›, ‹definition› ≫ 0
+
+        Defines a ``const`` simple function.  **TODO** Meaning what?
+
+
+    method.insert.s_c_simple
+
+        .. code-block:: ini
+
+            method.insert.s_c_simple = ‹name›, ‹definition› ≫ 0
+
+        Defines a ``static const`` simple function.  **TODO** Meaning what?
+
+
     method.insert.value
 
-        **TODO**
+        .. code-block:: ini
+
+            method.insert.value = ‹name›, ‹default› ≫ 0
+
+        Defines a value that you can query and set, just like with any built-in value.
+
+        The example shows how to do optional logging for some new command you define,
+        and also how to split a complex command into steps using the ``multi`` method type.
+
+
+        .. code-block:: ini
+
+            # Enable verbose mode by setting this to 1
+            method.insert.value = sample.verbose, 0
+
+            # Do something with optional logging
+            method.insert = sample.action, multi|rlookup|static
+            method.set_key = sample.action, 10, ((print, "action"))
+            method.set_key = sample.action, 20, ((print, "action2"))
+            method.set_key = sample.action, 99,\
+                ((branch, sample.verbose=,\
+                    "print=\"Some log message\""\
+                ))
+            method.const.enable = sample.action
+
 
     method.const
     method.const.enable
 
-        **TODO**
+        .. code-block:: ini
+
+            method.const = ‹name› ≫ bool (0 or 1)
+            method.const.enable = ‹name› ≫ 0
+
+        Set a method to immutable (or final).
+        ``method.const`` queries whether a given command is.
+        If you try to change a ``const`` method,
+        you'll get an `Object is wrong type or const.` error.
+
+        See :term:`method.insert.value` for an example.
+
 
     method.erase
 
         Doesn't work, don't bother.
 
+
     method.get
+
+        .. code-block:: ini
+
+            method.get = ‹name› ≫ list of command definitions
+
+        An example shows best what you get here, if you query the
+        command defined in the :term:`method.insert.value` example,
+        you'll get this:
+
+        .. code-block:: shell
+
+            $ rtxmlrpc --repr method.get '' sample.action
+            {'10': ['print', 'action'],
+             '20': ['print', 'action2'],
+             '99': ['branch', 'sample.verbose=', 'print="Some log message"']}
+
+        ``method.get`` is also great to see what system handlers are registered,
+        they often (always?) begin with a ``!`` to ensure they sort before any user-defined handlers.
+
+        .. code-block:: shell
+
+            $ rtxmlrpc --repr method.get '' event.download.closed
+            {'!view.indemand': 'view.filter_download=indemand',
+             'log': 'print="CLOSED ",$d.name=," [",$convert.date=$system.time=,"]"'}
+
+        The ``!view.‹viewname›`` handler is added dynamically
+        when you register it for an event using :term:`view.filter_on`.
+
+
     method.set
-    method.has_key
-    method.set_key
-    method.list_keys
 
         **TODO**
+
+
+    method.set_key
+    method.has_key
+    method.list_keys
+
+        .. code-block:: ini
+
+            method.set_key = ‹name›, ‹key›, ‹definition› ≫ 0
+            method.has_key = ‹name›, ‹key› ≫ bool (0 or 1)
+            method.list_keys = ‹name› ≫ list of strings
+
+        Set entries in a ``multi`` method, query a single key, or list them all.
+
+        ``method.set_key`` is commonly used to add handler commands to event types
+        like :term:`event.download.finished`.
+        It can also be used to split complicated command definitions,
+        see :term:`method.insert.value` for an example.
+
 
     method.rlookup
     method.rlookup.clear
