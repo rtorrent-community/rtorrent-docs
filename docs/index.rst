@@ -46,6 +46,7 @@ Contents of This Manual
     overview
     installation
     cookbook
+    use-cases
     scripting
     cmd-ref
     contributing

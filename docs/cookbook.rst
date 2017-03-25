@@ -6,8 +6,7 @@ into the ‘scripting language’ rTorrent uses for its configuration files.
 :ref:`config-deconstructed` uses a basic configuration file to explain what
 the contained commands are doing, also showing common syntax constructs by example.
 
-The rest of the chapter then goes on showing
-how to implement some :ref:`common configuration use-cases <common-tasks>`,
+The next chapter then goes on showing how to implement some :doc:`use-cases`,
 adding more features to that basic configuration.
 
 The `ArchLinux wiki page`_ is also a good source on *rTorrent* in general
@@ -319,93 +318,4 @@ or else a group on a specific level by using ``‹group›_‹level›`` as the 
    :end-before: END of
 
 And that's it, more details on using commands are in the :doc:`scripting`,
-and more examples in the following section.
-
-
-.. _common-tasks:
-
-Common Tasks
-------------
-
-The `Common Tasks in rTorrent`_ wiki page contains more of these typical configuration use-cases.
-
-.. _`Common Tasks in rTorrent`: https://github.com/rakshasa/rtorrent/wiki/Common-Tasks-in-rTorrent
-
-
-.. _drop-in-config:
-
-Load ‘Drop-In’ Config Fragments
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-The examples here and in the wiki are mostly short snippets written to serve a specific purpose.
-To easily add those by just dropping them into a new file, add this to your *main*
-configuration file (which then can be the last change you apply to it).
-
-.. code-block:: ini
-
-    method.insert = cfg.drop_in, private|const|string, (cat, (cfg.basedir), "config.d")
-    execute.nothrow = bash, -c, (cat,\
-        "find ", (cfg.drop_in), " -name '*.rc' ",\
-        "| sort | sed -re 's/^/import=/' >", (cfg.drop_in), "/.import")
-    try_import = (cat, (cfg.drop_in), "/.import")
-
-To test the change, excute these commands:
-
-.. code-block:: shell
-
-    mkdir -p ~/rtorrent/config.d
-    echo 'print="Hello from config.d!"' >$_/hello.rc
-
-Then restart *rTorrent*, and you should see ``Hello from config.d!``
-amongst the initial console messages.
-
-
-Set a Download to “Seed Only”
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-The ``d.seed_only`` command helps you to stop all download activity on an item.
-Select any unfinished item, press ``Ctrl-X``, and enter ``d.seed_only=`` followed by ``⏎``.
-Then all files in that item are set to ``off``, and any peers still sending you data are cut off.
-The data you have is still seeded, as long as the item is not stopped.
-
-.. code-block:: ini
-
-    method.insert = d.seed_only, private|simple,\
-        "f.multicall = *, f.priority.set=0 ;\
-         d.update_priorities= ;\
-         d.disconnect.seeders="
-
-:term:`f.multicall` calls :term:`f.priority.set` on every file,
-:term:`d.update_priorities` makes these changes known,
-and finally :term:`d.disconnect.seeders` kicks any active seeders.
-
-
-Scheduled Bandwidth Shaping
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-This example shows how to use :term:`schedule2` with absolute start times,
-to set the download rate depending on the wall clock time, at 10AM and 4PM.
-The result is a very simple form of bandwidth shaping,
-with full speed transfers enabled while you're at work (about 16 MiB/s in the example),
-and only very moderate bandwidth usage when you're at home.
-
-.. code-block:: ini
-
-    schedule2 = throttle_full, 10:00:00, 24:00:00, ((throttle.global_down.max_rate.set_kb, 16000))
-    schedule2 = throttle_slow, 16:00:00, 24:00:00, ((throttle.global_down.max_rate.set_kb,  1000))
-
-Use :term:`throttle.global_up.max_rate.set_kb` for setting the upload rate.
-
-If you call these commands via XMLRPC from an outside script,
-you can implement more complex rules,
-e.g. `throttling when other computers are visible on the network`_.
-
-External scripts should also be used when saving money is the goal,
-in cases where you have to live with disadvantageous ISP plans with bandwidth caps.
-Run such a script very regularly (via ``cron``),
-to enforce the bandwidth rules continuously.
-
-
-.. _`throttling when other computers are visible on the network`: http://pyrocore.readthedocs.io/en/latest/advanced.html#global-throttling-when-other-computers-are-up
-
-.. END cookbook
+and more examples can be found in the following chapter.
