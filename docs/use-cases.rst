@@ -36,8 +36,8 @@ Then restart *rTorrent*, and you should see ``Hello from config.d!``
 amongst the initial console messages.
 
 
-Logs With Rotation and Pruning
-------------------------------
+Log Rotation, Archival, and Pruning
+-----------------------------------
 
 The following longer snippet adds logs that don't endlessly grow,
 get archived after some days, and are finally deleted after a while.
