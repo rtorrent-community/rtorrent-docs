@@ -332,6 +332,34 @@ The `Common Tasks in rTorrent`_ wiki page contains more of these typical configu
 .. _`Common Tasks in rTorrent`: https://github.com/rakshasa/rtorrent/wiki/Common-Tasks-in-rTorrent
 
 
+.. _drop-in-config:
+
+Load ‘Drop-In’ Config Fragments
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The examples here and in the wiki are mostly short snippets written to serve a specific purpose.
+To easily add those by just dropping them into a new file, add this to your *main*
+configuration file (which then can be the last change you apply to it).
+
+.. code-block:: ini
+
+    method.insert = cfg.drop_in, private|const|string, (cat, (cfg.basedir), "config.d")
+    execute.nothrow = bash, -c, (cat,\
+        "find ", (cfg.drop_in), " -name '*.rc' ",\
+        "| sort | sed -re 's/^/import=/' >", (cfg.drop_in), "/.import")
+    try_import = (cat, (cfg.drop_in), "/.import")
+
+To test the change, excute these commands:
+
+.. code-block:: shell
+
+    mkdir -p ~/rtorrent/config.d
+    echo 'print="Hello from config.d!"' >$_/hello.rc
+
+Then restart *rTorrent*, and you should see ``Hello from config.d!``
+amongst the initial console messages.
+
+
 Set a Download Item to “Seed Only”
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
