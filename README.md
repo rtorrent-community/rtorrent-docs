@@ -13,6 +13,13 @@ and the [community wiki](https://github.com/rtorrent-community/rtorrent-communit
 ---: | :---
 
 
+## Authors
+
+These people added sizable contributions:
+
+ * [kannibalox](https://github.com/kannibalox)
+
+
 ## How to contribute to the handbook
 
 Not having a reference manual for rTorrent leaves us with a big gaping hole.
