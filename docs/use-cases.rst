@@ -43,6 +43,11 @@ The following longer snippet adds logs that don't endlessly grow,
 get archived after some days, and are finally deleted after a while.
 See `rtorrent.d/15-logging.rc`_ for the full snippet.
 
+.. warning::
+
+    If you include this, take care to comment out any conflicting logging commands
+    that you already have in your main configuration.
+
 The time spans for archival and pruning are set using
 ``pyro.log_archival.days`` (default: 2) and
 ``pyro.log_retention.days`` (default: 7).
