@@ -41,9 +41,13 @@ Logs With Rotation and Pruning
 
 The following longer snippet adds logs that don't endlessly grow,
 get archived after some days, and are finally deleted after a while.
-The time spans for this are set using
+See `rtorrent.d/15-logging.rc`_ for the full snippet.
+
+The time spans for archival and pruning are set using
 ``pyro.log_archival.days`` (default: 2) and
 ``pyro.log_retention.days`` (default: 7).
+You can change these in your main configuration,
+*after* including the snippet via :term:`import`.
 
 .. literalinclude:: pimp-my-box/roles/rtorrent-ps/templates/rtorrent/rtorrent.d/15-logging.rc
    :language: ini
@@ -76,6 +80,9 @@ The ``pyro.log_rotate`` method is used near the end to open log files at startup
    :language: ini
    :start-after: pyro_daily_log_rotate
    :end-before: END logging
+
+
+.. _`rtorrent.d/15-logging.rc`: https://github.com/pyroscope/pimp-my-box/blob/master/roles/rtorrent-ps/templates/rtorrent/rtorrent.d/15-logging.rc
 
 
 Set a Download to “Seed Only”
