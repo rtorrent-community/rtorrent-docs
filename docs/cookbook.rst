@@ -189,7 +189,7 @@ readability is next, and any theoretical pureness of syntax ideas come in last.
 Config Template Deconstructed
 -----------------------------
 
-With the most basic elements explained, let's look at the configuration template again.
+With the most basic syntax elements explained, let's look at the configuration template again.
 
 First, some manifest constants used in later commands are defined,
 with the most important one being the instance's root directory, named ``cfg.basedir``.
