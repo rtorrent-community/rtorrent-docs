@@ -22,10 +22,12 @@ Introduction
 **TODO**
 
 
-Variable Types
-^^^^^^^^^^^^^^
+.. _object-types:
 
-This is a summary about the possible variable types in
+Object Types
+^^^^^^^^^^^^
+
+This is a summary about the possible object types in
 `command_dynamic.cc <https://github.com/rakshasa/rtorrent/blob/master/src/command_dynamic.cc>`_
 (applies to ``0.9.6``).
 
