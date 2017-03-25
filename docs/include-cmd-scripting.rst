@@ -97,13 +97,29 @@
 
         .. code-block:: ini
 
-            method.get = ‹name› ≫ list of command definitions
+            method.get = ‹name› ≫ various (see text)
+
+        Returns the definition of a method,
+        i.e. its current integer or string value,
+        the definition for ``simple`` methods, or
+        a dict of command definitions for ``multi`` methods.
+        Querying any built-in method (a/k/a non-*dynamic* commands)
+        results in a ``Key not found.`` fault.
+
+        The type of the definition can be either string or list,
+        depending on whether ``"…"`` or ``((…))`` was used during insertion.
 
         An example shows best what you get here, if you query the
-        command defined in the :term:`method.insert.value` example,
+        commands defined in the :term:`method.insert.value` example,
         you'll get this:
 
         .. code-block:: shell
+
+            $ rtxmlrpc --repr method.get '' sample.verbose
+            1
+
+            $ rtxmlrpc --repr method.get '' sample.verbose.set
+            ERROR    While calling method.get('', 'sample.verbose.set'): <Fault -503: 'Key not found.'>
 
             $ rtxmlrpc --repr method.get '' sample.action
             {'10': ['print', 'action'],
