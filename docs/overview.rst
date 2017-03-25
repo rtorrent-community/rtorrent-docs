@@ -25,7 +25,10 @@ because there already are plentiful and redundant sources out there.
 To help you with basic configuration tasks, the :doc:`cookbook`
 contains a quick start into the ‘scripting language’ rTorrent uses
 for its configuration files.
-It then goes on showing how to solve some common configuration use-cases.
+
+:doc:`use-cases` then goes on showing how to handle
+a number of typical configuration needs,
+adding more features to the basic configuration.
 
 Building on that, the :doc:`scripting` explains more complex commands and
 constructs of said language. It also helps with controlling rTorrent
