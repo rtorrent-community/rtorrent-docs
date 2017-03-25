@@ -52,6 +52,10 @@ if you never wrote anything for a ``Sphinx`` document before:
 
 After you wrote, spell-checked and reviewed your text, `open a pull request`_
 as explained in the `GitHub help`_.
+Try to keep PRs at a reasonable size, ideally only changing one file,
+especially when it comes to the command reference.
+This reduces the potential of merge conflicts and rework,
+and also makes reviews take a manageable amount of time.
 
 
 .. _`Sphinx tool`: http://www.sphinx-doc.org/
