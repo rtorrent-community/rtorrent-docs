@@ -28,7 +28,7 @@ of your distribution, or alternatively install from source (see below).
 Automated Installation
 ----------------------
 
-This is just a selection of the myriads of project out there that perform automated installs.
+This is just a selection of the myriad of projects out there that perform automated installs.
 If you miss something, please make sure a potential new entry is actually still maintained,
 and mention what target platforms it is designed and tested for.
 
