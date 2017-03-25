@@ -53,7 +53,7 @@
         Defines a value that you can query and set, just like with any built-in value.
 
         The example shows how to do optional logging for some new command you define,
-        and also how to split a complex command into steps using the ``multi`` method type.
+        and also how to split a complicated command into steps using the ``multi`` method type.
 
 
         .. code-block:: ini
