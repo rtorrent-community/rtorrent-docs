@@ -126,8 +126,8 @@
              '20': ['print', 'action2'],
              '99': ['branch', 'sample.verbose=', 'print="Some log message"']}
 
-        ``method.get`` is also great to see what system handlers are registered,
-        they often (always?) begin with a ``!`` to ensure they sort before any user-defined handlers.
+        ``method.get`` is also great to see what system handlers are registered.
+        They often begin with a ``!`` or ``~`` to ensure they sort before / after any user-defined handlers.
 
         .. code-block:: shell
 
