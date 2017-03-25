@@ -360,8 +360,8 @@ Then restart *rTorrent*, and you should see ``Hello from config.d!``
 amongst the initial console messages.
 
 
-Set a Download Item to “Seed Only”
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Set a Download to “Seed Only”
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``d.seed_only`` command helps you to stop all download activity on an item.
 Select any unfinished item, press ``Ctrl-X``, and enter ``d.seed_only=`` followed by ``⏎``.
