@@ -283,6 +283,10 @@ The default download location for data is set by :term:`directory.default.set`.
    :start-after: operational settings
    :end-before: Watch directories
 
+The :term:`log.execute` and :term:`log.xmlrpc` commands open related log files,
+which can be very helpful when debugging problems of added extensions.
+
+
 *Watch directories* are an important concept to automatically load metafiles you drop
 into those directories.
 They use the :term:`schedule2` command to *watch* these locations,
