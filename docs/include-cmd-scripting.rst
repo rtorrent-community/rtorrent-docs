@@ -83,7 +83,7 @@
         Set a method to immutable (or final).
         ``method.const`` queries whether a given command is.
         If you try to change a ``const`` method,
-        you'll get an `Object is wrong type or const.` error.
+        you'll get an ``Object is wrong type or const.`` error.
 
         See :term:`method.insert.value` for an example.
 
