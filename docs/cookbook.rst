@@ -1,12 +1,12 @@
-Configuration Cookbook
-======================
+Configuration Quick Start
+=========================
 
 To help you with fundamental configuration tasks, this chapter contains a quick start
 into the ‘scripting language’ rTorrent uses for its configuration files.
 :ref:`config-deconstructed` uses a basic configuration file to explain what
 the contained commands are doing, also showing common syntax constructs by example.
 
-The next chapter then goes on showing how to implement some :doc:`use-cases`,
+The next chapter then dives into some :doc:`use-cases`,
 adding more features to that basic configuration.
 
 The `ArchLinux wiki page`_ is also a good source on *rTorrent* in general
@@ -33,13 +33,10 @@ and its configuration in particular.
 .. _`ArchLinux wiki page`: https://wiki.archlinux.org/index.php/Rtorrent
 
 
-Quick Start
------------
-
 .. _rtorrent-basics:
 
 rTorrent Basics
-^^^^^^^^^^^^^^^
+---------------
 
 We're assuming you used one of the ways in the :doc:`installation` to
 add the *rTorrent* binary to your host, ready to be configured and started.
@@ -59,7 +56,7 @@ customizing *rTorrent*.
 .. _config-template:
 
 Modernized Configuration Template
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+---------------------------------
 
 Any configuration should start with using the modernized `rTorrent wiki config template`_.
 The configuration is loaded from the file ``~/.rtorrent.rc`` by
@@ -89,7 +86,7 @@ below for a detailed explanation of its parts.
 .. _rtorrent-cli:
 
 The rTorrent Command Line
-^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------
 
 Calling ``rtorrent -h`` shows this usage message regarding command line options
 (with the last three missing):
