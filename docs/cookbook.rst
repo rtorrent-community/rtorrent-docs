@@ -83,17 +83,6 @@ below for a detailed explanation of its parts.
 .. literalinclude:: rtorrent.rc
    :language: ini
 
-And here is a simple start script that you should use before you tackle
-auto-starting *rTorrent* at boot time. First make it work for you,
-then add the bells and whistles. Copy the script to ``~/rtorrent/start``,
-and make it executable using ``chmod a+x ~/rtorrent/start``.
-
-.. literalinclude:: start.sh
-   :language: shell
-
-You can call it in a simple shell prompt first, but for normal operation
-is must be launched in a ``tmux`` session. More on that later on.
-
 
 .. _`rTorrent wiki config template`: https://github.com/rakshasa/rtorrent/wiki/CONFIG-Template
 
@@ -132,6 +121,28 @@ software (web UIs and so on) might not be able to work with such a
 reduced command set.
 Also be aware that those undocumented switches changed their semantics
 with the release of ``0.9.6`` – the above shows the current situation.
+
+And here is a simple start script that you should use before you tackle
+auto-starting *rTorrent* at boot time. First make it work for you,
+then add the bells and whistles. Copy the script to ``~/rtorrent/start``,
+and make it executable using ``chmod a+x ~/rtorrent/start``.
+
+.. literalinclude:: start.sh
+   :language: shell
+
+You can call it in a simple shell prompt first, but for normal operation
+it must be launched in a ``tmux`` session, like so:
+
+.. code-block:: shell
+
+   tmux -2u new -n rTorrent -s rtorrent "~/rtorrent/start; exec bash"
+
+The ``exec bash`` keeps your ``tmux`` window open if *rTorrent* exits,
+which allows you to actually read any error messages in case it exited unexpectedly.
+
+You can of course add more elaborate start scripts,
+like a cron watchdog, init.d scripts or systemd units,
+see the *rTorrent* wiki for examples.
 
 
 .. _basic-syntax:
