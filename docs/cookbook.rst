@@ -23,7 +23,7 @@ and its configuration in particular.
     That pages also links to a `sed script`_ that can transform old snippets
     you found on the web and might want to use to using the new command names.
 
-    :ref:`rtorrent-cli` shows you how you can prevent *rTorrent* from adding
+    :ref:`rtorrent-cli` section shows you how you can prevent *rTorrent* from adding
     most of the old names as aliases for the new ones, by using the ``-D -I``
     command line options.
 
