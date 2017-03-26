@@ -503,17 +503,30 @@ These are part of the default ``pyrocore`` configuration:
 `load.*` commands
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+The client may be configured to check a directory for new metafiles and load them.
+Items loaded in this manner will be tied to the metafile's path (see :term:`d.tied_to_file`).
+
+This means when the metafile is deleted, the item may be stopped (see :term:`stop_untied`),
+and when the item is removed the metafile is also.
+Note that you can untie an item by using the ``U`` key (which will also delete the tied file),
+and using ``Ctrl-K`` also implictly unties an item.
+
 .. glossary::
 
     load.normal
     load.verbose
-
-        **TODO**
-
     load.start
     load.start_verbose
 
-        **TODO**
+        **TODO** Synopsis
+
+        Load a metafile or watch a pattern for new files to be loaded (in watch directory schedules).
+
+        ``normal`` loads them stopped, and ``verbose`` reports problems to the console
+        (like when a new file's infohash collides with an already loaded item).
+
+        **TODO** Post-load commands
+
 
     load.raw
     load.raw_start
@@ -544,7 +557,21 @@ These are part of the default ``pyrocore`` configuration:
     session.path
     session.path.set
 
-        **TODO**
+        .. code-block:: ini
+
+            session.path ≫ string ‹path›
+            session.path.set = ‹path›
+
+        ``session.path.set`` specifies the location of the directory where *rTorrent*
+        saves its status between starts – a command you should *always* have in your configuration.
+
+        It enables session management, which means the metafiles and status information for all
+        open downloads will be stored in this directory. When restarting *rTorrent*, all items
+        previously loaded will be restored. Only one instance of *rTorrent* should be used with
+        each session directory, though at the moment no locking is done.
+
+        An empty string will disable session handling. Note that you cannot change to another
+        directory while a session directory is already active.
 
 
     session.save
