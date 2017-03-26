@@ -3,19 +3,118 @@
 `d.*` commands
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-All `d.*` commands take an info hash as the first argument when called over the XMLRPC API.
+All ``d.*`` commands take an info hash as the first argument when called over the XMLRPC API,
+to uniquely identify the *target* object. ‘Target’ is the term used for that 1st parameter in
+error messages and so on.
 
   .. code-block:: ini
 
-     d.name = ‹hash› ≫ 0
+     d.name = ‹hash› ≫ string ‹name›
+
+When called within configuration methods or in a ``Ctrl-X`` prompt, the target is implicit.
+
 
 .. glossary::
+
+    d.name
+    d.base_filename
+    d.base_path
+    d.directory
+    d.directory.set
+    d.directory_base
+    d.directory_base.set
+
+        .. code-block:: ini
+
+            d.name = ‹hash› ≫ string ‹name›
+            d.base_filename = ‹hash› ≫ string ‹basename›
+            d.base_path = ‹hash› ≫ string ‹path›
+            d.directory = ‹hash› ≫ string ‹path›
+            d.directory_base = ‹hash› ≫ string ‹path›
+            d.directory.set = ‹hash›, ‹path› ≫ 0
+            d.directory_base.set = ‹hash›, ‹path› ≫ 0
+
+        These commands return various forms of an item's data path and name,
+        and the last two can change the path, and sometimes the name in the file system.
+        Note that *rTorrent-PS* can also change the displayed name,
+        by setting the ``displayname`` custom attribute using :term:`d.custom.set`.
+
+        Basics:
+
+            * ``d.base_filename`` is always the basename of ``d.base_path``.
+            * ``d.directory_base`` and ``d.directory`` are always the same.
+            * ``d.base_filename`` and ``d.base_path`` are empty on closed items,
+              after a restart, i.e. not too useful (since 0.9.1 or so).
+
+        Behaviour when ``d.directory.set`` + ``d.directory_base.set`` are used (tested with 0.9.4):
+
+            * ``d.base_path`` always remains unchanged, and item gets closed.
+            * ``d.start`` sets ``d.base_path`` if resume data is ok.
+            * ‘single’ file items (no containing folder, see :term:`d.is_multi_file`):
+
+                * ``d.directory[_base].set`` → ``d.name`` is **never** appended (only in ``d.base_path``).
+                * after start, ``d.base_path`` := ``d.directory/d.name``.
+
+            * ‘multi’ items (and yes, they can contain just one file):
+
+                * ``d.directory.set`` → ``d.name`` is appended.
+                * ``d.directory_base.set`` → ``d.name`` is **not** appended
+                  (i.e. item renamed to last path part).
+                * after start, ``d.base_path`` := ``d.directory``.
+
+        Making sense of it (trying to at least):
+
+            * ``d.directory`` is *always* a directory (thus, single items
+              auto-append ``d.name`` in ``d.base_path`` and cannot be renamed).
+            * ``d.directory_base.set`` means set path **plus** basename together
+              for a multi item (thus allowing a rename).
+            * only ``d.directory.set`` behaves consistently for single+multi,
+              regarding the end result in ``d.base_path``.
+
+        The definition below is useful, since it *always* contains a valid path to an item's data,
+        and can be used in place of the unreliable ``d.base_path``.
+
+        .. code-block:: ini
+
+            # Return path to item data (never empty, unlike `d.base_path`);
+            # multi-file items return a path ending with a '/'.
+            method.insert = d.data_path, simple,\
+                "if=(d.is_multi_file),\
+                    (cat, (d.directory), /),\
+                    (cat, (d.directory), /, (d.name))"
+
+
+    d.is_active
+    d.is_open
+    d.open
+    d.pause
+    d.resume
+    d.close
+    d.close.directly
+    d.start
+    d.state
+    d.state_changed
+    d.state_counter
+    d.stop
+    d.try_close
+    d.try_start
+    d.try_stop
+
+        **TODO**
+
+
+    d.loaded_file
+    d.tied_to_file
+    d.tied_to_file.set
+
+        **TODO**
 
     d.accepting_seeders
     d.accepting_seeders.disable
     d.accepting_seeders.enable
-    d.base_filename
-    d.base_path
+
+        **TODO**
+
     d.bitfield
     d.bytes_done
     d.check_hash
@@ -33,19 +132,32 @@ All `d.*` commands take an info hash as the first argument when called over the 
 
     d.chunks_hashed
     d.chunks_seen
-    d.close
-    d.close.directly
+
+        **TODO**
+
     d.complete
     d.completed_bytes
     d.completed_chunks
+
+        **TODO**
+
     d.connection_current
     d.connection_current.set
     d.connection_leech
     d.connection_seed
+
+        **TODO**
+
     d.create_link
+    d.delete_link
+    d.delete_tied
     d.creation_date
+
+        **TODO**
+
     d.custom
     d.custom.set
+    d.custom_throw
     d.custom1
     d.custom1.set
     d.custom2
@@ -56,79 +168,115 @@ All `d.*` commands take an info hash as the first argument when called over the 
     d.custom4.set
     d.custom5
     d.custom5.set
-    d.custom_throw
-    d.delete_link
-    d.delete_tied
-    d.directory
-    d.directory.set
-    d.directory_base
-    d.directory_base.set
+
+        **TODO**
+
     d.disconnect.seeders
+
+        **TODO**
+
     d.down.choke_heuristics
     d.down.choke_heuristics.leech
     d.down.choke_heuristics.seed
     d.down.choke_heuristics.set
+
+        **TODO**
+
     d.down.rate
     d.down.total
+
+        **TODO**
+
     d.downloads_max
     d.downloads_max.set
     d.downloads_min
     d.downloads_min.set
+
+        **TODO**
+
     d.erase
     d.free_diskspace
+
+        **TODO**
+
     d.group
     d.group.name
     d.group.set
+
+        **TODO**
+
     d.hash
     d.hashing
     d.hashing_failed
     d.hashing_failed.set
+
+        **TODO**
+
     d.ignore_commands
     d.ignore_commands.set
+
+        **TODO**
+
     d.incomplete
-    d.is_active
     d.is_hash_checked
     d.is_hash_checking
     d.is_meta
     d.is_multi_file
     d.is_not_partially_done
-    d.is_open
     d.is_partially_done
     d.is_pex_active
     d.is_private
+
+        **TODO**
+
     d.left_bytes
     d.load_date
-    d.loaded_file
     d.local_id
     d.local_id_html
+
+        **TODO**
+
     d.max_file_size
     d.max_file_size.set
+
+        **TODO**
+
     d.max_size_pex
     d.message
     d.message.set
     d.mode
     d.multicall2
-    d.name
-    d.open
-    d.pause
+
+        **TODO**
+
     d.peer_exchange
     d.peer_exchange.set
+
+        **TODO**
+
     d.peers_accounted
     d.peers_complete
     d.peers_connected
+
+        **TODO**
+
     d.peers_max
     d.peers_max.set
     d.peers_min
     d.peers_min.set
     d.peers_not_connected
-    d.priority
-    d.priority.set
-    d.priority_str
-    d.ratio
-    d.resume
 
         **TODO**
 
+    d.priority
+    d.priority.set
+    d.priority_str
+
+        **TODO**
+
+    d.ratio
+
+        **TODO**
 
     d.save_full_session
 
@@ -139,21 +287,17 @@ All `d.*` commands take an info hash as the first argument when called over the 
 
 
     d.save_resume
+
+        **TODO**
+
     d.size_bytes
     d.size_chunks
     d.size_files
     d.size_pex
     d.skip.rate
     d.skip.total
-    d.start
-    d.state
-    d.state_changed
-    d.state_counter
-    d.stop
     d.throttle_name
     d.throttle_name.set
-    d.tied_to_file
-    d.tied_to_file.set
     d.timestamp.finished
     d.timestamp.started
     d.tracker.insert
@@ -163,9 +307,6 @@ All `d.*` commands take an info hash as the first argument when called over the 
     d.tracker_numwant
     d.tracker_numwant.set
     d.tracker_size
-    d.try_close
-    d.try_start
-    d.try_stop
     d.up.choke_heuristics
     d.up.choke_heuristics.leech
     d.up.choke_heuristics.seed
@@ -185,11 +326,17 @@ All `d.*` commands take an info hash as the first argument when called over the 
     d.uploads_max.set
     d.uploads_min
     d.uploads_min.set
+
+        **TODO**
+
     d.views
     d.views.has
     d.views.push_back
     d.views.push_back_unique
     d.views.remove
+
+        **TODO**
+
     d.wanted_chunks
 
         **TODO**
