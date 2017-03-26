@@ -106,27 +106,6 @@ TODO (Groups)
 
 .. glossary::
 
-    protocol.choke_heuristics.down.leech
-    protocol.choke_heuristics.down.leech.set
-    protocol.choke_heuristics.down.seed
-    protocol.choke_heuristics.down.seed.set
-    protocol.choke_heuristics.up.leech
-    protocol.choke_heuristics.up.leech.set
-    protocol.choke_heuristics.up.seed
-    protocol.choke_heuristics.up.seed.set
-    protocol.connection.leech
-    protocol.connection.leech.set
-    protocol.connection.seed
-    protocol.connection.seed.set
-    protocol.encryption.set
-    protocol.pex
-    protocol.pex.set
-
-        **TODO**
-
-
-.. glossary::
-
     session
     session.name
     session.name.set
