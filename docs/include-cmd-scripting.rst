@@ -167,9 +167,15 @@
 
         **TODO**
 
+
     method.redirect
 
-        **TODO**
+        .. code-block:: ini
+
+            method.redirect = ‹alias›, ‹target› ≫ 0
+
+        Defines an alias for an existing command, the arguments are command names.
+        Aliases cannot be changed, using the same alias name twice causes an error.
 
 
 .. _event-commands:
