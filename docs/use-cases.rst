@@ -58,7 +58,7 @@ You can change these in your main configuration,
 
 .. literalinclude:: pimp-my-box/roles/rtorrent-ps/templates/rtorrent/rtorrent.d/15-logging.rc
    :language: ini
-   :start-after: rotating logs
+   :start-after: ----------
    :end-before: YYYY-mm-dd
 
 Log files are time stamped (see ``pyro.date_iso.log_stamp`` and ``pyro.log_stamp.current``).
