@@ -1,3 +1,38 @@
+.. _dht-commands:
+
+`dht.*` commands
+^^^^^^^^^^^^^^^^
+
+.. glossary::
+
+    dht.add_node
+
+        **TODO**
+
+    dht.mode.set
+    dht
+
+        **TODO**
+
+    dht.port
+    dht.port.set
+    dht_port
+
+        **TODO**
+
+    dht.statistics
+
+        Returns ``{'active': 0, 'dht': 'disable', 'throttle': ''}`` when DHT is off,
+        and …
+
+        **TODO**
+
+    dht.throttle.name
+    dht.throttle.name.set
+
+        **TODO**
+
+
 .. _pieces-commands:
 
 `pieces.*` commands
