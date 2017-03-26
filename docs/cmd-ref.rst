@@ -62,7 +62,11 @@ User Interface
 Miscellaneous
 -------------
 
-**TODO (Groups)**
+.. include:: include-cmd-misc.rst
+
+
+TODO (Groups)
+^^^^^^^^^^^^^
 
  * choke_group
  * fi
@@ -72,7 +76,7 @@ Miscellaneous
  * keys
  * ratio
  * scheduler
- * strings
+
 
 .. glossary::
 
@@ -154,7 +158,8 @@ Miscellaneous
         **TODO**
 
 
-**TODO (singles)**
+TODO (singles)
+^^^^^^^^^^^^^^
 
 .. glossary::
 
