@@ -79,7 +79,7 @@ A daily schedule calls this method and thus triggers the rotation.
    :start-after: cat = (cfg.logs)
    :end-before: Log file archival
 
-Finally, two schedules take care of daily archival (2:00 AM) and pruning (2:10 AM),
+Finally, two schedules take care of daily archival (1:10 AM) and pruning (1:20 AM),
 passing the command built by ``pyro._logfile_find_cmd`` to ``bash`` for execution.
 The ``pyro.log_rotate`` method is used near the end to open log files at startup.
 
