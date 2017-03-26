@@ -17,6 +17,7 @@ and the [community wiki](https://github.com/rtorrent-community/rtorrent-communit
 
 These people added sizable contributions:
 
+ * [pyroscope](https://github.com/pyroscope)
  * [kannibalox](https://github.com/kannibalox)
 
 
