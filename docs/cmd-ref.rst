@@ -149,3 +149,63 @@ TODO (singles)
     upload_rate
 
         **TODO**
+
+
+‘Intermediate’ Commands
+^^^^^^^^^^^^^^^^^^^^^^^
+
+The *intermediate* commands are kept around as aliases for ‘new’ ones
+– at least for the time being. Probably best avoided.
+
+Avoiding the *deprecated* commands is a must, these will disappear at some time.
+
+.. glossary::
+
+    method.use_deprecated
+    method.use_deprecated.set
+
+        .. code-block:: ini
+
+            method.use_deprecated ≫ bool (0 or 1)
+            method.use_deprecated.set = ‹0 or 1› ≫ bool ‹current› (0 or 1)
+
+        The default is ``true``.
+        The undocumented ``-D`` command line options sets this to ``false``
+        with a ''Disabled deprecated commands`` console message.
+
+    method.use_intermediate
+    method.use_intermediate.set
+
+        .. code-block:: ini
+
+            method.use_intermediate ≫ value (0 … 2)
+            method.use_intermediate.set = ‹0 … 2› ≫ value ‹current› (0 … 2)
+
+        The default is 1 (allow everywhere), values other than 1 or 2 are treated like 0.
+        The undocumented ``-I`` command line options sets this to 0
+        with a ''Disabled intermediate commands`` console message,
+        while ``-K`` sets it to 2,
+        printing ``Allowing intermediate commands without xmlrpc``.
+
+
+All the command aliases can be found in these three source files:
+``command_local.cc``, ``command_throttle.cc``, and ``main.cc``.
+Search for ``REDIRECT`` using ``grep``.
+
+These are called *intermediate:*
+
+* ``execute`` → ``execute2`` (ignore both, just use ``execute.throw``)
+* ``schedule`` → ``schedule2``
+* ``schedule_remove`` → ``schedule_remove2``
+
+* ``group.‹name›.view`` → ``group2.‹name›.view``
+* ``group.‹name›.view.set`` → ``group2.‹name›.view.set``
+* ``group.‹name›.ratio.min`` → ``group2.‹name›.ratio.min``
+* ``group.‹name›.ratio.min.set`` → ``group2.‹name›.ratio.min.set``
+* ``group.‹name›.ratio.max`` → ``group2.‹name›.ratio.max``
+* ``group.‹name›.ratio.max.set`` → ``group2.‹name›.ratio.max.set``
+* ``group.‹name›.ratio.upload`` → ``group2.‹name›.ratio.upload``
+* ``group.‹name›.ratio.upload.set`` → ``group2.‹name›.ratio.upload.set``
+
+
+.. END cmd-ref

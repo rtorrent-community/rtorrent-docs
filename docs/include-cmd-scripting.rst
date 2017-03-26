@@ -168,10 +168,6 @@
         **TODO**
 
     method.redirect
-    method.use_deprecated
-    method.use_deprecated.set
-    method.use_intermediate
-    method.use_intermediate.set
 
         **TODO**
 
