@@ -1,7 +1,7 @@
 .. _network-commands:
 
 `network.*` commands
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^
 
 .. glossary::
 
@@ -18,9 +18,12 @@
            network.http.dns_cache_timeout.set = ‹seconds› ≫ 0
            network.http.dns_cache_timeout ≫ ‹seconds›
 
-        Controls the `DNS cache expiry <https://curl.haxx.se/libcurl/c/CURLOPT_DNS_CACHE_TIMEOUT.html>`_ (in seconds) for HTTP requests. The default is 60 seconds.
+        Controls the `DNS cache expiry <https://curl.haxx.se/libcurl/c/CURLOPT_DNS_CACHE_TIMEOUT.html>`_
+        (in seconds) for HTTP requests. The default is 60 seconds.
+
         Set to zero to completely disable caching, or set to -1 to
         make the cached entries remain forever.
+
 
     network.http.current_open
     network.http.max_open
@@ -28,14 +31,17 @@
 
         .. code-block:: ini
 
+           network.http.current_open ≫ value ‹num›
+           network.http.max_open ≫ value ‹max›
            network.http.max_open.set = ‹max› ≫ 0
-           network.http.max_open ≫ ‹max›
-           network.http.current_open ≫ ‹num›
 
-        Commands to control the amount of simultaneous HTTP connections
-        rTorrent will generate, while ``network.http.current_open`` will return the number of
-        current open connections. Be wary of setting this too high, as even if your connection can support
-        that many requests, the target host may not be able to respond quickly enough, leading to timeouts.
+        ``network.http.current_open`` returns the number of currently opened HTTTP connections,
+        and ``network.http.max_open`` determines the upper limit for simultaneous HTTP connections.
+
+        Be wary of setting this too high, as even if your connection can support
+        that many requests, the target host may not be able to respond quickly enough,
+        leading to timeouts.
+
 
     network.http.proxy_address
     network.http.proxy_address.set
@@ -99,26 +105,34 @@
 
         .. code-block:: ini
 
-           network.receive_buffer.size ≫ ‹size›
+           network.receive_buffer.size ≫ value ‹size›
            network.receive_buffer.size.set = ‹size› ≫ 0
-           network.send_buffer.size ≫ ‹size›
+           network.send_buffer.size ≫ value ‹size›
            network.send_buffer.size.set = ‹size› ≫ 0
 
-        Sets or gets the maximum socket receive/send buffer in bytes.
-        On Linux, the default buffer size for receives is set by the /proc/sys/net/core/rmem_default file (wmem_default for sends),
-        and the maximum allowed value is set by the /proc/sys/net/core/rmem_max file (wmem_max for sends).
-        See the `tuning guide <https://github.com/rakshasa/rtorrent/wiki/Performance-Tuning#networking-tweaks>`_ for possible tweaks to these values
+        Sets or gets the maximum socket receive / send buffer in bytes.
+
+        On Linux, the default buffer size for receiving data is set by the
+        ``/proc/sys/net/core/rmem_default`` file (``wmem_default`` for sending).
+        The maximum allowed value is set by the ``/proc/sys/net/core/rmem_max`` file
+        (``wmem_max`` for sending).
+
+        See the `tuning guide <https://github.com/rakshasa/rtorrent/wiki/Performance-Tuning#networking-tweaks>`_
+        for tweaking these values
+
 
     network.scgi.dont_route
     network.scgi.dont_route.set
 
         .. code-block:: ini
 
-           network.scgi.dont_route ≫ ‹bool›
+           network.scgi.dont_route ≫ bool (0 or 1)
            network.scgi.dont_route.set = ‹bool› ≫ 0
 
-        Enable / disable routing on SCGI connections. ``bool`` is actually either ``1`` or ``0``.
-        This directly calls `setsockopt <https://linux.die.net/man/3/setsockopt>`_ to modify the SO_DONTROUTE flag.
+        Enable / disable routing on SCGI connections,
+        directly calling `setsockopt <https://linux.die.net/man/3/setsockopt>`_
+        to modify the ``SO_DONTROUTE`` flag.
+
 
     network.scgi.open_local
     network.scgi.open_port
@@ -128,7 +142,16 @@
            network.scgi.open_local = ‹path› ≫ 0
            network.scgi.open_port = ‹port› ≫ 0
 
-        Open up a port or Unix socket file for SCGI communication.
+        Open up a TCP port or a Unix domain socket for SCGI communication (i.e. the XMLRPC socket).
+        Only use *one* of these!
+
+        .. note::
+
+            Using ``network.scgi.open_port`` means *any* user on the machine you run *rTorrent* on can
+            execute *arbitrary* commands with the permission of the *rTorrent* runtime user.
+            Most people don't realize that, now you do! Also, **never** use any other address than
+            ``127.0.0.1`` with it.
+
 
     network.tos.set
 
@@ -136,48 +159,60 @@
 
            network.tos.set = ‹flag› ≫ 0
 
-        Set the `type of service <https://en.wikipedia.org/wiki/Type_of_service>`_ flag to use in IP packets.
+        Set the `type of service <https://en.wikipedia.org/wiki/Type_of_service>`_
+        flag to use in IP packets.
+
         The options as pulled from :term:`strings.ip_tos` are:
 
-        - default
-        - lowdelay
-        - throughput
-        - reliability
-        - mincost
+        .. hlist::
+            :columns: 3
 
-        ``default`` uses the system default setting. A raw hexadecimal value can also be passed in for custom flags.
+            * ``default``
+            * ``lowdelay``
+            * ``throughput``
+            * ``reliability``
+            * ``mincost``
+
+        ``default`` uses the system default setting.
+        A raw hexadecimal value can also be passed in for custom flags.
+
 
     network.xmlrpc.dialect.set
 
         .. code-block:: ini
 
-           network.xmlrpc.dialect.set = ‹dialect_int› ≫ 0
+           network.xmlrpc.dialect.set = ‹dialect [value 0…2]› ≫ 0
 
-        Set the XMLRPC dialect to use. The ``dialect`` parameter corresponds to these values:
+        Set the XMLRPC dialect to use, as defined by  ``xmlrpc-c``.
+        The ``dialect`` parameter can have these values:
 
-        - 0: dialect_generic
-        - 1: dialect_i8
-        - 2: dialect_apache
+        - 0: ``dialect_generic``
+        - 1: ``dialect_i8``
+        - 2: ``dialect_apache``
 
-        ``dialect_i8`` is the default value, which means the XMLRPC API
-        will use the `xmlrpc-c i8 extension type <http://xmlrpc-c.sourceforge.net/doc/libxmlrpc.html#extensiontype>`_ for returning integers.
+        ``dialect_i8`` is the default value, which means the XMLRPC API will use the
+        `xmlrpc-c i8 extension type <http://xmlrpc-c.sourceforge.net/doc/libxmlrpc.html#extensiontype>`_
+        for returning long integers.
 
-        See http://xmlrpc-c.sourceforge.net/doc/libgeneral.html#dialect for
-        more information on how xmlrpc-c handles dialects.
+        See `its documentation <http://xmlrpc-c.sourceforge.net/doc/libgeneral.html#dialect>`_
+        for more information on how ``xmlrpc-c`` handles dialects.
+
 
     network.xmlrpc.size_limit
     network.xmlrpc.size_limit.set
-   
+
         .. code-block:: ini
 
-           network.xmlrpc.size_limit = ≫ ‹bytes›
-           network.xmlrpc.size_limit.set = ‹bytes› ≫ 0
+           network.xmlrpc.size_limit = ≫ value ‹bytes›
+           network.xmlrpc.size_limit.set = ‹max-size› ≫ 0
 
         Set or return the maximum size of any XMLRPC requests in bytes.
-        Human-readable formats such as "2M" (for 2 mebibytes i.e. 2097152 bytes) are also allowd
+        Human-readable forms such as ``2M`` are also allowed (for 2 MiB, i.e. 2097152 bytes).
 
 
-The following are only available in *rTorrent-PS*!
+.. note::
+
+    The following are only available in *rTorrent-PS*!
 
 .. glossary::
 
