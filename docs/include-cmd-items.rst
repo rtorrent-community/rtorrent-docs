@@ -160,14 +160,8 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
     d.custom_throw
     d.custom1
     d.custom1.set
-    d.custom2
-    d.custom2.set
-    d.custom3
-    d.custom3.set
-    d.custom4
-    d.custom4.set
-    d.custom5
-    d.custom5.set
+    d.custom2…5
+    d.custom2…5.set
 
         **TODO**
 
