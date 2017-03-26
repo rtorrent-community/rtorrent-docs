@@ -90,35 +90,6 @@ TODO (Groups)
 
 
 
-
-.. glossary::
-
-    session
-    session.name
-    session.name.set
-
-        **TODO**
-
-    session.on_completion
-    session.on_completion.set
-
-        **TODO**
-
-    session.path
-    session.path.set
-
-        **TODO**
-
-    session.save
-
-        **TODO**
-
-    session.use_lock
-    session.use_lock.set
-
-        **TODO**
-
-
 .. glossary::
 
     trackers.disable

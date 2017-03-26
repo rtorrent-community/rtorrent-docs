@@ -129,9 +129,14 @@ All `d.*` commands take an info hash as the first argument when called over the 
 
         **TODO**
 
+
     d.save_full_session
 
         Flushes the item's state to files in the session directory (if enabled).
+        This writes *all* files that contribute to an item's state, i.e. the ‘full’ state.
+
+        See also :term:`session.save`.
+
 
     d.save_resume
     d.size_bytes
@@ -375,5 +380,43 @@ These are part of the default ``pyrocore`` configuration:
     load.raw_verbose
 
         **TODO**
+
+
+.. _session-commands:
+
+`session.*` commands
+^^^^^^^^^^^^^^^^^^^^
+
+.. glossary::
+
+    session.name
+    session.name.set
+    session
+
+        **TODO**
+
+    session.on_completion
+    session.on_completion.set
+
+        **TODO**
+
+    session.path
+    session.path.set
+
+        **TODO**
+
+
+    session.save
+
+        **TODO**
+
+        :term:`d.save_full_session` saves the state of a single item.
+
+
+    session.use_lock
+    session.use_lock.set
+
+        **TODO**
+
 
 .. END cmd-items
