@@ -229,7 +229,7 @@ Commands related to the operating system and the XMLRPC API.
         opened by one of the :term:`log.open_file` commands.
 
         Log messages are classified into groups
-        (``connection``, ``dht``, ``peer``, ``rpc``, ``storage``, ``thread``, ``tracker``, and ``torrent``),
+        (``connection``, ``dht``, ``peer``, ``rpc``, ``storage``, ``thread``, ``torrent``, and ``tracker``),
         and have a level of ``critical``, ``error``, ``warn``, ``notice``, ``info``, or ``debug``.
 
         Scopes can either be a whole level,
@@ -268,6 +268,12 @@ Commands related to the operating system and the XMLRPC API.
         (see :ref:`log-rotatation` for a way better scheme for log separation).
         Adding ``gz`` opens the logfile directly as a compressed streams,
         note that you have to add an appropriate extension yourself.
+
+        There is an arbitary limit on the number of log streams you can open (64 in 0.9.6).
+        The core of the logging subsystem is implemented in ``torrent/utils/log`` of *libtorrent*.
+
+        You can re-open existing logs in *rTorrent-PS* 1.1+ (and maybe in *rTorrent* 0.9.7+),
+        by just calling an open command with a new path. To ‘close’ one, bind it to ``/dev/null``.
 
         Example:
 
