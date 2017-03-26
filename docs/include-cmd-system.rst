@@ -221,7 +221,26 @@ Commands related to the operating system and the XMLRPC API.
 
     log.add_output
 
-        **TODO**
+        .. code-block:: ini
+
+            log.add_output = ‹scope›, ‹name› ≫ 0
+
+        This command adds another logging scope to a named log file,
+        opened by one of the :term:`log.open_file` commands.
+
+        Log messages are classified into groups
+        (``connection``, ``dht``, ``peer``, ``rpc``, ``storage``, ``thread``, ``tracker``, and ``torrent``),
+        and have a level of ``critical``, ``error``, ``warn``, ``notice``, ``info``, or ``debug``.
+
+        Scopes can either be a whole level,
+        or else a group on a specific level by using ``‹group›_‹level›`` as the scope's name.
+
+        Example:
+
+        .. code-block:: ini
+
+            log.add_output = tracker_debug, tracelog
+
 
     log.execute
     log.xmlrpc
@@ -230,13 +249,38 @@ Commands related to the operating system and the XMLRPC API.
 
     log.open_file
     log.open_gz_file
-
-        **TODO**
-
     log.open_file_pid
     log.open_gz_file_pid
 
-        **TODO**
+        .. code-block:: ini
+
+            log.open_file = ‹name›, ‹log file path›[, ‹scope›…] ≫ 0
+            log.open_gz_file
+            log.open_file_pid
+            log.open_gz_file_pid
+
+        All these commands open a log file, giving it a name to refer to.
+        Paths starting with ``~`` are expanded.
+        You can immediately add some logging scopes,
+        see :term:`log.add_output` for details on those.
+
+        The ``pid`` variants add the PID of *rTorrent* at the end of the file name
+        (see :ref:`log-rotatation` for a way better scheme for log separation).
+        Adding ``gz`` opens the logfile directly as a compressed streams,
+        note that you have to add an appropriate extension yourself.
+
+        Example:
+
+        .. code-block:: ini
+
+            log.open_file_pid = tracker, /tmp/tracker.log, tracker_debug
+            # … opens '/tmp/tracker.log.NNNNN' for debugging tracker announces etc.
+
+        .. warning::
+
+            Compressed log files do not seem to work, in version 0.9.6 at least.
+
+
 
     log.vmmap.dump
 

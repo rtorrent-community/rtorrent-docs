@@ -36,6 +36,8 @@ Then restart *rTorrent*, and you should see ``Hello from config.d!``
 amongst the initial console messages.
 
 
+.. _log-rotatation:
+
 Log Rotation, Archival, and Pruning
 -----------------------------------
 
