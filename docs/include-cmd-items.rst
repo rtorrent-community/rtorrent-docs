@@ -3,6 +3,12 @@
 `d.*` commands
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+All `d.*` commands take an info hash as the first argument when called over the XMLRPC API.
+
+  .. code-block:: ini
+
+     d.name = ‹hash› ≫ 0
+
 .. glossary::
 
     d.accepting_seeders
@@ -13,7 +19,18 @@
     d.bitfield
     d.bytes_done
     d.check_hash
+
+        **TODO**
+
     d.chunk_size
+
+        Returns the chunk size of the item (also known as the
+        "peice size") in bytes.
+
+        .. code-block:: ini
+
+           d.chunk_size = ‹hash› ≫ 0
+
     d.chunks_hashed
     d.chunks_seen
     d.close
@@ -109,7 +126,13 @@
     d.priority_str
     d.ratio
     d.resume
+
+        **TODO**
+
     d.save_full_session
+
+        Flushes the item's state to files in the session directory (if enabled).
+
     d.save_resume
     d.size_bytes
     d.size_chunks
