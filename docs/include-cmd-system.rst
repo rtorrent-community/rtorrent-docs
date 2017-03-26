@@ -287,7 +287,7 @@ Commands related to the operating system and the XMLRPC API.
 
             log.vmmap.dump = ‹dump file path› ≫ 0
 
-        Dumps all memory mappings regions to the given file,
+        Dumps all memory mapping regions to the given file,
         each line contains a region in the format ``‹begin›-‹end› [‹size in KiB›k]``.
 
 
