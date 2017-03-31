@@ -98,10 +98,16 @@
 
         **TODO**
 
+        See also `BitTorrent protocol encryption`_.
+
+
     protocol.pex
     protocol.pex.set
 
         **TODO**
+
+
+.. _`BitTorrent protocol encryption`: http://en.wikipedia.org/wiki/BitTorrent_protocol_encryption
 
 
 .. _throttle-commands:
