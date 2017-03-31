@@ -5,6 +5,12 @@ Building on the :doc:`cookbook`, this chapter explains more complex commands and
 constructs of the scripting language. It also helps with controlling *rTorrent*
 from the outside, via the XMLRPC protocol.
 
+It is to become the comprehensive reference to rTorrent's
+command language that was always missing, and will only be a success
+when enough people join forces and thus spread the workload to many shoulders.
+If you're a developer or power user, this will be an invaluable tool,
+so please take the time and :doc:`contribute what you know <contributing>`.
+
 See the :doc:`cmd-ref` chapter for a list of all relevant XMLRPC and ‘private’ commands
 of *rTorrent* with a short explanation.
 The :ref:`generated index <genindex>` also lists all the commmand names.
