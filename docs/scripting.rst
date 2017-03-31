@@ -28,8 +28,10 @@ Introduction
 *rTorrent* scripting uses a strictly line-oriented syntax,
 with no control structures that span several logical lines.
 Read :ref:`basic-syntax` (again) regarding the most fundamental syntax rules.
+If you skipped :ref:`config-deconstructed`, now is the time to go through it,
+since it exposes you to common idioms while explaining the core config commands.
 
-Here's also a short summary:
+Here's also a short command syntax summary:
 
 * Comments start with a ``#``.
 * Line continuations work by escaping the line end with ``\``.
