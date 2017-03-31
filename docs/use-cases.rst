@@ -3,6 +3,11 @@
 Common Configuration Use-Cases
 ==============================
 
+After you went through :doc:`cookbook`
+and got familiar with the handling of *rTorrent*,
+it's time to look at settings that you should consider for your configuration,
+but which weren't necessary to start using it.
+
 The `Common Tasks in rTorrent`_ wiki page contains more of these typical configuration use-cases.
 
 .. _`Common Tasks in rTorrent`: https://github.com/rakshasa/rtorrent/wiki/Common-Tasks-in-rTorrent
@@ -34,6 +39,13 @@ To test the change, excute these commands:
 
 Then restart *rTorrent*, and you should see ``Hello from config.d!``
 amongst the initial console messages.
+
+.. note::
+
+    If a drop-in file just contains commands that can be repeated several
+    times, they can be re-imported making them way easier to test after changes.
+    For example, schedules can be redefined, but method definitions can not
+    (under the same name).
 
 
 .. _log-rotatation:
