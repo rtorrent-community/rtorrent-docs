@@ -501,7 +501,7 @@ These are part of the default ``pyrocore`` configuration:
 .. _load-commands:
 
 `load.*` commands
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^
 
 The client may be configured to check a directory for new metafiles and load them.
 Items loaded in this manner will be tied to the metafile's path (see :term:`d.tied_to_file`).
