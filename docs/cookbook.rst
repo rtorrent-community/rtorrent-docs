@@ -177,7 +177,7 @@ where you can ‘start fresh’ when it comes to escaping levels.
 Be pragmatic, and have no fear of mixing ‘old’ and ‘new’ syntax to your advantage.
 Prefer the new one with parentheses,
 but that your syntax works and does the thing you want is most important,
-readability is next, and any theoretical pureness of syntax ideas come in last.
+readability is next, and any theoretical purity of syntax ideas come in last.
 
 
 .. _config-deconstructed:
