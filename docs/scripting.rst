@@ -25,7 +25,86 @@ Consider the `view.add <https://github.com/rakshasa/rtorrent/search?utf8=%E2%9C%
 Introduction
 ------------
 
-**TODO**
+*rTorrent* scripting uses a strictly line-oriented syntax,
+with no control structures that span several logical lines.
+Read :ref:`basic-syntax` (again) regarding the most fundamental syntax rules.
+
+Here's also a short summary:
+
+* Comments start with a ``#``.
+* Line continuations work by escaping the line end with ``\``.
+* Commands take the form ``cmd = arg, …`` (‘old’ syntax) or ``(cmd, arg, …)`` (‘new’ syntax).
+* Arguments are a comma-separated list: ``arg1, arg2, …``.
+* ``$cmd=…`` evaluates ``cmd`` and inserts its result value in place of the call.
+  A command in single parentheses is also immediately evaluated.
+* Use double quotes for preserving whitespace, or to pass statements
+  as arguments to other commands (like :term:`method.insert` and :term:`schedule2`).
+  Use ``\"`` to escape quotes within quoted strings.
+* Use double parentheses to pass a command unevaluated to another command.
+* Braces ``{…, …}`` pass a list as an argument, used for setting list values,
+  or with boolean operators.
+* All commands are defined in the *C++* source files ``rtorrent/src/command_*.cc``
+  of the client's source code, which is the ultimate reference
+  when it comes to intricate details.
+
+
+Commands
+^^^^^^^^
+
+A command is ... It's called by ...
+
+A deep-dive into defining your own commands can be found in the
+:ref:`reference of related commands <method-commands>`.
+
+Use the :doc:`cmd-ref` for details on specific commands,
+and the :ref:`generated index <genindex>` to find them by name.
+
+
+Escaping
+^^^^^^^^
+
+The most basic form of escaping is when you have to supply a command
+with multiple arguments to another command as part of an argument list.
+You have to tell rTorrent which comma belongs to the inner argument
+list, and which to the outer one, by quoting the inner command using
+double quotation marks:
+
+.. code-block:: ini
+
+    outer = arg1, "inner=arg21,arg22", arg3
+
+It's also good style to avoid deep nesting by defining your own custom
+commands (see :term:`method.insert`, and also :ref:`config-deconstructed`
+and :doc:`use-cases` for many examples).
+You can then use these building blocks in another command, instead of a
+literal nested group. The additional benefit is you can name things for
+documentation purposes, and also avoid overly long lines.
+
+In practice, anything but a single nested quote should be avoided,
+because the next level already gives you the ``\\\"`` awkwardness.
+
+Make *plenty* use of line continuations, i.e. escaping of line ends to
+break up long physical lines into several short ones. Put the breaks
+into places where you can use any amount of whitespace, and then indent
+the parts according to the structure of the logical line.
+
+.. code-block:: ini
+
+    method.insert = indent_sequence_of_cmds_and_their_args, private|simple,\
+        "load.verbose =\
+            (cat, (cfg.watch), (argument.0), /*.torrent),\
+            (cat, d.category.set=, (argument.0)) ;\
+         category.view.update = (argument.0)"
+
+    schedule2 = polling, 10, 120,\
+        ((d.multicall2, main,\
+            "branch=\"or={d.up.rate=,d.down.rate=,}\",\
+                poll=$interval.active=,\
+                poll=$interval.idle="))
+
+Also note how using combinations of ‘new’ and ‘old’ syntax
+keeps the needed amount of escaping at bay
+(double parentheses are also a form of escaping).
 
 
 .. _object-types:
@@ -48,6 +127,19 @@ This is a summary about the possible object types in
  * value, bool, string, list (with subtypes: static, private, const)
 
    * Standard types, ``value`` is an integer.
+
+
+Formatting & Type Conversions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**TODO**
+
+
+Custom Attributes
+^^^^^^^^^^^^^^^^^
+
+**TODO**
+
 
 
 Advanced Concepts
