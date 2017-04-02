@@ -16,6 +16,46 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
 .. glossary::
 
+    d.multicall2
+    download_list
+
+        .. code-block:: ini
+
+            d.multicall2 = ‹view›, [‹cmd1›=[‹args›][, ‹cmd2›=…]]≫ list of lists of results ‹rows of results›
+            download_list = ‹view› ≫ list of strings ‹info hashes›
+
+        These commands iterate over the content of a given view,
+        or ``default`` when the view is omitted or empty.
+        ``download_list`` always just returns a list of the contained infohashes.
+
+        ``d.multicall2`` iterates over all items and calls the given commands on each item,
+        assembling the results of those calls in a row per item.
+        Typically, the given commands either just have a side effect (e.g. :term:`d.stop`),
+        or return some item attribute (e.g. :term:`d.name`).
+
+        If you request a lot of attribute values on *all* items,
+        make sure you set a big enough value for :term:`network.xmlrpc.size_limit`
+        to hold all the returned data serialized to XML.
+        It is also valid to pass no commands at all to ``d.multicall2``, but all you get from that
+        is a list of empty lists.
+
+        Example:
+
+        .. code-block:: shell
+
+            $ rtxmlrpc --repr d.multicall2 '' tagged d.hash= d.name= d.custom=category
+            [['91C588B9A9B5A71F0462343BC74E2A88C1E0947D',
+              'sparkylinux-4.0-x86_64-lxde.iso',
+              'Software'],
+             ['17C14214B60B92FFDEBFB550380ED3866BF49691',
+              'sparkylinux-4.0-x86_64-xfce.iso',
+              'Software']]
+
+            $ rtxmlrpc --repr download_list '' tagged
+            ['91C588B9A9B5A71F0462343BC74E2A88C1E0947D',
+             '17C14214B60B92FFDEBFB550380ED3866BF49691']
+
+
     d.name
     d.base_filename
     d.base_path
@@ -239,7 +279,6 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
     d.message
     d.message.set
     d.mode
-    d.multicall2
 
         **TODO**
 

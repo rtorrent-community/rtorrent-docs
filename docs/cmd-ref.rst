@@ -120,7 +120,6 @@ TODO (singles)
     check_hash
     connection_leech
     connection_seed
-    download_list
     download_rate
     encoding_list
     encryption
