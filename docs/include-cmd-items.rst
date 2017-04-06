@@ -17,21 +17,28 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 .. glossary::
 
     d.multicall2
+    d.multicall.filtered
     download_list
 
         .. code-block:: ini
 
-            d.multicall2 = ‹view›, [‹cmd1›=[‹args›][, ‹cmd2›=…]]≫ list of lists of results ‹rows of results›
+            d.multicall2 = ‹view›, [‹cmd1›=[‹args›][, ‹cmd2›=…]] ≫ list of lists of results ‹rows of results›
+            d.multicall.filtered = ‹view›, ‹predicate›, [‹cmd1›=[‹args›][, ‹cmd2›=…]] ≫ same as 'multicall2'
             download_list = ‹view› ≫ list of strings ‹info hashes›
 
         These commands iterate over the content of a given view,
         or ``default`` when the view is omitted or empty.
         ``download_list`` always just returns a list of the contained infohashes.
 
-        ``d.multicall2`` iterates over all items and calls the given commands on each item,
+        ``d.multicall2`` iterates over all items in ``view`` and calls the given commands on each,
         assembling the results of those calls in a row per item.
         Typically, the given commands either just have a side effect (e.g. :term:`d.stop`),
         or return some item attribute (e.g. :term:`d.name`).
+
+        ``d.multicall.filtered`` is only available in *rTorrent-PS*,
+        and evaluates the ``predicate`` condition as a filter for each item,
+        only calling the commands for items that match it.
+        See :term:`elapsed.greater` for an example.
 
         If you request a lot of attribute values on *all* items,
         make sure you set a big enough value for :term:`network.xmlrpc.size_limit`
