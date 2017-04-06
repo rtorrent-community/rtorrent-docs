@@ -375,7 +375,9 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
         **TODO**
 
 
-The following are only available in *rTorrent-PS*!
+.. note::
+
+    The following are only available in *rTorrent-PS*!
 
 .. glossary::
 
@@ -394,17 +396,52 @@ The following are only available in *rTorrent-PS*!
             view.sort_current = trackers, "compare=,d.tracker_domain=,d.name="
 
 
-These are part of the default ``pyrocore`` configuration:
+.. note::
+
+    The following commands are part of the default ``pyrocore`` configuration!
 
 .. glossary::
 
     d.data_path
+
+        Return path to an item's data – this is never empty, unlike :term:`d.base_path`.
+        Multi-file items return a path ending with a ``/``.
+
+        Definition:
+
+        .. code-block:: ini
+
+            method.insert = d.data_path, simple,\
+                "if=(d.is_multi_file),\
+                    (cat, (d.directory), /),\
+                    (cat, (d.directory), /, (d.name))"
+
+
     d.session_file
+
+        Return path to session file.
+
+        Definition:
+
+        .. code-block:: ini
+
+            method.insert = d.session_file, simple, "cat=(session.path), (d.hash), .torrent"
+
+
     d.tracker.bump_scrape
+
+        Send a scrape request for an item, set its ``tm_last_scrape`` custom attribute to now,
+        and save the session data. Part of `auto-scape.rc`_, and bound to the ``&`` key
+        in *rTorrent-PS*, to manually request a scrape update.
+
+
     d.timestamp.downloaded
     d.last_active
 
         **TODO**
+
+
+.. _`auto-scape.rc`: https://github.com/pyroscope/pyrocore/blob/master/src/pyrocore/data/config/rtorrent.d/auto-scrape.rc
 
 
 .. _f-commands:
