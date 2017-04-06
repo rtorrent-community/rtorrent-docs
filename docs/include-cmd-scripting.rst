@@ -313,7 +313,28 @@ Conditional Operators
     elapsed.greater
     elapsed.less
 
-        Compare time stamps like created by :term:`system.time`.
+        .. code-block:: ini
+
+            elapsed.greater = ‹start-time›, ‹interval› ≫ bool (0 or 1)
+            elapsed.less = ‹start-time›, ‹interval› ≫ bool (0 or 1)
+
+        Compare time elapsed since a given timestamp against an interval in seconds.
+        The timestamps are UNIX ones, like created by :term:`system.time_seconds`.
+        The result is ``false`` if the timestramp is empty / zero.
+
+        Example:
+
+        .. code-block:: ini
+
+            method.insert.value = cfg.seed_seconds, 259200
+            schedule2 = limit_seed_time, 66, 300, "d.multicall.filtered = started,\
+                \"elapsed.greater = (d.timestamp.finished), (cfg.seed_seconds)\",\
+                d.try_stop="
+
+        What this does is stop any item finished longer than 3 days ago
+        (selected via :term:`d.multicall.filtered`),
+        unless it is set to ignore commands
+        (:term:`d.try_stop` checks the ignore flag before stopping).
 
 
     compare
