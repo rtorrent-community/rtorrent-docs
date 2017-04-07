@@ -344,6 +344,8 @@ Conditional Operators
         and each command is called with the target (or the left / right sides of a target pair, respectively).
 
         As you can see above, to compare against a constant you have to define it as a command.
+        If you run *rTorrent-PS*, you can use :term:`value` instead.
+
         For strings, you can use :term:`cat` as the command, and pass it the text literal.
 
         .. code-block:: ini
@@ -447,5 +449,26 @@ The ``to_*`` forms are **deprecated**.
     to_throttle
 
         **TODO**
+
+
+    value
+
+        .. code-block:: ini
+
+            # rTorrent-PS only
+            value = ‹number›[, ‹base›] ≫ value
+
+        Converts a given number with the given base (or 10 as the default) to an integer value.
+
+        Examples:
+
+        .. code-block:: shell
+
+            $ rtxmlrpc -qi 'view.filter = rtcontrol, "equal = d.priority=, value=3"'
+            $ rtxmlrpc --repr value '' 1b 16
+            27
+            $ rtxmlrpc --repr value '' 1b
+            ERROR    While calling value('', '1b'): <Fault -503: 'Junk at end of number: 1b'>
+
 
 .. END cmd-scripting
