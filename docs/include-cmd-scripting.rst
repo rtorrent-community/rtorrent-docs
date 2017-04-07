@@ -323,7 +323,7 @@ Conditional Operators
         or a target pair (e.g. :term:`view.sort_new` or  :term:`view.sort_current`).
 
         Consider this example, where items are sorted by comparing the names of target pairs,
-        where the ``less`` command is called by a typical sorting algorithm:
+        and the ``less`` command is called by a typical sorting algorithm:
 
         .. code-block:: ini
 
