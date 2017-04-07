@@ -304,11 +304,59 @@ Conditional Operators
     or
     not
 
+        **TODO**
+
+    less
     equal
     greater
-    less
 
-        **TODO**
+        .. code-block:: ini
+
+            less = ‹cmd1›[, ‹cmd2›] ≫ bool (0 or 1)
+            equal = ‹cmd1›[, ‹cmd2›] ≫ bool (0 or 1)
+            greater = ‹cmd1›[, ‹cmd2›] ≫ bool (0 or 1)
+
+        The comparison operators can work with strings or values (integers),
+        returned from the given command(s).
+        The most common form is with one provided command, that is then
+        called for a target (e.g. with :term:`view.filter`)
+        or a target pair (e.g. :term:`view.sort_new` or  :term:`view.sort_current`).
+
+        Consider this example, where items are sorted by comparing the names of target pairs,
+        where the ``less`` command is called by a typical sorting algorithm:
+
+        .. code-block:: ini
+
+            view.sort_new     = name,((less,((d.name))))
+            view.sort_current = name,((less,((d.name))))
+
+        An example for a filter with two commands returning integer values is
+        the ``important`` view, showing only items with a high priority:
+
+        .. code-block:: ini
+
+            view.add = important
+            ui.current_view.set = important
+            method.insert = prio_high, value|const|private, 3
+            view.filter = important, "equal=d.priority=,prio_high="
+
+        When two commands are given, their return types must match,
+        and each command is called with the target (or the left / right sides of a target pair, respectively).
+
+        As you can see above, to compare against a constant you have to define it as a command.
+        For strings, you can use :term:`cat` as the command, and pass it the text literal.
+
+        .. code-block:: ini
+
+            view.filter = important, ((not, ((equal, ((d.throttle_name)), ((cat)) )) ))
+            view.filter = important, ((equal, ((d.throttle_name)), ((cat, NULL)) ))
+
+        Looks strange, like so many things in *rTorrent* scripting.
+        The first filter shows all items that have *any* throttle set,
+        i.e. have a non-empty throttle name.
+        ``((cat))`` is the command that returns that empty string we want to compare against.
+        The second filter selects items that have the special unlimited throttle ``NULL`` set.
+
 
     elapsed.greater
     elapsed.less
@@ -363,7 +411,6 @@ Conditional Operators
 
             view.add = messages
             view.filter = messages, ((d.message))
-            view.sort_new = messages, "less=d.message="
             view.sort_new = messages, "compare=,d.message=,d.name="
 
 
