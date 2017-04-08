@@ -150,11 +150,13 @@
 
         .. code-block:: ini
 
-            method.set_key = ‹name›, ‹key›, ‹definition› ≫ 0
+            method.set_key = ‹name›, ‹key›[, ‹definition›] ≫ 0
             method.has_key = ‹name›, ‹key› ≫ bool (0 or 1)
             method.list_keys = ‹name› ≫ list of strings
 
         Set entries in a ``multi`` method, query a single key, or list them all.
+        If you omit the definition in a ``method.set_key`` call, the key is erased
+        – it is safe to do that with a non-existing key.
 
         ``method.set_key`` is commonly used to add handler commands to event types
         like :term:`event.download.finished`.
