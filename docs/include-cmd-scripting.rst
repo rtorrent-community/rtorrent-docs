@@ -416,6 +416,25 @@ Conditional Operators
             view.sort_new = messages, "compare=,d.message=,d.name="
 
 
+    string.contains
+    string.contains_i
+
+        .. code-block:: ini
+
+            # rTorrent-PS 1.1+ only
+            string.contains[_i]=«haystack»,«needle»[,…]
+
+        Checks if a given string contains any of the strings following it.
+        The variant with ``_i`` is case-ignoring, but *only* works for pure ASCII needles.
+
+        Example:
+
+        .. code-block:: shell
+
+            $ rtxmlrpc d.multicall.filtered '' 'string.contains_i=(d.name),Mate' d.name=
+            ['sparkylinux-4.0-x86_64-mate.iso']
+
+
 Value Conversion & Formatting
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
