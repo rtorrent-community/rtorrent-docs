@@ -424,7 +424,7 @@ Conditional Operators
         .. code-block:: ini
 
             # rTorrent-PS 1.1+ only
-            string.contains[_i]=«haystack»,«needle»[,…]
+            string.contains[_i]=«haystack»,«needle»[,…] ≫ bool (0 or 1)
 
         Checks if a given string contains any of the strings following it.
         The variant with ``_i`` is case-ignoring, but *only* works for pure ASCII needles.
@@ -435,6 +435,39 @@ Conditional Operators
 
             $ rtxmlrpc d.multicall.filtered '' 'string.contains_i=(d.name),Mate' d.name=
             ['sparkylinux-4.0-x86_64-mate.iso']
+
+
+String Functions
+^^^^^^^^^^^^^^^^
+
+.. glossary::
+
+    string.map
+    string.replace
+
+        .. code-block:: ini
+
+            # rTorrent-PS 1.1+ only
+            string.map=«text»,{«old»,«new»}[,…] ≫ string
+            string.replace=«text»,{«old»,«new»}[,…] ≫ string
+
+        ``string.map`` scans a list of replacement pairs for an ``old`` text that matches
+        *all* of the given string, and replaces it by ``new``.
+
+        ``string.replace`` substitutes any occurence of the old text by the new one.
+
+        Example:
+
+        .. code-block:: shell
+
+            $ rtxmlrpc string.map '' 'foo' [foo,bar [bar,baz
+            baz
+
+            $ rtxmlrpc string.replace '' "it's like 1" [1,2ic [2,ma3 [3,g
+            it's like magic
+
+            $ rtxmlrpc -i 'print = (string.map, (cat, (value,1)), {0,off}, {1,low}, {2,""}, {3,high})'
+            # prints 'low' as a console message, this is how you map integers
 
 
 Value Conversion & Formatting
