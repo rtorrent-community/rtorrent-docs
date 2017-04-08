@@ -465,6 +465,7 @@ The ``to_*`` forms are **deprecated**.
         .. code-block:: shell
 
             $ rtxmlrpc -qi 'view.filter = rtcontrol, "equal = d.priority=, value=3"'
+            # the 'rtcontrol' view will now show all items with priority 'high'
             $ rtxmlrpc --repr value '' 1b 16
             27
             $ rtxmlrpc --repr value '' 1b
