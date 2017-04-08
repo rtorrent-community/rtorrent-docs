@@ -134,7 +134,7 @@ Commands related to the operating system and the XMLRPC API.
 
         .. code-block:: ini
 
-            # 0.9.7+ / rTorrent-PS only
+            # 0.9.7+ / rTorrent-PS 0.*+ only
             system.env = ‹varname› ≫ string ‹env-value›
 
         Query the value of an environment variable,
@@ -187,7 +187,7 @@ Commands related to the operating system and the XMLRPC API.
 
         .. code-block:: ini
 
-            # rTorrent-PS only
+            # rTorrent-PS 1.0+ only
             system.random = [[‹lower›,] ‹upper›] ≫ value
 
         Generate *uniformly* distributed random numbers in the range
@@ -301,7 +301,7 @@ Commands related to the operating system and the XMLRPC API.
 
         .. code-block:: ini
 
-            # rTorrent-PS only
+            # rTorrent-PS 0.*+ only
             log.messages = ‹log file path› ≫ 0
 
         (Re-)opens a log file that contains the messages normally only visible

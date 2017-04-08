@@ -45,8 +45,10 @@ Commands in this group control aspects of the ‘curses’ UI.
 
         .. code-block:: ini
 
-            # rTorrent-PS only
+            # rTorrent-PS 0.*+ only
             ui.bind_key = display, key, "command=[...]" ≫ 0
+            # rTorrent-PS 1.1+ only
+            ui.bind_key.verbose = ≫ bool (0 or 1)
 
         Binds the given key on a specified display to execute the given command when pressed.
         Note that this needs to be called in a one-shot schedule, after *rTorrent* is fully initialized.

@@ -230,7 +230,7 @@
 
         .. code-block:: ini
 
-            # rTorrent-PS only!
+            # rTorrent-PS 0.*+ only!
 
             # Show traffic of the last hour (112*32 = 3584 ≈ 3600)
             network.history.depth.set = 112

@@ -391,7 +391,7 @@ Conditional Operators
 
         .. code-block:: ini
 
-            # rTorrent-PS only
+            # rTorrent-PS 0.*+ only
             compare = ‹order›, ‹sort_key›=[, ...] ≫ bool (0 or 1)
 
         Compares two items like :term:`less` or :term:`greater`, but allows
@@ -455,7 +455,7 @@ The ``to_*`` forms are **deprecated**.
 
         .. code-block:: ini
 
-            # rTorrent-PS only
+            # rTorrent-PS 1.1+ only
             value = ‹number›[, ‹base›] ≫ value
 
         Converts a given number with the given base (or 10 as the default) to an integer value.

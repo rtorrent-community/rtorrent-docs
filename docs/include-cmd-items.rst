@@ -22,6 +22,7 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
         .. code-block:: ini
 
+            # 'd.multicall.filtered' is rTorrent-PS 1.1+ only
             d.multicall2 = ‹view›, [‹cmd1›=[‹args›][, ‹cmd2›=…]] ≫ list of lists of results ‹rows of results›
             d.multicall.filtered = ‹view›, ‹predicate›, [‹cmd1›=[‹args›][, ‹cmd2›=…]] ≫ same as 'multicall2'
             download_list = ‹view› ≫ list of strings ‹info hashes›
