@@ -20,8 +20,12 @@ Commands in this group control aspects of the ‘curses’ UI.
 
         Typical uses are to change and then restore the active view,
         or rotate through a set of views.
-        Rotating though views requires querying the current view and the view list,
+        Rotating through views requires querying the current view and the view list,
         to find the next one.
+
+        In *rTorrent-PS* 1.1+, view changes trigger event handlers for
+        :term:`event.view.hide` and :term:`event.view.show`.
+
 
     ui.torrent_list.layout
     ui.torrent_list.layout.set
