@@ -538,6 +538,44 @@ The ``to_*`` forms are **deprecated**.
             '    '
 
 
+    convert.magnitude
+
+        .. code-block:: ini
+
+            # rTorrent-PS 1.1+ only
+            convert.magnitude = ‹number› ≫ string
+
+        Converts any positive number below 10 million into
+        a very compact string representation with only 2 characters.
+        Above 99, only the first significant digit is retained,
+        plus an order of magnitude indicator using roman numerals
+        (c = 10², m = 10³, X = 10⁴, C = 10⁵, M = 10⁶).
+        Zero and out of range values are handled special (see examples below).
+
+        Examples:
+
+        .. code-block:: shell
+
+            $ rtxmlrpc convert.magnitude '' +0
+             ·
+            $ rtxmlrpc convert.magnitude '' +1
+             1
+            $ rtxmlrpc convert.magnitude '' +99
+            99
+            $ rtxmlrpc convert.magnitude '' +100
+            1c
+            $ rtxmlrpc convert.magnitude '' +999
+            9c
+            $ rtxmlrpc convert.magnitude '' +1000
+            1m
+            $ rtxmlrpc convert.magnitude '' +9999999
+            9M
+            $ rtxmlrpc convert.magnitude '' +10000000
+            ♯♯
+            $ rtxmlrpc -- convert.magnitude '' -1
+            ♯♯
+
+
     value
 
         .. code-block:: ini
