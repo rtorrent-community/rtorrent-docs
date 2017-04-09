@@ -205,6 +205,32 @@
         **TODO**
 
 
+    event.view.hide
+    event.view.show
+
+        .. code-block:: ini
+
+            # rTorrent-PS 1.1+ only
+            event.view.hide = ‹new-view-name› ≫ 0
+            event.view.show = ‹old-view-name› ≫ 0
+
+        These events get called shortly before and after the download list canvas changes to a new view.
+        Each gets passed the view name that is *not* available via :term:`ui.current_view`
+        at the time of the trigger, i.e. either the new or the old view name.
+
+        Be aware that during startup these view names can be *empty* strings!
+
+        Event handler example:
+
+        .. code-block:: ini
+
+            method.set_key = event.view.hide, ~log,\
+                ((print, "× ", ((ui.current_view)), " → ", ((argument.0))))'
+            method.set_key = event.view.show, ~log,\
+                ((print, "⊞ ", ((argument.0)), " → ", ((ui.current_view))))'
+
+
+
 Scheduling Commands
 ^^^^^^^^^^^^^^^^^^^
 
