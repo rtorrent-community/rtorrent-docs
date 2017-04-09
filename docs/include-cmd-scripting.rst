@@ -1,7 +1,7 @@
 .. _method-commands:
 
 `method.*` commands
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
 
 .. glossary::
 
@@ -503,6 +503,39 @@ The ``to_*`` forms are **deprecated**.
     to_throttle
 
         **TODO**
+
+
+    convert.human_size
+
+        .. code-block:: ini
+
+            # rTorrent-PS 1.1+ only
+            convert.human_size = ‹bytes›[, ‹format›] ≫ string
+
+        Converts a size in bytes to a compact, human readable string.
+        See also :term:`convert.xb` for a similar command.
+
+        Format is a number (default 2), with these values:
+
+        * ``0``: use 6 chars (one decimal place)
+        * ``1``: just print the rounded value (4 chars)
+        * ``2``: combine the two formats into 4 chars by rounding for values >= 9.95
+        * ``+8``: adding 8 converts zero values to whitespace of the correct length
+
+        Examples:
+
+        .. code-block:: shell
+
+            $ rtxmlrpc --repr convert.human_size '' +970 +0
+            '  0.9K'
+            $ rtxmlrpc --repr convert.human_size '' +970 +1
+            '  1K'
+            $ rtxmlrpc --repr convert.human_size '' +970 +10
+            '0.9K'
+            $ rtxmlrpc --repr convert.human_size '' +0 +2
+            '0.0K'
+            $ rtxmlrpc --repr convert.human_size '' +0 +10
+            '    '
 
 
     value
