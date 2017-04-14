@@ -159,4 +159,21 @@ Commands in this group control aspects of the ‘curses’ UI.
 
         **TODO**
 
+
+    view.collapsed.toggle
+
+        .. code-block:: ini
+
+            # rTorrent-PS 0.*+ only
+            view.collapsed.toggle=‹view-name› ≫ 0
+
+        This command changes between the normal item display, where each item
+        takes up three lines, to a more condensed form exclusive to *rTorrent-PS*,
+        where each item only takes up one line.
+
+        Note that each view has its own state, and that if the view
+        name is empty, the current view is toggled. You can set the default
+        state in your configuration, by adding a toggle command for each view
+        you want collapsed after startup (the default is expanded).
+
 .. END cmd-ui
