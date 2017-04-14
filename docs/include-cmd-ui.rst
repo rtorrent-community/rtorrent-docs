@@ -75,31 +75,51 @@ Commands in this group control aspects of the ‘curses’ UI.
                 "ui.bind_key = download_list, ^, ui.current_view.set=rtcontrol"
 
 
-    ui.color.alarm[.set]
-    ui.color.complete[.set]
-    ui.color.even[.set]
-    ui.color.focus[.set]
-    ui.color.footer[.set]
-    ui.color.incomplete[.set]
-    ui.color.info[.set]
-    ui.color.label[.set]
-    ui.color.leeching[.set]
-    ui.color.odd[.set]
-    ui.color.progress0[.set]
-    ui.color.progress20[.set]
-    ui.color.progress40[.set]
-    ui.color.progress60[.set]
-    ui.color.progress80[.set]
-    ui.color.progress100[.set]
-    ui.color.progress120[.set]
-    ui.color.queued[.set]
-    ui.color.seeding[.set]
-    ui.color.stopped[.set]
-    ui.color.title[.set]
+    ui.color.alarm
+    ui.color.complete
+    ui.color.even
+    ui.color.focus
+    ui.color.footer
+    ui.color.incomplete
+    ui.color.info
+    ui.color.label
+    ui.color.leeching
+    ui.color.odd
+    ui.color.progress0
+    ui.color.progress20
+    ui.color.progress40
+    ui.color.progress60
+    ui.color.progress80
+    ui.color.progress100
+    ui.color.progress120
+    ui.color.queued
+    ui.color.seeding
+    ui.color.stopped
+    ui.color.title
+    ui.color.‹type›.set
 
-        **TODO**
+        .. code-block:: ini
+
+            # rTorrent-PS 0.*+ only
+            ui.color.‹type›= ≫ string ‹color-spec›
+            ui.color.‹type›.set=‹color-spec› ≫ 0
+
+        These commands allow you to set colors for selected elements of the user
+        interface in *rTorrent-PS*, in some cases depending on their status. You can either
+        provide colors by specifying the numerical index in the terminal's color
+        table, or by name (for the first 16 colors). The possible color names
+        are "black", "red", "green", "yellow", "blue", "magenta", "cyan",
+        "gray", and "white"; you can use them for both text and background
+        color, in the form "«fg» on «bg»", and you can add "bright" in front of
+        a color to select a more luminous version. If you don't specify a color,
+        the default of your terminal is used.
+
+        Also, these additional modifiers can be placed in the color definitions,
+        but it depends on the terminal you're using whether they have an effect:
+        "bold", "standout", "underline", "reverse", "blink", and "dim".
 
         See the `color scheme for 256 xterm colors`_ for an example.
+
 
     ui.focus.end
     ui.focus.home
@@ -108,6 +128,10 @@ Commands in this group control aspects of the ‘curses’ UI.
     ui.focus.page_size
     ui.focus.page_size.set
 
+        .. code-block:: ini
+
+            # rTorrent-PS 0.*+ only
+
         **TODO**
 
     ui.style.progress
@@ -115,7 +139,12 @@ Commands in this group control aspects of the ‘curses’ UI.
     ui.style.ratio
     ui.style.ratio.set
 
+        .. code-block:: ini
+
+            # rTorrent-PS 0.*+ only
+
         **TODO**
+
 
 .. _`color scheme for 256 xterm colors`: https://github.com/pyroscope/pyrocore/blob/master/src/pyrocore/data/config/color-schemes/default-256.rc
 
