@@ -211,7 +211,16 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
     d.custom2…5
     d.custom2…5.set
 
-        **TODO**
+        .. code-block:: ini
+
+            d.custom = string ‹key› ≫ string ‹value›
+            d.custom.set = string ‹key›, string ‹value› ≫ 0
+            d.custom1 = ≫ string ‹value›
+            d.custom1.set = string ‹value› ≫ 0
+
+        Set and return custom values with arbitrary keys. Note that ``d.custom1=`` is *not* the same as ``d.custom=1`` or ``d.custom=custom1``, and can only be accessed by its assigned commands.
+        The ``d.custom2…5`` commands are identical in behavior to ``d.custom1``.
+        If ``d.custom`` is called for a key that doesn't exist, it will return an empty string, however ``d.custom_throw`` can be used to throw an XMLRPC error if the key doesn't exist instead.
 
     d.disconnect.seeders
 
@@ -227,14 +236,30 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
     d.down.rate
     d.down.total
 
-        **TODO**
+        .. code-block:: ini
+
+            d.down.rate = ‹hash› ≫ value ‹rate›
+            d.down.total = ‹hash› ≫ value ‹total›
+
+        The total and rate of download traffic for this item. It's possible for the total downloaded
+        to be greater than the complete size of the torrent, due to error correction or discarded data.
 
     d.downloads_max
     d.downloads_max.set
     d.downloads_min
     d.downloads_min.set
 
-        **TODO**
+        .. code-block:: ini
+
+            d.downloads_max = ‹hash› ≫ value ‹max›
+            d.downloads_max.set = ‹hash›, value ‹max› ≫ 0
+            d.downloads_min = ‹hash› ≫ value ‹max›
+            d.downloads_min.set = ‹hash›, value ‹max› ≫ 0
+
+        Control the maximum and minimum download slots that can be used. rTorrent will attempt to balance the number of active connections so that
+        the number of unchoked connections is between the minimum and maximum, which means that these are not hard limits, but are instead goals that rTorrent will try to reach.
+        ``0`` means unlimited, and while ``d.downloads_max`` can be set to less than ``d.downloads_min``, rTorrent will use ``d.downloads_min`` as the maximum instead.
+
 
     d.erase
     d.free_diskspace
@@ -248,6 +273,15 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
         **TODO**
 
     d.hash
+
+       .. code-block:: ini
+
+            d.hash = ‹hash› ≫ string ‹hash›
+
+       Returns the hash of the torrent in hexidecimal form, with uppercase letters. This is mostly intended to be used
+       as an arugment to :term:`d.multicall2`. If you are looking to cause a hash check, see :term:`d.check_hash`.
+
+
     d.hashing
     d.hashing_failed
     d.hashing_failed.set
@@ -263,13 +297,42 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
     d.is_hash_checked
     d.is_hash_checking
     d.is_meta
-    d.is_multi_file
-    d.is_not_partially_done
-    d.is_partially_done
-    d.is_pex_active
-    d.is_private
 
         **TODO**
+
+    d.is_multi_file
+
+        .. code-block:: ini
+
+            d.is_multi_file = ‹hash› ≫ (0|1)
+
+        Returns ``1`` is the torrents is marked as having multiple files, ``0`` if it's a single file.
+        Note that multifile-marked torrents are able to only have 1 actual file in them. See :term:`d.size_files`
+        for returning the true number of files in an item.
+
+
+    d.is_not_partially_done
+    d.is_partially_done
+
+        **TODO**
+
+    d.is_pex_active
+
+        .. code-block:: ini
+
+            d.is_pex_active = ‹hash› ≫ (0|1)
+
+        Return a 1 or a 0 based on whether `PEX <https://en.wikipedia.org/wiki/Peer_exchange>`_ is active for this item.
+        See :term:`protocol.pex` to determine if PEX is active globally.
+
+    d.is_private
+
+        .. code-block:: ini
+
+            d.is_private = ‹hash› ≫ (0|1)
+
+        Checks if the private flag is set. If it is, the item will not attempt to find new peers
+        outside of the tracker (i.e. PEX and DHT).
 
     d.left_bytes
     d.load_date
@@ -281,11 +344,26 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
     d.max_file_size
     d.max_file_size.set
 
-        **TODO**
+        Controls the maximum file size of any file in the item. If a file exceeds this amount, the torrent cannot be opened
+        and an error will be shown.
+        Defaults to the value of :term:`system.file.max_size` at the time the torrent is added.
+
 
     d.max_size_pex
+
+        **TODO**
+
     d.message
     d.message.set
+
+        .. code-block:: ini
+
+            d.message = ‹hash› ≫ string ‹message›
+            d.message.set = ‹hash›, string ‹message› ≫ 0
+
+        Used to store messages relating to the item, such as errors in communicating with the tracker or a hash check failure.
+
+
     d.mode
 
         **TODO**
@@ -317,7 +395,9 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
     d.ratio
 
-        **TODO**
+        Returns the ratio of the torrent. This is the amount of uploaded data divided by the completed bytes multiplied by 1000 in the item.
+        If no bytes have been downloaded, the ratio is considered to be 0.
+
 
     d.save_full_session
 
@@ -329,14 +409,35 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
     d.save_resume
 
-        **TODO**
+        Similar to :term:`d.save_full_session`, but skips writing the base file, only flushing the data in the
+        ``libtorrent_resume`` and ``rtorrent`` files.
+
 
     d.size_bytes
     d.size_chunks
     d.size_files
     d.size_pex
+
+        View the various size attributes of an item.
+
+        - bytes: The total number of bytes in the items' files
+        - chunks: The number of chunks, including the trailing chunk
+        - files: The number of files (does not include directories)
+        - pex: The number of peers that were report via the PEX extension. If :term:`d.is_pex_active` is false,
+          this will be automatically be 0.
+
     d.skip.rate
     d.skip.total
+
+        .. code-block:: ini
+
+            d.skip.rate = ‹hash› ≫ value ‹rate›
+            d.skip.total = ‹hash› ≫ value ‹total›
+
+        Skipped pieces are ones that are received from a peer, but aren't needed and are thus ignored. This
+        total and rate are also part of the main download statistics, i.e. :term:`d.down.rate` and :term:`d.down.total`.
+
+
     d.throttle_name
     d.throttle_name.set
     d.timestamp.finished
@@ -368,7 +469,16 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
     d.uploads_min
     d.uploads_min.set
 
-        **TODO**
+        .. code-block:: ini
+
+            d.uploads_max = ‹hash› ≫ value ‹max›
+            d.uploads_max.set = ‹hash›, value ‹max› ≫ 0
+            d.uploads_min = ‹hash› ≫ value ‹min›
+            d.uploads_min.set = ‹hash›, value ‹min› ≫ 0
+
+        Control the maximum and minimum upload slots that can be used. rTorrent will attempt to balance the number of active connections so that
+        the number of unchoked connections is between the minimum and maximum.
+        ``0`` means unlimited, and while ``d.uploads_max`` can be set to less than ``d.uploads_min``, rTorrent will use ``d.uploads_min`` as the maximum instead.
 
     d.views
     d.views.has
@@ -660,9 +770,12 @@ and using ``Ctrl-K`` also implictly unties an item.
 
     session.save
 
-        **TODO**
+        Flushes the full session state for all torrents to the related files in the session folder. Note that this can cause
+        `heavy IO <https://github.com/rakshasa/rtorrent/issues/180#issuecomment-55140832>`_ with many torrents.
+        The default interval this command runs at `can be audjusted <https://github.com/rakshasa/rtorrent/wiki/Performance-Tuning#session-save>`_,
+        however if rTorrent restarts or goes down, there may be a loss of statistics and resume data for any new torrents added.
 
-        :term:`d.save_full_session` saves the state of a single item.
+        See also :term:`d.save_full_session`, which saves the state of a single item.
 
 
     session.use_lock
