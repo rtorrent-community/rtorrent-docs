@@ -48,6 +48,7 @@ Contents of This Manual
     cookbook
     use-cases
     scripting
+    faq
     cmd-ref
     contributing
 
