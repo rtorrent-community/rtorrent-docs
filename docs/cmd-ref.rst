@@ -1,13 +1,13 @@
 Commands Reference
 ==================
 
-The reference chapter lists all relevant XMLRPC and ‘private’ commands
+The reference chapter lists select XMLRPC and ‘private’ commands
 provided by *rTorrent* with a short explanation.
 See the :doc:`scripting` on how to combine them into meaningful command sequences.
 
 **Use the search box** in the sidebar to find specific commands,
 or the :ref:`search`.
-The :ref:`generated index <genindex>` also lists all the commmand names.
+The :ref:`generated index <genindex>` also lists the commmand names.
 
 
 .. contents:: List of Command Groups
