@@ -155,7 +155,19 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
     d.tied_to_file
     d.tied_to_file.set
 
-        **TODO**
+        ``d.loaded_file`` is the metafile from which this item was created.
+        After loading from a watch directory, this points to that watch directory,
+        but after a client restart it is the session file
+        (since the item is then loaded from there).
+
+        ``d.tied_to_file`` also starts out as the file the item is initially created from,
+        but can be set to arbitrary values, and an item can be *untied* using :term:`d.delete_tied`,
+        leading to an empty value and the deletion of the tied file.
+
+        One of the :term:`stop_untied`, :term:`close_untied`, or :term:`remove_untied` commands
+        can then be used in a schedule to stop, close, or remove an item that lost its tied file,
+        including when you delete or move it from the outside in a shell or cron job.
+
 
     d.accepting_seeders
     d.accepting_seeders.disable
