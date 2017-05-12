@@ -165,9 +165,13 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
     d.bitfield
     d.bytes_done
-    d.check_hash
 
         **TODO**
+
+    d.check_hash
+
+        Checks the piece hashes of an item against its data.
+        Started items are paused during the rehashing.
 
     d.chunk_size
 
