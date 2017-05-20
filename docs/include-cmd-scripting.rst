@@ -282,7 +282,7 @@ just like a cron job, but with a resolution of seconds.
             schedule_remove2 = ‹name› ≫ 0
 
         Delete an existing task referenced by ``name`` from the scheduler.
-        Deleting a non-existing tasks is not an error.
+        Deleting a non-existing task is not an error.
 
 
     start_tied
