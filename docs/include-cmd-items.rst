@@ -214,7 +214,26 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
     d.create_link
     d.delete_link
+
+        **TODO**
+
+
     d.delete_tied
+
+        Delete the :term:`d.tied_to_file`, which obviously also unties the item.
+        This command is bound to the ``U`` key by default, and also called whenever
+        an item is erased.
+
+        Example:
+
+        .. code-block:: ini
+
+            # Delete metafile from a watch dir directly after loading it
+            # (note that a copy still remains in the session directory)
+            schedule2 = watch_cleaned, 29, 10, \
+                ((load.normal, (cat,(cfg.watch),"cleaned/*.torrent"), "d.delete_tied="))
+
+
     d.creation_date
 
         **TODO**
