@@ -465,13 +465,16 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
         Flushes the item's state to files in the session directory (if enabled).
         This writes *all* files that contribute to an item's state, i.e. the ‘full’ state.
 
-        See also :term:`session.save`.
+        See also :term:`session.save` and :term:`d.save_resume` below.
 
 
     d.save_resume
 
         Similar to :term:`d.save_full_session`, but skips writing the original metafile,
         only flushing the data in the ``*.libtorrent_resume`` and ``*.rtorrent`` files.
+
+        The new data is written to ``*.new`` files and afterwards renamed, if writing
+        those files succeeded.
 
 
     d.size_bytes
