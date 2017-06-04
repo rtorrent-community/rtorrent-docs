@@ -634,7 +634,24 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 `f.*` commands
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+These commands can be used as arguments in a :term:`f.multicall`.
+They can also be called directly, but you need to pass `‹infohash›:f‹index›` as the first argument.
+Index counting starts at ``0``, the array size is :term:`d.size_files`.
+
 .. glossary::
+
+    f.multicall
+
+        .. code-block:: ini
+
+            f.multicall = ‹infohash›, ‹pattern›, [‹cmd1›=[‹args›][, ‹cmd2›=…]] ≫ list of lists of results ‹rows of results›
+
+        Iterates over the files in an item, calling the given ``f.*`` commands.
+        The second argument, if non-empty, is a glob-like pattern (e.g. ``*.mkv``) and
+        filters the result for matching filenames. That pattern matching is very simplistic,
+        be cautious and test that you get the results you expect.
+
+        See also :term:`d.multicall2` on basics regarding multi-calls.
 
     f.completed_chunks
     f.frozen_path
@@ -645,7 +662,6 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
     f.last_touched
     f.match_depth_next
     f.match_depth_prev
-    f.multicall
     f.offset
     f.path
     f.path_components
@@ -683,7 +699,22 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 `p.*` commands
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+These commands can be used as arguments in a :term:`p.multicall`.
+They can also be called directly, but you need to pass `‹infohash›:p‹id›` as the first argument.
+The ``‹id›`` is the peer ID as returned by :term:`p.id`, encoded as a hexadecimal string.
+
 .. glossary::
+
+    p.multicall
+
+        .. code-block:: ini
+
+            p.multicall = ‹infohash›, "", [‹cmd1›=[‹args›][, ‹cmd2›=…]] ≫ list of lists of results ‹rows of results›
+
+        Iterates over the peers in an item, calling the given ``p.*`` commands.
+
+        The second argument is ignored, pass an empty string.
+        See also :term:`d.multicall2` on basics regarding multi-calls.
 
     p.address
     p.banned
@@ -703,7 +734,6 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
     p.is_preferred
     p.is_snubbed
     p.is_unwanted
-    p.multicall
     p.options_str
     p.peer_rate
     p.peer_total
@@ -721,7 +751,22 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 `t.*` commands
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+These commands can be used as arguments in a :term:`t.multicall`.
+They can also be called directly, but you need to pass `‹infohash›:t‹index›` as the first argument.
+Index counting starts at ``0``, the array size is :term:`d.tracker_size`.
+
 .. glossary::
+
+    t.multicall
+
+        .. code-block:: ini
+
+            t.multicall = ‹infohash›, "", [‹cmd1›=[‹args›][, ‹cmd2›=…]] ≫ list of lists of results ‹rows of results›
+
+        Iterates over the trackers in an item, calling the given ``t.*`` commands.
+
+        The second argument is ignored, pass an empty string.
+        See also :term:`d.multicall2` on basics regarding multi-calls.
 
     t.activity_time_last
     t.activity_time_next
@@ -743,7 +788,6 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
     t.latest_new_peers
     t.latest_sum_peers
     t.min_interval
-    t.multicall
     t.normal_interval
     t.scrape_complete
     t.scrape_counter
