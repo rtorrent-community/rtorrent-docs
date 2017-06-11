@@ -121,7 +121,7 @@ The throttle assigned to the item in focus can be changed using ``Ctrl-T``
 
 There are two system throttles, ``NULL`` and the one with an empty name.
 ``NULL`` is a special throttle for *unlimited*, and the latter is the *global* throttle,
-which is the default for new items and what's show in the status bar on the left
+which is the default for new items and what's shown in the status bar on the left
 as ``[Throttle ‹UP›/‹DOWN› KB]``.
 
 **TODO** Explain how throttles work, borrowing from the global throttle.
