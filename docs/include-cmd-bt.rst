@@ -115,39 +115,108 @@
 `throttle.*` commands
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Throttles are names for bandwidth limitation rules (for upload, download, or both).
+The throttle assigned to the item in focus can be changed using ``Ctrl-T``
+– it will rotate through all defined ones.
+
+There are two system throttles, ``NULL`` and the one with an empty name.
+``NULL`` is a special throttle for *unlimited*, and the latter is the *global* throttle,
+which is the default for new items and what's show in the status bar on the left
+as ``[Throttle ‹UP›/‹DOWN› KB]``.
+
+**TODO** Explain how throttles work, borrowing from the global throttle.
+
+Other commands in this group determine the limits for upload / download slots,
+and the amount of peers requested in tracker announces.
+
+.. warning::
+
+    Note that since named throttles *borrow* from the global throttle,
+    the global one has to be set to a non-zero value for the named ones to work
+    (because borrowing from ∞ means there is no limit).
+
+
 .. glossary::
 
     throttle.down
-    throttle.down.max
-    throttle.down.rate
     throttle.up
+
+        .. code-block:: ini
+
+            throttle.down = ‹name›, ‹rate› ≫ 0
+            throttle.up = ‹name›, ‹rate› ≫ 0
+
+        Define a named throttle. The ``rate`` must be a string (important when using XMLRPC),
+        and is always in KiB/s.
+
+        You can also set a new rate for existing throttles this way
+        (i.e. repeated definitions are no error).
+
+    throttle.down.max
     throttle.up.max
+
+        .. code-block:: ini
+
+            throttle.down.max = ‹name› ≫ value ‹limit›
+            throttle.up.max = ‹name› ≫ value ‹limit›
+
+        Get the current limit of a named throttle in bytes/s.
+
+    throttle.down.rate
     throttle.up.rate
 
-        **TODO**
+        .. code-block:: ini
+
+            throttle.down.rate = ‹name› ≫ value ‹rate›
+            throttle.up.rate = ‹name› ≫ value ‹rate›
+
+        Get the current rate of a named throttle in bytes/s, averaged over recent history.
 
     throttle.global_down.max_rate
     throttle.global_down.max_rate.set
     throttle.global_down.max_rate.set_kb
-    throttle.global_down.rate
-    throttle.global_down.total
-
-        **TODO**
-
     throttle.global_up.max_rate
     throttle.global_up.max_rate.set
     throttle.global_up.max_rate.set_kb
+
+        Query or change the current value for the global throttle.
+        Always use ``set_kb`` to change these values (the ``set`` commands have bugs),
+        and be aware that you always get bytes/s when querying them.
+
+    throttle.global_down.rate
     throttle.global_up.rate
+
+        .. code-block:: ini
+
+            throttle.global_down.rate ≫ value ‹rate›
+            throttle.global_up.rate ≫ value ‹rate›
+
+        Current overall bandwidth usage in bytes/s, averaged over recent history.
+
+    throttle.global_down.total
     throttle.global_up.total
 
-        **TODO**
+        .. code-block:: ini
+
+            throttle.global_down.total ≫ value ‹bytes›
+            throttle.global_up.total ≫ value ‹bytes›
+
+        Amount of data moved over all items, in bytes.
+
+        **TODO** … in this session, including deleted items?
 
     throttle.max_downloads
     throttle.max_downloads.set
     throttle.max_downloads.div
+    throttle.max_downloads.div.set
     throttle.max_downloads.div._val
     throttle.max_downloads.div._val.set
-    throttle.max_downloads.div.set
+    throttle.max_uploads
+    throttle.max_uploads.set
+    throttle.max_uploads.div
+    throttle.max_uploads.div.set
+    throttle.max_uploads.div._val
+    throttle.max_uploads.div._val.set
 
         **TODO**
 
@@ -155,18 +224,6 @@
     throttle.max_downloads.global.set
     throttle.max_downloads.global._val
     throttle.max_downloads.global._val.set
-
-        **TODO**
-
-    throttle.max_uploads
-    throttle.max_uploads.set
-    throttle.max_uploads.div
-    throttle.max_uploads.div._val
-    throttle.max_uploads.div._val.set
-    throttle.max_uploads.div.set
-
-        **TODO**
-
     throttle.max_uploads.global
     throttle.max_uploads.global.set
     throttle.max_uploads.global._val
@@ -199,6 +256,10 @@
 
     throttle.ip
 
-        **TODO**
+        .. code-block:: ini
+
+            throttle.ip = ‹throttle name›, ‹IP or domain name› ≫ 0
+
+        Throttle a specific peer by its IP address.
 
 .. END cmd-bt
