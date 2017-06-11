@@ -162,6 +162,9 @@ and the amount of peers requested in tracker announces.
 
         Get the current limit of a named throttle in bytes/s.
 
+        Unknown throttles return ``-1``, unlimited ones ``0``.
+        If the global throttle is not set, you also get ``0`` for any call.
+
     throttle.down.rate
     throttle.up.rate
 
@@ -171,6 +174,9 @@ and the amount of peers requested in tracker announces.
             throttle.up.rate = ‹name› ≫ value ‹rate›
 
         Get the current rate of a named throttle in bytes/s, averaged over recent history.
+
+        Unknown throttles always return ``0``.
+        If the global throttle is not set, you also get ``0`` for any call.
 
     throttle.global_down.max_rate
     throttle.global_down.max_rate.set
