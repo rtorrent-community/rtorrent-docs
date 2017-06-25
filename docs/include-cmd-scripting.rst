@@ -113,7 +113,7 @@
         commands defined in the :term:`method.insert.value` example,
         you'll get this:
 
-        .. code-block:: shell
+        .. code-block:: console
 
             $ rtxmlrpc --repr method.get '' sample.verbose
             1
@@ -129,7 +129,7 @@
         ``method.get`` is also great to see what system handlers are registered.
         They often begin with a ``!`` or ``~`` to ensure they sort before / after any user-defined handlers.
 
-        .. code-block:: shell
+        .. code-block:: console
 
             $ rtxmlrpc --repr method.get '' event.download.closed
             {'!view.indemand': 'view.filter_download=indemand',
@@ -457,7 +457,7 @@ Conditional Operators
 
         Example:
 
-        .. code-block:: shell
+        .. code-block:: console
 
             $ rtxmlrpc d.multicall.filtered '' 'string.contains_i=(d.name),Mate' d.name=
             ['sparkylinux-4.0-x86_64-mate.iso']
@@ -484,7 +484,7 @@ String Functions
 
         Example:
 
-        .. code-block:: shell
+        .. code-block:: console
 
             $ rtxmlrpc string.map '' 'foo' [foo,bar [bar,baz
             baz
@@ -550,7 +550,7 @@ The ``to_*`` forms are **deprecated**.
 
         Examples:
 
-        .. code-block:: shell
+        .. code-block:: console
 
             $ rtxmlrpc --repr convert.human_size '' +970 +0
             '  0.9K'
@@ -580,7 +580,7 @@ The ``to_*`` forms are **deprecated**.
 
         Examples:
 
-        .. code-block:: shell
+        .. code-block:: console
 
             $ rtxmlrpc convert.magnitude '' +0
              ·
@@ -613,7 +613,7 @@ The ``to_*`` forms are **deprecated**.
 
         Examples:
 
-        .. code-block:: shell
+        .. code-block:: console
 
             $ rtxmlrpc -qi 'view.filter = rtcontrol, "equal = d.priority=, value=3"'
             # the 'rtcontrol' view will now show all items with priority 'high'

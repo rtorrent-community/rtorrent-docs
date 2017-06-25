@@ -49,7 +49,7 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
         Example:
 
-        .. code-block:: shell
+        .. code-block:: console
 
             $ rtxmlrpc --repr d.multicall2 '' tagged d.hash= d.name= d.custom=category
             [['91C588B9A9B5A71F0462343BC74E2A88C1E0947D',
