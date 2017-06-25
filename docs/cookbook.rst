@@ -69,6 +69,7 @@ into that file:
     curl -Ls "https://raw.githubusercontent.com/wiki/rakshasa/rtorrent/CONFIG-Template.md" \
         | grep -A9999 '^######' | grep -B9999 '^### END' \
         | sed -re "s:/home/USERNAME:$HOME:" >~/.rtorrent.rc
+    mkdir ~/rtorrent  # create user's instance directory
 
 All files *rTorrent* uses or creates are located in the ``~/rtorrent`` directory,
 except the main configuration file.
@@ -269,7 +270,7 @@ and also what software is using the XMLRPC port.
 .. literalinclude:: rtorrent.rc
    :language: ini
    :start-after: available resources
-   :end-before: operational settings
+   :end-before: Basic operational settings
 
 The :term:`session.path.set` command sets the location of the directory where *rTorrent*
 saves its status between starts – a command you should *always* have in your configuration.
@@ -277,12 +278,30 @@ The default download location for data is set by :term:`directory.default.set`.
 
 .. literalinclude:: rtorrent.rc
    :language: ini
-   :start-after: operational settings
-   :end-before: Watch directories
+   :start-after: Basic operational settings
+   :end-before: Other operational settings
 
 The :term:`log.execute` and :term:`log.xmlrpc` commands open related log files,
 which can be very helpful when debugging problems of added extensions.
+The :term:`execute.nothrow` writes a PID file to the session directory.
 
+There are some other operational settings that don't apply equally to every setup,
+so check if the values fit for you, and uncomment those settings you want to activate.
+
+.. literalinclude:: rtorrent.rc
+   :language: ini
+   :start-after: Other operational settings
+   :end-before: Some additional values and commands
+
+The next section defines some additional values and commands.
+``system.startup_time`` memorizes the time *rTorrent* was last started,
+:term:`d.data_path` returns the path to an item's data,
+and :term:`d.session_file` the path to its session file.
+
+.. literalinclude:: rtorrent.rc
+   :language: ini
+   :start-after: Some additional values and commands
+   :end-before: Watch directories
 
 *Watch directories* are an important concept to automatically load metafiles you drop
 into those directories.
