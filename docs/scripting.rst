@@ -160,8 +160,36 @@ Scripting Best Practices
 **TODO**
 
 
+.. _xmlrpc-api:
+
 Using XMLRPC for Remote Control
 -------------------------------
+
+See the :doc:`cmd-ref` for descriptions of existing commands,
+the :ref:`generated index <genindex>` can help you to quickly find them by their name.
+
+All XMLPPC commands (with a few exceptions like :term:`system.listMethods`)
+take an info hash as the first argument when called over the API,
+to uniquely identify the *target* object.
+‘Target’ is also the term used for that first parameter in error messages like
+``Unsupported target type found``,
+and that message is the one you'll most likely get if you forgot to provide one.
+
+Commands that do not target a specific item still need to have one (in newer versions
+of *rTorrent*), so provide an empty string as a placeholder in those cases.
+
+.. code-block:: console
+
+    $ rtxmlrpc view.size default
+    ERROR    While calling view.size('default'): <Fault -501: 'Unsupported target type found.'>
+    $ rtxmlrpc view.size '' default
+    133
+
+Note that :ref:`f-commands`, :ref:`p-commands`, and :ref:`t-commands`,
+when not called via their associated multicall command,
+have special target forms with additional information appended:
+`‹infohash›:f‹file-index›`, `‹infohash›:p‹peer-id›`, and `‹infohash›:t‹tracker-index›`.
+
 
 **TODO**
 
