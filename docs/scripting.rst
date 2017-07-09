@@ -13,7 +13,7 @@ so please take the time and :doc:`contribute what you know <contributing>`.
 
 See the :doc:`cmd-ref` chapter for a list of all relevant XMLRPC and ‘private’ commands
 of *rTorrent* with a short explanation.
-The :ref:`generated index <genindex>` also lists all the commmand names.
+The :ref:`generated index <genindex>` also lists all the command names.
 
 Another helpful tool is the quite powerful *GitHub* search.
 Use it  to find information on commands,

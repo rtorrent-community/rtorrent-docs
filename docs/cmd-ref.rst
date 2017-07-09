@@ -8,7 +8,7 @@ and :ref:`xmlrpc-api` for some general hints on using the XMLRPC API
 
 **Use the search box** in the sidebar to find specific commands,
 or the :ref:`search`.
-The :ref:`generated index <genindex>` also lists all the commmand names.
+The :ref:`generated index <genindex>` also lists all the command names.
 
 
 .. contents:: List of Command Groups

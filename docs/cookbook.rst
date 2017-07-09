@@ -153,7 +153,7 @@ If you're versed in *any* computer language, you surely spotted some of them in 
 Comments start with a ``#``,
 and you can break long lines apart by escaping the line ends with ``\``.
 
-The basic structure of lines is ``‹commmand› = ‹arg1›[, ‹arg2›, …]``.
+The basic structure of lines is ``‹command› = ‹arg1›[, ‹arg2›, …]``.
 In configuration files, the ``command`` either sets some value, or has some side effect:
 defining a method or schedule, executing a OS command, and so on.
 This is the ‘old’ syntax, and still relevant on the top level of configuration files.
