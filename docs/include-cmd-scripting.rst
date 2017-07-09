@@ -188,22 +188,39 @@
 .. glossary::
 
     event.download.closed
-    event.download.erased
-    event.download.finished
-    event.download.hash_done
-    event.download.hash_failed
-    event.download.hash_final_failed
-    event.download.hash_queued
-    event.download.hash_removed
-    event.download.inserted
-    event.download.inserted_new
-    event.download.inserted_session
     event.download.opened
+
+        **TODO**
+
     event.download.paused
     event.download.resumed
 
         **TODO**
 
+    event.download.hash_done
+    event.download.hash_failed
+    event.download.hash_final_failed
+
+        **TODO**
+
+    event.download.hash_queued
+    event.download.hash_removed
+
+        **TODO**
+
+    event.download.inserted
+    event.download.inserted_new
+    event.download.inserted_session
+
+        **TODO**
+
+    event.download.finished
+
+        **TODO**
+
+    event.download.erased
+
+        **TODO**
 
     event.view.hide
     event.view.show
