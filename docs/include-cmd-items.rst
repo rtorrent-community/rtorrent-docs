@@ -3,7 +3,7 @@
 `d.*` commands
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-All ``d.*`` commands take an info hash as the first argument when called over the XMLRPC API,
+All ``d.*`` commands take an info hash as the first argument when called over the XML-RPC API,
 to uniquely identify the *target* object. ‘Target’ is the term used for that 1st parameter in
 error messages and so on.
 
@@ -97,7 +97,7 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
         Behaviour when ``d.directory.set`` + ``d.directory_base.set`` are used (tested with 0.9.4):
 
             * ``d.base_path`` always remains unchanged, and item gets closed.
-            * ``d.start`` sets ``d.base_path`` if resume data is ok.
+            * ``d.start`` sets ``d.base_path`` if resume data is OK.
             * ‘single’ file items (no containing folder, see :term:`d.is_multi_file`):
 
                 * ``d.directory[_base].set`` → ``d.name`` is **never** appended (only in ``d.base_path``).
@@ -173,17 +173,48 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
     d.accepting_seeders.disable
     d.accepting_seeders.enable
 
-        **TODO**
+       .. code-block:: ini
+
+            d.accepting_seeders = ‹hash› ≫ bool (0 or 1)
+            d.accepting_seeders.disable = ‹hash› ≫ 0
+            d.accepting_seeders.enable = ‹hash› ≫ 0
+
+       Controls whether or not new connections to seeders are sought out. Existing connections
+       are not effected.
+
 
     d.bitfield
+
+        .. code-block:: ini
+
+            d.bitfield = ‹hash› ≫ string ‹bitfield›
+
+        Returns the bitfield represented by a string of hexadecimal digits, with each character
+        representing the "completeness" of each field. Note that due to rounding inaccuracies,
+        the number of fields with likely neither align exactly with the number of chunks nor number of
+        bytes.
+
+
     d.bytes_done
 
-        **TODO**
+        .. code-block:: ini
+
+            d.bytes_done = ‹hash› ≫ value ‹bytes›
+
+        This tracks the amount of bytes for a torrent which has been accepted from peers.
+        Note that bytes aren't considered to be "completed" until the full chunk is
+        downloaded and verified. See :term:`d.completed_bytes` for that value.
+
 
     d.check_hash
 
+        .. code-block:: ini
+
+            d.check_hash = ‹hash› ≫ 0
+
         Checks the piece hashes of an item against its data.
         Started items are paused during the rehashing.
+
 
     d.chunk_size
 
@@ -200,10 +231,19 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
         **TODO**
 
     d.complete
+
+        **TODO**
+
     d.completed_bytes
     d.completed_chunks
 
-        **TODO**
+        .. code-block:: ini
+
+            d.completed_bytes = ‹hash› ≫ value ‹bytes›
+            d.completed_chunks = ‹hash› ≫ value ‹chunks›
+
+        Returns the number of completed bytes and chunks, respectively.
+        "Completed" means the bytes/chunk has been downloaded and verified against the hash.
 
     d.connection_current
     d.connection_current.set
@@ -238,6 +278,7 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
         **TODO**
 
+
     d.custom
     d.custom.set
     d.custom_throw
@@ -248,10 +289,10 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
         .. code-block:: ini
 
-            d.custom[_trow] = string ‹key› ≫ string ‹value›
-            d.custom.set = string ‹key›, string ‹value› ≫ 0
-            d.custom1 = ≫ string ‹value›
-            d.custom1.set = string ‹value› ≫ 0
+            d.custom[_throw] = ‹hash›, string ‹key› ≫ string ‹value›
+            d.custom.set = ‹hash›, string ‹key›, string ‹value› ≫ 0
+            d.custom1 = ‹hash› ≫ string ‹value›
+            d.custom1.set = ‹hash›, string ‹value› ≫ 0
 
         Set and return custom values using either arbitrary keys, or a limited set of 5 numbered slots.
         Note that ``d.custom1`` is *not* the same as ``d.custom=1`` or ``d.custom=custom1``,
@@ -268,7 +309,12 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
     d.disconnect.seeders
 
-        **TODO**
+        .. code-block:: ini
+
+            d.disconnect.seeders = ‹hash› ≫ value ‹rate›
+
+        Cleanly drop all connections to seeders. This does not prevent them from
+        reconnecting later on.
 
     d.down.choke_heuristics
     d.down.choke_heuristics.leech
@@ -339,10 +385,30 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
 
     d.hashing
+
+       .. code-block:: ini
+
+            d.hashing = ‹hash› ≫ value ‹hash_status›
+
+       Returns an integer denoting the state of the hash process. The possible values are:
+
+       - ``0``: No hashing is happening
+       - ``1``: The very first hash check is occurring
+       - ``2``: If :term:`pieces.hash.on_completion` is enabled, the torrent is in the middle
+         of hashing due to the finish event, and at the end, will be checked for completeness
+       - ``3``: A rehash is occurring (i.e. the torrent has already been marked as complete once)
+       See also: :term:`d.is_hash_checking`
+
     d.hashing_failed
     d.hashing_failed.set
 
-        **TODO**
+       .. code-block:: ini
+
+            d.hashing_failed = ‹hash› ≫ bool (0 or 1)
+            d.hashing_failed.set = ‹hash›, bool (0 or 1) ≫ 0
+
+       Checks to see if the hashing has failed or not. This flag is primarily used to determine
+       whether or not a torrent should be marked for hashing when it's started/resumed.
 
     d.ignore_commands
     d.ignore_commands.set
@@ -350,11 +416,31 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
         **TODO**
 
     d.incomplete
-    d.is_hash_checked
-    d.is_hash_checking
-    d.is_meta
 
         **TODO**
+
+    d.is_hash_checked
+    d.is_hash_checking
+
+       .. code-block:: ini
+
+            d.is_hash_checked = ‹hash› ≫ bool (0 or 1)
+            d.is_hash_checking = ‹hash› ≫ bool (0 or 1)
+
+       These mark the hashing state of a torrent. ``d.is_hash_checked`` is counter-intuitive in that
+       regardless of how much the torrent has successfully completed hash checking, if a torrent is active
+       and is not in the middle of hashing (i.e. ``d.is_hash_checking`` returns ``0``), it will always
+       return ``1``.
+
+    d.is_meta
+
+       .. code-block:: ini
+
+            d.is_meta = ‹hash› ≫ bool (0 or 1)
+
+       Meta torrents refer to magnet torrents which are still in the process of gathering data from trackers/peers.
+       Once enough data is collected, the meta torrent is removed and a "regular" torrent is created. Since meta
+       torrents lack certain data fields, this is useful for filtering them out of commands that don't play well with them.
 
     d.is_multi_file
 
@@ -482,6 +568,14 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
     d.size_files
     d.size_pex
 
+        .. code-block:: ini
+
+            d.size_bytes = ‹hash› ≫ value ‹bytes›
+            d.size_chunks = ‹hash› ≫ value ‹chunks›
+            d.size_files = ‹hash› ≫ value ‹files›
+            d.size_pex = ‹hash› ≫ value ‹peers›
+
+        Skipped pieces are ones that were received from peers, but weren't needed and thus ignored.
         Returns the various size attributes of an item.
 
         - **bytes**: The total number of bytes in the item's files.
@@ -517,10 +611,19 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
     d.up.choke_heuristics.leech
     d.up.choke_heuristics.seed
     d.up.choke_heuristics.set
+
+        **TODO**
+
     d.up.rate
     d.up.total
 
-        **TODO**
+        .. code-block:: ini
+
+            d.up.rate = ‹hash› ≫ value ‹rate›
+            d.up.total = ‹hash› ≫ value ‹total›
+
+        The total amount and current rate of upload traffic for this item.
+
 
     d.update_priorities
 
@@ -616,7 +719,7 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
     d.tracker.bump_scrape
 
         Send a scrape request for an item, set its ``tm_last_scrape`` custom attribute to now,
-        and save the session data. Part of `auto-scape.rc`_, and bound to the ``&`` key
+        and save the session data. Part of `auto-scrape.rc`_, and bound to the ``&`` key
         in *rTorrent-PS*, to manually request a scrape update.
 
 
@@ -626,7 +729,7 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
         **TODO**
 
 
-.. _`auto-scape.rc`: https://github.com/pyroscope/pyrocore/blob/master/src/pyrocore/data/config/rtorrent.d/auto-scrape.rc
+.. _`auto-scrape.rc`: https://github.com/pyroscope/pyrocore/blob/master/src/pyrocore/data/config/rtorrent.d/auto-scrape.rc
 
 
 .. _f-commands:
@@ -654,18 +757,87 @@ Index counting starts at ``0``, the array size is :term:`d.size_files`.
         See also :term:`d.multicall2` on basics regarding multi-calls.
 
     f.completed_chunks
+
+        .. code-block:: ini
+
+            f.completed_chunks = ‹infohash› ≫ value ‹chunks›
+
+        The number of chunks in the file completed. Just as with term:`f.size_chunks`, this number is
+        inclusive of any chunks that contain only part of the file.
+
     f.frozen_path
-    f.is_create_queued
+
+        .. code-block:: ini
+
+            f.frozen_path = ‹infohash› ≫ string ‹abspath›
+
+        The absolute path to the file.
+
     f.is_created
     f.is_open
+
+        **TODO**
+
+    f.is_create_queued
+    f.set_create_queued
+    f.unset_create_queued
     f.is_resize_queued
+    f.set_resize_queued
+    f.unset_resize_queued
+
+        **TODO**
+
     f.last_touched
+
+        .. code-block:: ini
+
+            f.last_touched = ‹infohash› ≫ value ‹microseconds›
+
+        The last time, in `epoch`_ microseconds, *rTorrent* prepared to use the file
+        (for either reading or writing). This will not necessarily correspond to the file's
+        access or modification times.
+
+.. _`epoch`: https://en.wikipedia.org/wiki/Unix_time
+
     f.match_depth_next
     f.match_depth_prev
+
+        **TODO**
+
     f.offset
+
+        .. code-block:: ini
+
+            f.offset = ‹infohash› ≫ value ‹bytes›
+
+        The offset (in bytes) of the file from the start of the torrent data. The first file starts at ``0``, the second file
+        at term:`f.size_bytes` of the first file, the third at term:`f.size_bytes` of the first two files combined, and so on.
+
     f.path
+
+        .. code-block:: ini
+
+            f.path = ‹infohash› ≫ string ‹path›
+
+        The path of the file relative to the base directory.
+
     f.path_components
+        .. code-block:: ini
+
+            f.path_components = ‹infohash› ≫ array ‹components›
+
+        Returns an array of the individual parts of the path.
+
     f.path_depth
+
+        .. code-block:: ini
+
+            f.path_depth = ‹infohash› ≫ value ‹depth›
+
+        Returns a value equal to how deep the file is relative to the base directory.
+        This is equal to the number of elements in the array that
+        :term:`f.path_components` returns.
+
     f.prioritize_first
     f.prioritize_first.disable
     f.prioritize_first.enable
@@ -673,25 +845,57 @@ Index counting starts at ``0``, the array size is :term:`d.size_files`.
     f.prioritize_last.disable
     f.prioritize_last.enable
 
-        **TODO**
+        .. code-block:: ini
+
+            f.prioritize_first = ‹infohash› ≫ bool (0 or 1)
+            f.prioritize_first.disable = ‹infohash› ≫ 0
+            f.prioritize_first.enable = ‹infohash› ≫ 0
+            f.prioritize_last = ‹infohash› ≫ bool (0 or 1)
+            f.prioritize_last.disable = ‹infohash› ≫ 0
+            f.prioritize_last.enable = ‹infohash› ≫ 0
+
+        This determines how files are prioritized when :term:`f.priority` is set to normal.
+        While any high (i.e. ``2``) priority files take precedence, when a torrent is started, the rest of the files are sorted
+        according to which are marked as ``prioritize_first`` vs ``prioritize_last``. If both flags are set,
+        ``prioritize_first`` is checked first. This sorting happens whenever :term:`d.update_priorities` is called.
+
+        See also :term:`file.prioritize_toc`.
 
     f.priority
     f.priority.set
 
-        **TODO**
+        .. code-block:: ini
+
+            f.priority = ‹infohash› ≫ value ‹priority›
+            f.priority.set = ‹infohash›, value ‹priority› ≫ 0
+
+        There are 3 possible priorities for files:
+
+        - ``0``: Off, do not download this file. Note that the file can still show up if there is an overlapping chunk
+          with a file that you do want to download
+        - ``1``: Normal, download this file normal
+        - ``2``: High, prioritize requesting chunks for this file above normal files.
+
+        In the ncurses file view, you can rotate a selected file between these states with the space bar.
 
         See also :term:`d.update_priorities`.
 
     f.range_first
     f.range_second
-    f.set_create_queued
-    f.set_resize_queued
-    f.size_bytes
-    f.size_chunks
-    f.unset_create_queued
-    f.unset_resize_queued
 
         **TODO**
+
+    f.size_bytes
+    f.size_chunks
+
+        .. code-block:: ini
+
+            f.size_bytes = ‹infohash› ≫ value ‹bytes›
+            f.size_chunks = ‹infohash› ≫ value ‹chunks›
+
+        Returns the number of bytes and chunks in the file respectively. If the file is only partially in some chunks,
+        those are included in the count. This means the sum of all ``f.size_chunks`` can be
+        larger than :term:`d.size_chunks`
 
 
 .. _p-commands:
@@ -814,7 +1018,7 @@ Items loaded in this manner will be tied to the metafile's path (see :term:`d.ti
 This means when the metafile is deleted, the item may be stopped (see :term:`stop_untied`),
 and when the item is removed the metafile is also.
 Note that you can untie an item by using the ``U`` key (which will also delete the tied file),
-and using ``Ctrl-K`` also implictly unties an item.
+and using ``Ctrl-K`` also implicitly unties an item.
 
 .. glossary::
 
@@ -838,7 +1042,11 @@ and using ``Ctrl-K`` also implictly unties an item.
     load.raw_start_verbose
     load.raw_verbose
 
-        **TODO**
+        Load a metafile passed into as base64 data. The method for encoding the data for XML-RPC
+        will vary depending on which tool you're using.
+
+        As with :term:`load.normal`, ``raw`` loads them stopped, and ``raw_verbose``
+        reports problems to the console.
 
 
 .. _session-commands:
@@ -850,22 +1058,37 @@ and using ``Ctrl-K`` also implictly unties an item.
 
     session.name
     session.name.set
-    session
 
-        **TODO**
+        .. code-block:: ini
+
+            session.name ≫ string ‹name›
+            session.name.set = string ‹name› ≫ 0
+
+        This controls the session name. By default this is set to :term:`system.hostname` + ':' +
+        term:`system.pid`. Like term:`session.path`, once the session is active this cannot
+        be changed
+
 
     session.on_completion
     session.on_completion.set
 
-        **TODO**
+        .. code-block:: ini
 
+            session.on_completion ≫ bool (0 or 1)
+            session.on_completion.set = bool (0 or 1) ≫ 0
+
+        When true, :term:`d.save_resume` is called right before :term:`event.download.finished`
+        occurs.
+
+
+    session
     session.path
     session.path.set
 
         .. code-block:: ini
 
             session.path ≫ string ‹path›
-            session.path.set = ‹path›
+            session.path.set = string ‹path› ≫ 0
 
         ``session.path.set`` specifies the location of the directory where *rTorrent*
         saves its status between starts – a command you should *always* have in your configuration.
@@ -878,6 +1101,9 @@ and using ``Ctrl-K`` also implictly unties an item.
         An empty string will disable session handling. Note that you cannot change to another
         directory while a session directory is already active.
 
+        ``session`` is an alias for ``session.path.set``, but should not be used as it may become
+        deprecated.
+
 
     session.save
 
@@ -886,7 +1112,7 @@ and using ``Ctrl-K`` also implictly unties an item.
         `heavy IO <https://github.com/rakshasa/rtorrent/issues/180#issuecomment-55140832>`_
         with many torrents.
         The default interval this command runs at
-        `can be audjusted <https://github.com/rakshasa/rtorrent/wiki/Performance-Tuning#session-save>`_,
+        `can be adjusted <https://github.com/rakshasa/rtorrent/wiki/Performance-Tuning#session-save>`_,
         however if *rTorrent* restarts or goes down, there may be a loss of statistics
         and resume data for any new torrents added after the last snapshot.
 
@@ -896,7 +1122,13 @@ and using ``Ctrl-K`` also implictly unties an item.
     session.use_lock
     session.use_lock.set
 
-        **TODO**
+        .. code-block:: ini
+
+            session.use_lock ≫ bool (0 or 1)
+            session.use_lock.set = bool (0 or 1) ≫ 0
+
+        By default, a lockfile is created in the session directory to prevent multiple instances of
+        *rTorrent* from using the same session simultaneously.
 
 
 .. END cmd-items
