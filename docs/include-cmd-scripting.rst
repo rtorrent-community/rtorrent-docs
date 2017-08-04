@@ -44,6 +44,20 @@
         Defines a ``static const`` simple function.  **TODO** Meaning what?
 
 
+    argument.0
+    argument.1
+    argument.2
+    argument.3
+
+        .. code-block:: ini
+
+            # Internal, not callable from XMLRPC!
+            $argument.‹N›= ≫ value of Nth argument
+
+        These can be used to refer to arguments passed into a custom method,
+        either via ``$argument.‹N›=`` or ``(argument.‹N›)``.
+
+
     method.insert.value
 
         .. code-block:: ini
