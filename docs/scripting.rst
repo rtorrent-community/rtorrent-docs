@@ -161,7 +161,8 @@ simple (subtypes: static, private, const)
 
         That delay is *not* inherited by nested commands.
         So ``((cat, (manifest.constant) ))`` works as intended,
-        while ``((if, (dynamic.value), … ))`` does not!
+        while ``((if, (dynamic.value), … ))`` does not (the inner call *also* needs double parentheses)!
+
         Which means you always have to keep the surrounding context in mind
         when writing nested command sequences.
 
