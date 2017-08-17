@@ -104,6 +104,8 @@ The ``pyro.log_rotate`` method is used near the end to open log files at startup
 .. _`rtorrent.d/15-logging.rc`: https://github.com/pyroscope/pimp-my-box/blob/master/roles/rtorrent-ps/templates/rtorrent/rtorrent.d/15-logging.rc
 
 
+.. _versatile-move:
+
 Versatile Move on Completion
 ----------------------------
 
