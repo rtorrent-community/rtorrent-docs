@@ -30,7 +30,7 @@ configuration file (which then can be the last change you apply to it).
         "| sort | sed -re 's/^/import=/' >", (cfg.drop_in), "/.import")
     try_import = (cat, (cfg.drop_in), "/.import")
 
-To test the change, excute these commands:
+To test the change, execute these commands:
 
 .. code-block:: shell
 
