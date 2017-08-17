@@ -59,7 +59,7 @@ method.insert = completion_move, simple|private, \
      d.save_full_session="
 
 method.insert = completion_move_verbose, simple|private, \
-    "completion_move = (d.base_path), (argument.0); \
+    "completion_move = (argument.0), (argument.1); \
      completion_move_print = (argument.0), (argument.1)"
 
 method.insert = completion_handler, simple|private, \
