@@ -152,7 +152,7 @@ including the above config snippet.
 
     gh_raw="https://raw.githubusercontent.com/rtorrent-community/rtorrent-docs"
     cd /tmp
-    wget $gh_raw/master/docs/examples/completion-path.sh
+    wget -O completion-path.sh $gh_raw/master/docs/examples/completion-path.sh
     bash completion-path.sh -h
 
 
