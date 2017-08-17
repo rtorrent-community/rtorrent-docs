@@ -13,11 +13,11 @@ set_target_path() {
     target_base=$(command cd $(dirname "$base_path")/.. >/dev/null && pwd)"/done"
     month=$(date +'%Y-%m')
 
-    test -n "$target" || case $(tr A-Z' ' a-z_ <<<"$label") in
+    test -n "$target" || case $(tr A-Z' ' a-z_ <<<"${label:-NOT_SET}") in
         tv)                     target="tv" ;;
         movie*)                 target="movies/$month" ;;
     esac
-    test -n "$target" || case $(tr A-Z' ' a-z. <<<"$name") in
+    test -n "$target" || case $(tr A-Z' ' a-z. <<<"${name:-EMPTY}") in
         *hdtv*)                 target="tv" ;;
         *rip.x264*)             target="movies/$month" ;;
         *pdf|*epub|*ebook*)     target="ebooks/$month" ;;
