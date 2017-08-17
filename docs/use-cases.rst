@@ -104,6 +104,59 @@ The ``pyro.log_rotate`` method is used near the end to open log files at startup
 .. _`rtorrent.d/15-logging.rc`: https://github.com/pyroscope/pimp-my-box/blob/master/roles/rtorrent-ps/templates/rtorrent/rtorrent.d/15-logging.rc
 
 
+Versatile Move on Completion
+----------------------------
+
+The `completion-path.sh`_ script allows you to perform very versatile completion moving,
+based on logic defined in a bash script
+
+The target path is determined in the ``set_target_path`` function at the top
+of the script:
+
+.. literalinclude:: examples/completion-path.sh
+   :language: shell
+   :start-after: set_target_path
+   :end-before: } # set_target_path
+
+Change it according to your preferences. If you don't assign a value to ``target``,
+the item is not moved and remains in its default download location for later manual moving.
+
+The script needs these commands added to your ``rtorrent.rc`` or
+``config.d/move_on_completion.rc`` (see :ref:`drop-in-config` on how to get a ``config.d`` directory):
+
+.. literalinclude:: examples/completion-path.sh
+   :language: ini
+   :start-after: # Completion moving
+   :end-before: EOF
+
+In the ``completion_handler`` method,
+you can change ``completion_move_verbose`` to just ``completion_move``,
+if you don't want the move logged.
+
+The ``completion_path`` method already passes the major item attributes to the script,
+you can add more if you need them, but then you also need to extend the list of names
+in ``arglist`` at the top of the bash script.
+
+.. literalinclude:: examples/completion-path.sh
+   :language: shell
+   :start-after: List of attributes
+   :end-before: #
+
+
+Calling the script with ``-h`` prints full installation instructions
+including the above config snippet.
+
+.. code-block:: shell
+
+    gh_raw="https://raw.githubusercontent.com/rtorrent-community/rtorrent-docs"
+    cd /tmp
+    wget $gh_raw/master/docs/examples/completion-path.sh
+    bash completion-path.sh -h
+
+
+.. _`completion-path.sh`: https://github.com/rtorrent-community/rtorrent-docs/blob/master/docs/examples/completion-path.sh
+
+
 Set a Download to “Seed Only”
 -----------------------------
 

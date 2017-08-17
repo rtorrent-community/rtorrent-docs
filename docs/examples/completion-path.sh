@@ -4,15 +4,23 @@
 #
 # Call with "-h" for installation instructions!
 
+# List of attributes passed by the 'completion_path' method
+arglist=( default session hash name directory base_path tied_to_file label )
+
 # Determine target path (adapt this to your needs)
 set_target_path() {
-    test -n "$target" || case "$label" in
-        Movie*) target="movies/$month" ;;
-        TV) target="tv/$month" ;;
+    # "target_base" is used to complete a non-empty but relative "target" path
+    target_base=$(command cd $(dirname "$base_path")/.. >/dev/null && pwd)"/done"
+    month=$(date +'%Y-%m')
+
+    test -n "$target" || case $(tr A-Z' ' a-z_ <<<"$label") in
+        tv)                     target="tv" ;;
+        movie*)                 target="movies/$month" ;;
     esac
     test -n "$target" || case $(tr A-Z' ' a-z. <<<"$name") in
-        *rip.x264*) target="movies/$month" ;;
-        *hdtv*) target="tv/$month" ;;
+        *hdtv*)                 target="tv" ;;
+        *rip.x264*)             target="movies/$month" ;;
+        *pdf|*epub|*ebook*)     target="ebooks/$month" ;;
     esac
 } # set_target_path
 
@@ -36,24 +44,27 @@ EOF
 # Completion moving
 
 method.insert = completion_path, simple|private, "execute.capture = \
-    ~/rtorrent/scripts/completion-path.sh,\
-    (directory.default), (session.path),\
-    (d.hash), (d.name), (d.directory), (d.tied_to_file),\
+    ~/rtorrent/scripts/completion-path.sh, \
+    (directory.default), (session.path), \
+    (d.hash), (d.name), (d.directory), (d.base_path), (d.tied_to_file), \
     (d.custom1)"
 
 method.insert = completion_move_print, simple|private, \
-    "print = \"MOVED '\", (argument.0), \"' to '\", (argument.1), \"'\""
+    "print = \"MOVED »\", (argument.0), \"« to »\", (argument.1), «"
 
 method.insert = completion_move, simple|private, \
-    "completion_move_print=$argument.0=,$argument.1=;\
-     d.directory.set=$argument.1=;\
-     execute.throw=mkdir,-p,$argument.1=;\
-     execute.throw=mv,-u,$argument.0=,$argument.1=;\
+    "d.directory.set = (argument.1); \
+     execute.throw = mkdir, -p, (argument.1); \
+     execute.throw = mv, -u, (argument.0), (argument.1); \
      d.save_full_session="
+
+method.insert = completion_move_verbose, simple|private, \
+    "completion_move = (d.base_path), (argument.0); \
+     completion_move_print = (argument.0), (argument.1)"
 
 method.insert = completion_handler, simple|private, \
     "branch=\"not=(equal, argument.0=, cat=)\", \
-        \"completion_move_print = (d.base_path), (argument.0)\""
+        \"completion_move_verbose = (d.base_path), (argument.0)\""
 
 method.set_key = event.download.finished, move_on_completion, \
     "completion_handler = (completion_path)"
@@ -61,25 +72,30 @@ EOF
     exit 1
 fi
 
-arg() {
-    eval "$2"'="${1:?missing '"$2"'}"'
+
+fail() {
+    echo ERROR: "$@"
+    exit 1
 }
 
+
 # Take arguments
-arg "$1" default; shift
-arg "$1" session; shift
-arg "$1" hash; shift
-arg "$1" name; shift
-arg "$1" path; shift
-arg "$1" tied; shift
-arg "$1" label; shift
-#set | egrep '^[a-z]+=' >&2
+for argname in "${arglist[@]}"; do
+    test $# -gt 0 || fail "'$argname' is missing!"
+    eval "$argname"'="$1"'
+    shift
+done
+#set | egrep '^[a-z_]+=' >&2
 
 # Determine target path
-target_base=$(dirname $(dirname "$path"))"/done"
-month=$(date +'%Y-%m')
 target=""
 set_target_path
 
 # Return result (an empty target prevents moving)
-test -z "$target" || echo -n "$target_base${target:+/}$target"
+if test -n "$target"; then
+    if test "${target:0:1}" = '/'; then
+        echo -n "$target"
+    else
+        echo -n "${target_base%/}/$target"
+    fi
+fi
