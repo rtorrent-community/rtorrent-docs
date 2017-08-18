@@ -62,12 +62,12 @@ method.insert = completion_move_verbose, simple|private, \
     "completion_move = (argument.0), (argument.1); \
      completion_move_print = (argument.0), (argument.1)"
 
-method.insert = completion_handler, simple|private, \
+method.insert = completion_move_handler, simple|private, \
     "branch=\"not=(equal, argument.0=, cat=)\", \
         \"completion_move_verbose = (d.base_path), (argument.0)\""
 
 method.set_key = event.download.finished, move_on_completion, \
-    "completion_handler = (completion_path)"
+    "completion_move_handler = (completion_path)"
 EOF
     exit 1
 fi

@@ -131,7 +131,7 @@ The script needs these commands added to your ``rtorrent.rc`` or
    :start-after: # Completion moving
    :end-before: EOF
 
-In the ``completion_handler`` method,
+In the ``completion_move_handler`` method,
 you can change ``completion_move_verbose`` to just ``completion_move``,
 if you don't want the move logged.
 
