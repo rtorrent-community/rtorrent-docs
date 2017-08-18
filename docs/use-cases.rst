@@ -135,8 +135,8 @@ In the ``completion_move_handler`` method,
 you can change ``completion_move_verbose`` to just ``completion_move``,
 if you don't want the move logged.
 
-The ``completion_path`` method already passes the major item attributes to the script,
-you can add more if you need them, but then you also need to extend the list of names
+The ``completion_path`` method already passes the major item attributes to the script.
+You can add more if you need to, but then you also need to extend the list of names
 in ``arglist`` at the top of the bash script.
 
 .. literalinclude:: examples/completion-path.sh
