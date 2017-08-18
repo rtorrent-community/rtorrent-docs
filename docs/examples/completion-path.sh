@@ -14,13 +14,15 @@ set_target_path() {
     month=$(date +'%Y-%m')
 
     test -n "$target" || case $(tr A-Z' ' a-z_ <<<"${label:-NOT_SET}") in
-        tv)                     target="tv" ;;
-        movie*)                 target="movies/$month" ;;
+        tv|hdtv)                    target="TV" ;;
+        movie*)                     target="Movies/$month" ;;
     esac
     test -n "$target" || case $(tr A-Z' ' a-z. <<<"${name:-EMPTY}") in
-        *hdtv*)                 target="tv" ;;
-        *rip.x264*)             target="movies/$month" ;;
-        *pdf|*epub|*ebook*)     target="ebooks/$month" ;;
+        *hdtv*|*pdtv*)              target="TV" ;;
+        *.s[0-9][0-9].*)            target="TV" ;;
+        *.s[0-9][0-9]e[0-9][0-9].*) target="TV" ;;
+        *rip.x264*)                 target="Movies/$month" ;;
+        *pdf|*epub|*ebook*)         target="eBooks/$month" ;;
     esac
 } # set_target_path
 
