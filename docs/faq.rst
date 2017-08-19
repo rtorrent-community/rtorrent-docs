@@ -11,7 +11,7 @@ How Can I Stop All Torrents From a Shell?
 
 This is most useful when *rTorrent* consistently crashes shortly after starting up.
 That often means you have an item that refers to a data file with an I/O error or
-a similar fault. To solve this, you need stop all torrents from the outside, since
+a similar fault. To solve this, you need to stop all torrents from the outside, since
 you cannot use the crashing client for it.
 
 Before you do this, **make a backup of your session folder!** Then call this command:
