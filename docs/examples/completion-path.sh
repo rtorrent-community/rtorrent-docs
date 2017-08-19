@@ -13,10 +13,16 @@ set_target_path() {
     target_base=$(command cd $(dirname "$base_path")/.. >/dev/null && pwd)"/done"
     month=$(date +'%Y-%m')
 
+    # Only move data downloaded to the default directory
+    egrep >/dev/null "^${default%/}/" <<<"${base_path}/" || return
+
+    # Move by label
     test -n "$target" || case $(tr A-Z' ' a-z_ <<<"${label:-NOT_SET}") in
         tv|hdtv)                    target="TV" ;;
         movie*)                     target="Movies/$month" ;;
     esac
+
+    # Move by name patterns
     test -n "$target" || case $(tr A-Z' ' a-z. <<<"${name:-EMPTY}") in
         *hdtv*|*pdtv*)              target="TV" ;;
         *.s[0-9][0-9].*)            target="TV" ;;
