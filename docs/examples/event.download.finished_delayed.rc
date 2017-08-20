@@ -1,0 +1,32 @@
+#############################################################################
+# Add a "finished_delayed" event
+#
+# See https://github.com/rakshasa/rtorrent/issues/547
+#############################################################################
+
+# Delay in seconds
+method.insert.value = event.download.finished_delayed.interval, 600
+
+# Add persistent view (queue holding delayed items)
+view.add = finished_delayed
+view.persistent = finished_delayed
+
+# Add new event for delayed completion handling
+method.insert = event.download.finished_delayed, multi|rlookup|static
+method.set_key = event.download.finished, !add_to_finished_delayed, \
+    "d.views.push_back_unique = finished_delayed ; \
+     view.filter_download = finished_delayed"
+method.set_key = event.download.finished_delayed, !remove_from_finished_delayed, \
+    "d.views.remove = finished_delayed ; \
+     view.filter_download = finished_delayed"
+
+# Call new event for items that passed the delay interval
+schedule2 = event.download.finished_delayed, 60, 60, \
+    ((d.multicall2, finished_delayed, \
+        "branch=\"elapsed.greater=(d.timestamp.finished),(event.download.finished_delayed.interval)\", \
+            event.download.finished_delayed="))
+
+# For debugging…
+method.set_key = event.download.finished_delayed, !debug, \
+    "print = \"DELAYED FINISH after \", (convert.elapsed_time, (d.timestamp.finished)), \
+             \" of \", (d.name)"

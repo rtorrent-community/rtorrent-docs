@@ -158,6 +158,27 @@ including the above config snippet.
 .. _`completion-path.sh`: https://github.com/rtorrent-community/rtorrent-docs/blob/master/docs/examples/completion-path.sh
 
 
+.. _event.download.finished_delayed:
+
+Delayed Completion Handling
+---------------------------
+
+The following config snippet defines a new ``event.download.finished_delayed`` trigger
+that works like the normal finished event, but only fires after a customizable delay.
+
+One use-case for such a thing is to move a download from fast storage (RAM disk, SSD)
+to slow storage (HDD) for permanent seeding, after the initial rush in a swarm is over.
+
+The following is the config you need to add to a ``config.d/event.download.finished_delayed.rc`` file
+(see :ref:`drop-in-config` on how to get a ``config.d`` directory),
+or else to your normal ``rtorrent.rc`` file:
+
+.. literalinclude:: examples/event.download.finished_delayed.rc
+   :language: ini
+
+The last command adding a ``!debug`` handler can be left out, if you want less verbosity.
+
+
 Set a Download to “Seed Only”
 -----------------------------
 
