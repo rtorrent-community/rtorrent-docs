@@ -112,6 +112,17 @@ Versatile Move on Completion
 The `completion-path.sh`_ script allows you to perform very versatile completion moving,
 based on logic defined in a bash script
 
+Calling the script with ``-h`` prints full installation instructions
+including the rTorrent config snippet shown further below.
+
+.. code-block:: shell
+
+    gh_raw="https://raw.githubusercontent.com/rtorrent-community/rtorrent-docs"
+    wget -O /tmp/completion-path.sh $gh_raw/master/docs/examples/completion-path.sh
+    bash /tmp/completion-path.sh -h
+
+Read on to learn how this works when added to your rTorrent instance.
+
 The target path is determined in the ``set_target_path`` function at the top
 of the script:
 
@@ -155,15 +166,18 @@ in ``arglist`` at the top of the bash script.
    :start-after: List of attributes
    :end-before: #
 
-
-Calling the script with ``-h`` prints full installation instructions
-including the above config snippet.
+If you run rTorrent-PS, which has the ``d.tracker_domain`` command,
+you can use that command to add a rule for trackers dedicated to one specific content type.
+Extend the last line of ``completion_path`` to read  ``(d.custom1), (d.tracker_domain)"``,
+and add  ``tracker_domain`` to the end of ``arglist``.
+Then add a rule like this to the body of ``set_target_path``:
 
 .. code-block:: shell
 
-    gh_raw="https://raw.githubusercontent.com/rtorrent-community/rtorrent-docs"
-    wget -O /tmp/completion-path.sh $gh_raw/master/docs/examples/completion-path.sh
-    bash /tmp/completion-path.sh -h
+    # Move by tracker
+    test -n "$target" || case $(tr A-Z' ' a-z_ <<<"${tracker_domain:-NOT_SET}") in
+        linuxtracker.org) target="Software" ;;
+    esac
 
 
 .. _`completion-path.sh`: https://github.com/rtorrent-community/rtorrent-docs/blob/master/docs/examples/completion-path.sh
