@@ -123,7 +123,18 @@ of the script:
 Change it according to your preferences. If you don't assign a value to ``target``,
 the item is not moved and remains in its default download location for later manual moving.
 
-The script needs these commands added to your ``rtorrent.rc`` or
+The ``is_movie`` helper function uses an inline Python script to check for
+typical names of movie releases using a regular expression:
+
+.. literalinclude:: examples/completion-path.sh
+   :language: python
+   :start-after: python -
+   :end-before: EOF
+
+The ``is_movie`` check is done *after* the more reliable name checks.
+
+For the script to be called and used as part of completion moving,
+these commands need to be added to your ``rtorrent.rc`` or
 ``config.d/move_on_completion.rc`` (see :ref:`drop-in-config` on how to get a ``config.d`` directory):
 
 .. literalinclude:: examples/completion-path.sh
