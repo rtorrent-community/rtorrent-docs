@@ -17,7 +17,7 @@ tied="${4}"
 multi="${5:?is_multi_file is missing}"
 
 fail() {
-    msg=$(echo -n "$@")
+    msg="$(echo -n "$@")"
     rtxmlrpc print '' "ERROR: $msg [$name]"
     exit 1
 }
