@@ -5,16 +5,20 @@
 # Call with "-h" for installation instructions!
 
 # List of attributes passed by the 'completion_path' method
-arglist=( default session hash name directory base_path tied_to_file label )
+arglist=( default session hash name directory base_path tied_to_file is_multi_file label display_name )
 
 # Determine target path (adapt this to your needs)
 set_target_path() {
-    # "target_base" is used to complete a non-empty but relative "target" path
-    target_base=$(command cd $(dirname "$base_path")/.. >/dev/null && pwd)"/done"
-    month=$(date +'%Y-%m')
+    local month=$(date +'%Y-%m')
 
-    # Only move data downloaded to the default directory
-    egrep >/dev/null "^${default%/}/" <<<"${base_path}/" || return
+    # Only move data downloaded into a "work" directory
+    egrep >/dev/null "/work/" <<<"${base_path}/" || return
+
+    # "target_base" is used to complete a non-empty but relative "target" path
+    target_base=$(sed -re 's~^(.*)/work/.*~\1/done~' <<<"${base_path}")
+    target_tail=$(sed -re 's~^.*/work/(.*)~\1~' <<<"${base_path}")
+    test "$is_multi_file" -eq 1 || target_tail=$(dirname "$target_tail")
+    test "$target_tail" != '.' || target_tail=""
 
     # Move by label
     test -n "$target" || case $(tr A-Z' ' a-z_ <<<"${label:-NOT_SET}") in
@@ -31,6 +35,10 @@ set_target_path() {
     esac
 
     test -z "$target" && is_movie "$name" && target="Movies/$month" || :
+    test -z "$target" -a -n "$display_name" && is_movie "$display_name" && target="Movies/$month" || :
+
+    # Append tail path if non-empty
+    test -z "$target" -o -z "$target_tail" || target="$target/$target_tail"
 } # set_target_path
 
 
@@ -80,15 +88,29 @@ method.insert = completion_path, simple|private, "execute.capture = \
     ~/rtorrent/scripts/completion-path.sh, \
     (directory.default), (session.path), \
     (d.hash), (d.name), (d.directory), (d.base_path), (d.tied_to_file), \
-    (d.custom1)"
+    (d.is_multi_file), (d.custom1), (d.custom, displayname)"
+
+method.insert = completion_dirname, simple|private, \
+    "execute.capture = bash, -c, \"dirname \\\"$1\\\" | tr -d $'\\\\n'\", \
+                             completion_dirname, (argument.0)"
 
 method.insert = completion_move_print, simple|private, \
     "print = \"MOVED »\", (argument.0), \"« to »\", (argument.1), «"
 
-method.insert = completion_move, simple|private, \
+method.insert = completion_move_single, simple|private, \
     "d.directory.set = (argument.1); \
      execute.throw = mkdir, -p, (argument.1); \
-     execute.throw = mv, -u, (argument.0), (argument.1); \
+     execute.throw = mv, -u, (argument.0), (argument.1)"
+
+method.insert = completion_move_multi, simple|private, \
+    "d.directory_base.set = (argument.1); \
+     execute.throw = mkdir, -p, (completion_dirname, (argument.1)); \
+     execute.throw = mv, -uT, (argument.0), (argument.1)"
+
+method.insert = completion_move, simple|private, \
+    "branch=d.is_multi_file=, \
+        \"completion_move_multi = (argument.0), (argument.1)\", \
+        \"completion_move_single = (argument.0), (argument.1)\" ; \
      d.save_full_session="
 
 method.insert = completion_move_verbose, simple|private, \

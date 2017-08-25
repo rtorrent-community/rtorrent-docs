@@ -168,7 +168,7 @@ in ``arglist`` at the top of the bash script.
 
 If you run rTorrent-PS, which has the ``d.tracker_domain`` command,
 you can use that command to add a rule for trackers dedicated to one specific content type.
-Extend the last line of ``completion_path`` to read  ``(d.custom1), (d.tracker_domain)"``,
+Extend the last line of ``completion_path`` to read  ``…displayname), (d.tracker_domain)"``,
 and add  ``tracker_domain`` to the end of ``arglist``.
 Then add a rule like this to the body of ``set_target_path``:
 
