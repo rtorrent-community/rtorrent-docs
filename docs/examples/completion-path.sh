@@ -17,7 +17,7 @@ set_target_path() {
     # "target_base" is used to complete a non-empty but relative "target" path
     target_base=$(sed -re 's~^(.*)/work/.*~\1/done~' <<<"${base_path}")
     target_tail=$(sed -re 's~^.*/work/(.*)~\1~' <<<"${base_path}")
-    test "$is_multi_file" -eq 1 || target_tail=$(dirname "$target_tail")
+    test "$is_multi_file" -eq 1 || target_tail="$(dirname "$target_tail")"
     test "$target_tail" != '.' || target_tail=""
 
     # Move by label
