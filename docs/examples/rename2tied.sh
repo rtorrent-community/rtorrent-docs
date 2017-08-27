@@ -24,7 +24,7 @@ fail() {
 
 test -n "$path" || fail "Empty directory"
 test -n "$tied" || fail "Empty tied file"
-test ! -e "$path" || fail "Cannot rename an item with existing data"
+test ! -e "$path/$name" || fail "Cannot rename an item with existing data"
 
 tracker="$(rtcontrol --from-view $hash // -qo alias)"
 
