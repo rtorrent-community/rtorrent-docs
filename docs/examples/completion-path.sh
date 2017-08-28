@@ -58,7 +58,7 @@ pattern = re.compile(
     r"(?:[._ ](?P<codec>xvid|divx|avc|x264|h\.?264|hevc|h\.?265))"
     r"(?:[._ ](?P<sound2>MP3|DD5.1|AC3|AAC(?:2.0)?|FLAC(?:2.0)?|DTS(?:-HD)?))?"
     r"(?:[-.](?P<group>.+?))"
-    r"(?P<extension>\.avi|\.mkv|\.m4v)?$", re.I
+    r"(?P<extension>\.avi|\.mkv|\.mp4|\.m4v)?$", re.I
 )
 
 title = ' '.join(sys.argv[1:])
