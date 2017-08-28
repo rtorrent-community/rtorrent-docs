@@ -26,13 +26,15 @@ set_target_path() {
         movie*)                     target="Movies/$month" ;;
     esac
 
-    # Move by name patterns
-    test -n "$target" || case $(tr A-Z' ' a-z. <<<"${name:-EMPTY}") in
-        *hdtv*|*pdtv*)              target="TV" ;;
-        *.s[0-9][0-9].*)            target="TV" ;;
-        *.s[0-9][0-9]e[0-9][0-9].*) target="TV" ;;
-        *pdf|*epub|*ebook*)         target="eBooks/$month" ;;
-    esac
+    # Move by name patterns (check both displayname and info.name)
+    for i in "$display_name" "$name"; do
+        test -n "$target" -o -z "$i" || case $(tr A-Z' ' a-z. <<<"${i}") in
+            *hdtv*|*pdtv*)              target="TV" ;;
+            *.s[0-9][0-9].*)            target="TV" ;;
+            *.s[0-9][0-9]e[0-9][0-9].*) target="TV" ;;
+            *pdf|*epub|*ebook*)         target="eBooks/$month" ;;
+        esac
+    done
 
     test -z "$target" && is_movie "$name" && target="Movies/$month" || :
     test -z "$target" -a -n "$display_name" && is_movie "$display_name" && target="Movies/$month" || :
