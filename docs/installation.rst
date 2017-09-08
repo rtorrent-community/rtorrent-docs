@@ -109,9 +109,9 @@ including the current bleeding edge of development *(git HEAD)*, or any “relea
 
         Installation information and some trouble-shooting hints in the *rTorrent* wiki.
 
-    `Installing rTorrent-PS from Scratch <https://github.com/pyroscope/rtorrent-ps/blob/master/docs/DebianInstallFromSource.md#install-rtorrent-ps-and-pyrocore-on-debian-type-systems>`_
+    `Manual Turn-Key System Setup <https://rtorrent-ps.readthedocs.io/en/latest/install.html#debianinstallfromsource>`_ (PyroScope)
 
-        Installation instructions for a working *rTorrent* instance in combination with *PyroScope* from scratch, on *Debian* and most Debian-derived distros.
+        Installation instructions for a working *rTorrent* instance in combination with *PyroScope* from scratch, on *Debian* and most Debian-derived distros, but also Fedora 26 and others with a little variation.
 
     `Installing the “Ultimate Torrent Setup” <https://github.com/xombiemp/ultimate-torrent-setup/wiki#ultimate-torrent-setup>`_
 
