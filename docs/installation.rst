@@ -2,7 +2,9 @@ Installation Guide
 ==================
 
 This chapter has some pointers to common ways of installing
-*rTorrent* on your machine. It does not provide yet another way to do that,
+*rTorrent* on your machine
+– and in many cases, also ruTorrent and other related apps and services.
+It does not provide yet another way to do that,
 because there already are plentiful and redundant sources out there.
 
 
