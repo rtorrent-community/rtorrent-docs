@@ -46,12 +46,14 @@ If you want to run *ruTorrent*, the default version of *PHP* is very important (
 
         This will install *rTorrent-PS*, *pyrocore*, and related software onto any remote dedicated server or VPS with root access, running *Debian* or a Debian-like OS. It does so via *Ansible*, which is in many ways superior to the usual *“call a bash script to set up things once and never be able to update them again”*, since you can run this setup repeatedly to either fix problems, or to install upgrades and new features added to the project's repository.
 
-    `QuickBox <https://github.com/QuickBox>`_
+    `QuickBox <https://github.com/QuickBox>`_ and `Swizzin <https://github.com/liaralabs/swizzin>`_
 
         *bash + Javascript*
 
         *QuickBox* provides easy seedbox and services management from a web dashboard.
         With the click of a button users can install additional application packages.
+
+        *Swizzin* is a fork and strives to be more light-weight and modular.
 
     `AtoMiC-ToolKit <https://github.com/htpcBeginner/AtoMiC-ToolKit>`_
 
