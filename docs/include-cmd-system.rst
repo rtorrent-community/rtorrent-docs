@@ -1,7 +1,7 @@
 .. _execute-commands:
 
 `execute.*` commands
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^
 
 Call operating system commands, possibly catching their output for use within *rTorrent*.
 
@@ -84,8 +84,8 @@ Call operating system commands, possibly catching their output for use within *r
     execute.raw_nothrow
     execute.raw_nothrow.bg
 
-        The ``execute.raw`` variants function identically to other `execute.*` commands, except for
-        that tildes in the path to the executable are not expanded.
+        The ``execute.raw`` variants function identically to other ``execute.*`` commands,
+        except that a tilde in the path to the executable is not expanded.
 
 
 .. _system-commands:
@@ -115,26 +115,21 @@ Commands related to the operating system and the XMLRPC API.
         Note that no help or signature is currently defined for *rTorrent*-specific
         commands.
 
-.. _`XML-RPC Introspection`: http://xmlrpc-c.sourceforge.net/introspection.html
-
     system.capabilities
 
         .. code-block:: ini
 
             system.capabilities ≫ array ‹capabilities›
 
-        An xmlrpc-c command to inspect it's protocol and versions. See
-        `system.capabilities`_ for more information.
+        This returns protocol and version information about the XML-RPC interface implementation.
+        See `xmlrpc-c system.capabilities`_ for more.
 
-.. _`system.capabilities`: http://xmlrpc-c.sourceforge.net/doc/libxmlrpc_server.html#system.capabilities
 
     system.multicall
 
-        Similar to :term:`d.multicall`, this allows multiple commands to be sent in one request. Unlike
-        :term:`d.multicall`, this is a generic multicall implemented not by rtorrent. See
-        `system.multicall`_ for more information
-
-.. _`system.multicall`: https://openacs.org/api-doc/proc-view?proc=system.multicall
+        Similar to :term:`d.multicall2`, this allows multiple commands to be sent in one request.
+        Unlike :term:`d.multicall2`, this is a generic multicall not specific to rTorrent.
+        See the `xmlrpc-c system.multicall docs`_ for more.
 
     system.shutdown
 
@@ -144,15 +139,15 @@ Commands related to the operating system and the XMLRPC API.
     system.client_version
     system.library_version
 
-        The versions of the XMLRPC API, the *rTorrent* client, and the *libtorrent* library respectively.
-        The client and library versions are currently tightly coupled, while ``system.api_version``
-        is incremented whenever changes are made to the XMLRPC API.
-
         .. code-block:: ini
 
             system.api_version ≫ string ‹version›
             system.client_version ≫ string ‹version›
             system.library_version ≫ string ‹version›
+
+        The versions of the XMLRPC API, the *rTorrent* client, and the *libtorrent* library respectively.
+        The client and library versions are currently tightly coupled, while ``system.api_version``
+        is incremented whenever changes are made to the XMLRPC API.
 
     system.colors.enabled
     system.colors.max
@@ -160,11 +155,12 @@ Commands related to the operating system and the XMLRPC API.
 
         .. code-block:: ini
 
-            # rTorrent-PS 0.*+ only
+            # rTorrent-PS only
             system.colors.enabled ≫ bool (0 or 1)
             system.colors.max ≫ int ‹colors›
             system.colors.rgb ≫ int
 
+        Returns some ``ncurses`` system state related to colors (in rTorrent-PS only).
 
     system.cwd
     system.cwd.set
@@ -174,8 +170,8 @@ Commands related to the operating system and the XMLRPC API.
             system.cwd ≫ string ‹path›
             system.cwd.set = string ‹path› ≫ 0
 
-        Control the current working directory of the running process.
-        This will effect any relative paths.
+        Query or change the current working directory of the running process.
+        This will affect any relative paths used after the change, e.g. in schedules.
 
     system.env
 
@@ -204,7 +200,8 @@ Commands related to the operating system and the XMLRPC API.
 
         Controls whether file pre-allocation is enabled. If it is, and file allocation
         is supported by the file system, the full amount of space required for a file
-        is allotted ahead of time.
+        is allotted *immediately* when an item is started. Otherwise space is used only
+        when data arrives and must be stored.
 
 
     system.file.max_size
@@ -240,9 +237,8 @@ Commands related to the operating system and the XMLRPC API.
             system.files.failed_counter ≫ value ‹failed›
             system.files.opened_counter ≫ value ‹opened›
 
-        Returns the number of files which were closed, failed to open, and were
-        successfully opened respectfully. This is value is historical, i.e.
-        it starts at 0 and will only ever increase over time.
+        Return the number of files which were closed, failed to open, and were
+        successfully opened respectively.
 
     system.hostname
 
@@ -292,7 +288,7 @@ Commands related to the operating system and the XMLRPC API.
         in microseconds instead of seconds. ``system.time`` is essentially an alias for
         ``system.time_seconds``.
 
-        **TODO: Is there any practical difference when using the cached ``system.time``?**
+        **TODO:** Is there any practical difference when using the cached ``system.time``?
 
     system.umask.set
 
@@ -303,6 +299,10 @@ Commands related to the operating system and the XMLRPC API.
         Set the `umask`_ for the running *rTorrent* process.
 
 .. _`umask`: https://en.wikipedia.org/wiki/Umask
+.. _`XML-RPC Introspection`: http://xmlrpc-c.sourceforge.net/introspection.html
+.. _`xmlrpc-c system.multicall docs`: https://openacs.org/api-doc/proc-view?proc=system.multicall
+.. _`xmlrpc-c system.capabilities`: http://xmlrpc-c.sourceforge.net/doc/libxmlrpc_server.html#system.capabilities
+
 
 .. _log-commands:
 
@@ -340,9 +340,11 @@ Commands related to the operating system and the XMLRPC API.
 
             log.execute = ‹path› ≫ 0
 
-        (Re-)opens a log file that contains a log of commands executed via `execute-commands`_.
-        This logs the command called, stdout and stderr, and if the , and as such
-        can get large quite quickly. Passing an empty string closes the log file.
+        (Re-)opens a log file that records commands called via :ref:`execute-commands`,
+        including their return code and output.
+        This can grow large quickly, see :ref:`log-rotation` for how to manage this and other log files.
+
+        Passing an empty string closes the file.
 
         Example:
 
@@ -357,8 +359,10 @@ Commands related to the operating system and the XMLRPC API.
             log.xmlrpc = ‹path› ≫ 0
 
         (Re-)opens a log file that contains a log of commands executed via XMLRPC.
-        This logs the raw SCGI and XMLRPC call and response for each request, and as such
-        can get large quite quickly. Passing an empty string closes the log file.
+        This logs the raw SCGI and XMLRPC call and response for each request.
+        The file can get huge quickly, see :ref:`log-rotation` for how to manage this and other log files.
+
+        Passing an empty string closes the file.
 
         Example:
 
@@ -384,7 +388,7 @@ Commands related to the operating system and the XMLRPC API.
         see :term:`log.add_output` for details on those.
 
         The ``pid`` variants add the PID of *rTorrent* at the end of the file name
-        (see :ref:`log-rotatation` for a way better scheme for log separation).
+        (see :ref:`log-rotation` for a way better scheme for log separation).
         Adding ``gz`` opens the logfile directly as a compressed streams,
         note that you have to add an appropriate extension yourself.
 

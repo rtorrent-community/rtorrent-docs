@@ -48,7 +48,7 @@ amongst the initial console messages.
     (under the same name).
 
 
-.. _log-rotatation:
+.. _log-rotation:
 
 Log Rotation, Archival, and Pruning
 -----------------------------------
