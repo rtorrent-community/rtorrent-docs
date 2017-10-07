@@ -5,6 +5,7 @@
 
 Call operating system commands, possibly catching their output for use within *rTorrent*.
 
+
 .. note::
 
     The ``.bg`` variants detach the child process from the *rTorrent* parent,
@@ -83,7 +84,8 @@ Call operating system commands, possibly catching their output for use within *r
     execute.raw_nothrow
     execute.raw_nothrow.bg
 
-        **TODO**
+        The ``execute.raw`` variants function identically to other `execute.*` commands, except for
+        that tildes in the path to the executable are not expanded.
 
 
 .. _system-commands:
@@ -99,36 +101,81 @@ Commands related to the operating system and the XMLRPC API.
     system.methodExist
     system.methodHelp
     system.methodSignature
-    system.capabilities
     system.getCapabilities
 
-        **TODO**
+        .. code-block:: ini
+
+            system.listMethods ≫ array ‹methods›
+            system.methodExist = string ‹method› ≫ bool (0 or 1)
+            system.methodHelp = string ‹method› ≫ string ‹help›
+            system.methodSignature = string ‹method› ≫ string ‹signature›
+            system.getCapabilities ≫ array ‹capabilities›
+
+        XML-RPC introspection methods. For more information, see `XML-RPC Introspection`_.
+        Note that no help or signature is currently defined for *rTorrent*-specific
+        commands.
+
+.. _`XML-RPC Introspection`: http://xmlrpc-c.sourceforge.net/introspection.html
+
+    system.capabilities
+
+        .. code-block:: ini
+
+            system.capabilities ≫ array ‹capabilities›
+
+        An xmlrpc-c command to inspect it's protocol and versions. See
+        `system.capabilities`_ for more information.
+
+.. _`system.capabilities`: http://xmlrpc-c.sourceforge.net/doc/libxmlrpc_server.html#system.capabilities
 
     system.multicall
 
-        **TODO**
+        Similar to :term:`d.multicall`, this allows multiple commands to be sent in one request. Unlike
+        :term:`d.multicall`, this is a generic multicall implemented not by rtorrent. See
+        `system.multicall`_ for more information
+
+.. _`system.multicall`: https://openacs.org/api-doc/proc-view?proc=system.multicall
 
     system.shutdown
 
-        **TODO**
+        This shuts down the XMLRPC server. This does **not** shut down rTorrent.
 
     system.api_version
     system.client_version
     system.library_version
 
-        **TODO**
+        The versions of the XMLRPC API, the *rTorrent* client, and the *libtorrent* library respectively.
+        The client and library versions are currently tightly coupled, while ``system.api_version``
+        is incremented whenever changes are made to the XMLRPC API.
+
+        .. code-block:: ini
+
+            system.api_version ≫ string ‹version›
+            system.client_version ≫ string ‹version›
+            system.library_version ≫ string ‹version›
 
     system.colors.enabled
     system.colors.max
     system.colors.rgb
 
-        **TODO**
+        .. code-block:: ini
+
+            # rTorrent-PS 0.*+ only
+            system.colors.enabled ≫ bool (0 or 1)
+            system.colors.max ≫ int ‹colors›
+            system.colors.rgb ≫ int
+
 
     system.cwd
     system.cwd.set
 
-        **TODO**
+        .. code-block:: ini
 
+            system.cwd ≫ string ‹path›
+            system.cwd.set = string ‹path› ≫ 0
+
+        Control the current working directory of the running process.
+        This will effect any relative paths.
 
     system.env
 
@@ -150,7 +197,15 @@ Commands related to the operating system and the XMLRPC API.
     system.file.allocate
     system.file.allocate.set
 
-        **TODO**
+        .. code-block:: ini
+
+            system.file.allocate ≫ bool (0 or 1)
+            system.file.allocate.set = bool (0 or 1) ≫ 0
+
+        Controls whether file pre-allocation is enabled. If it is, and file allocation
+        is supported by the file system, the full amount of space required for a file
+        is allotted ahead of time.
+
 
     system.file.max_size
     system.file.max_size.set
@@ -167,21 +222,43 @@ Commands related to the operating system and the XMLRPC API.
     system.file_status_cache.prune
     system.file_status_cache.size
 
-        **TODO**
+        .. code-block:: ini
+
+            system.file_status_cache.size ≫ value ‹size›
+            system.file_status_cache.prune ≫ 0
+
+        Used when loading metafiles from a directory/glob, this helps prevent *rTorrent* from trying
+        to load the same file multiple times, especially when using watch directories.
 
     system.files.closed_counter
     system.files.failed_counter
     system.files.opened_counter
 
-        **TODO**
+        .. code-block:: ini
+
+            system.files.closed_counter ≫ value ‹closed›
+            system.files.failed_counter ≫ value ‹failed›
+            system.files.opened_counter ≫ value ‹opened›
+
+        Returns the number of files which were closed, failed to open, and were
+        successfully opened respectfully. This is value is historical, i.e.
+        it starts at 0 and will only ever increase over time.
 
     system.hostname
 
-        **TODO**
+        .. code-block:: ini
+
+            system.hostname ≫ string ‹hostname›
+
+        Returns the hostname of the system.
 
     system.pid
 
-        **TODO**
+        .. code-block:: ini
+
+            system.pid ≫ value ‹pid›
+
+        Returns the process's identifier.
 
     system.random
 
@@ -205,12 +282,27 @@ Commands related to the operating system and the XMLRPC API.
     system.time_seconds
     system.time_usec
 
-        **TODO**
+        .. code-block:: ini
+
+            system.time ≫ value ‹time›
+            system.time_seconds ≫ value ‹time›
+            system.time_usec ≫ value ‹time›
+
+        Returns the system times in `epoch`_ notation. ``system.time_usec`` returns the value
+        in microseconds instead of seconds. ``system.time`` is essentially an alias for
+        ``system.time_seconds``.
+
+        **TODO: Is there any practical difference when using the cached ``system.time``?**
 
     system.umask.set
 
-        **TODO**
+        .. code-block:: ini
 
+            system.umask.set ≫ value ‹time›
+
+        Set the `umask`_ for the running *rTorrent* process.
+
+.. _`umask`: https://en.wikipedia.org/wiki/Umask
 
 .. _log-commands:
 
@@ -243,9 +335,36 @@ Commands related to the operating system and the XMLRPC API.
 
 
     log.execute
+
+        .. code-block:: ini
+
+            log.execute = ‹path› ≫ 0
+
+        (Re-)opens a log file that contains a log of commands executed via `execute-commands`_.
+        This logs the command called, stdout and stderr, and if the , and as such
+        can get large quite quickly. Passing an empty string closes the log file.
+
+        Example:
+
+        .. code-block:: ini
+
+            log.execute = (cat, (cfg.logs), "execute.log")
+
     log.xmlrpc
 
-        **TODO**
+        .. code-block:: ini
+
+            log.xmlrpc = ‹path› ≫ 0
+
+        (Re-)opens a log file that contains a log of commands executed via XMLRPC.
+        This logs the raw SCGI and XMLRPC call and response for each request, and as such
+        can get large quite quickly. Passing an empty string closes the log file.
+
+        Example:
+
+        .. code-block:: ini
+
+            log.xmlrpc = (cat, (cfg.logs), "xmlrpc.log")
 
     log.open_file
     log.open_gz_file
