@@ -339,6 +339,8 @@ Importing Script Files
         **TODO**
 
 
+.. _cond-cmds:
+
 Conditions (if/then/else)
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -347,8 +349,46 @@ Conditions (if/then/else)
     branch
     if
 
-        **TODO**
+        .. code-block:: ini
 
+            branch = ‹condition-cmd›, ‹then-cmds›[, ‹else-cmds›] ≫ 0
+            if = ‹condition›, ‹then-cmds›[, ‹else-cmds›] ≫ 0
+
+        Both of these commands take a predicate,
+        and based on its value execute either
+        the command or commands given as the 2nd argument,
+        or else the ones in the 3rd argument.
+        See :ref:`cond-ops` below for details on these predicates.
+
+        The fundamental difference between ``branch`` and ``if`` is
+        the first takes commands to evaluate for the predicate,
+        the latter expects values.
+
+        See the following examples for details, these are easier to understand
+        than long-winded explanations.
+        Take note of the different forms of :ref:`escaping` needed
+        when the then/else commands themselves take arguments.
+
+        And always consider adding additional helper methods when you have
+        complex multi-command then or else arguments, because escaping escalates fast.
+        You also **must** use *double* parentheses if you use those, because otherwise
+        *both* ``then`` and ``else`` are already evaluated when the ``branch/if`` itself is,
+        which defeats the whole purpose of the conditional.
+
+        .. code-block:: ini
+
+            # Toggle a value between 0 and 1
+            method.insert.value = foobar, 0
+            method.insert = foobar.toggle, simple, \
+                "branch=(foobar), ((foobar.set, 0)), ((foobar.set, 1))"
+
+        Using ``branch=foobar=, …`` is equivalent, just using the older command syntax for the condition.
+
+
+        **TODO:** More examples, using or/and/not and other more complex constructs.
+
+
+.. _cond-ops:
 
 Conditional Operators
 ^^^^^^^^^^^^^^^^^^^^^
