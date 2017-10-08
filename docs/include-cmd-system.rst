@@ -392,7 +392,7 @@ Commands related to the operating system and the XMLRPC API.
         Adding ``gz`` opens the logfile directly as a compressed streams,
         note that you have to add an appropriate extension yourself.
 
-        There is an arbitary limit on the number of log streams you can open (64 in 0.9.6).
+        There is an arbitrary limit on the number of log streams you can open (64 in 0.9.6).
         The core of the logging subsystem is implemented in ``torrent/utils/log`` of *libtorrent*.
 
         You can re-open existing logs in *rTorrent-PS* 1.1+ (and maybe in *rTorrent* 0.9.7+),
