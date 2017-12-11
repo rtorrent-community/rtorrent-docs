@@ -12,6 +12,8 @@ adding more features to that basic configuration.
 The `ArchLinux wiki page`_ is also a good source on *rTorrent* in general
 and its configuration in particular.
 
+.. _new-syntax:
+
 .. note::
 
     *rTorrent* started to rename a lot of configuration commands
