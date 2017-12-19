@@ -199,17 +199,35 @@
 `event.*` commands
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+rTorrent events are merely :ref:`multi commands <multi-type>`
+that are called automatically when certain things happen,
+like completion of a download item.
+
+You can trigger them manually by calling them on selected items (e.g. via ``rtxmlrpc``).
+Make sure though that the registered handlers do not have adverse effects when called repeatedly,
+i.e. know what you're doing.
+
+The handlers for an event can be listed like so:
+
+.. code-block:: bash
+
+    rtxmlrpc --repr method.get '' event.download.finished
+
+Note that practically all the events have pre-registered system handlers,
+often starting with a digit, ``!``, or ``~``, for ordering reasons.
+
+
 .. glossary::
 
     event.download.closed
     event.download.opened
 
-        **TODO**
+        Download item was closed / opened.
 
     event.download.paused
     event.download.resumed
 
-        **TODO**
+        Download item was paused / resumed.
 
     event.download.hash_done
     event.download.hash_failed
@@ -226,15 +244,17 @@
     event.download.inserted_new
     event.download.inserted_session
 
-        **TODO**
+        ``inserted`` is *always* called when an item is added to the main downloads list.
+        After that, ``inserted_session`` is called when the source of that item is the session state (on startup),
+        or else ``inserted_new`` is called for items newly added via a ``load`` command.
 
     event.download.finished
 
-        **TODO**
+        Download item is complete.
 
     event.download.erased
 
-        **TODO**
+        Download item was removed.
 
     event.view.hide
     event.view.show

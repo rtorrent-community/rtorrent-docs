@@ -135,6 +135,8 @@ If a command is ``private``, it can only be called from within rTorrent, but not
 **TODO** static?!
 
 
+.. _basic-type:
+
 value, bool, string, list (subtypes: static, private, const)
    These are the standard object types, ``value`` is an integer,
    and ``bool`` just a convention of using the integer values ``0`` for :term:`false` and ``1`` for true.
@@ -145,6 +147,9 @@ value, bool, string, list (subtypes: static, private, const)
    .. seealso::
 
         :term:`method.insert.value`
+
+
+.. _simple-type:
 
 simple (subtypes: static, private, const)
    Simple commands are defined once and cannot be changed dynamically like ``multi`` ones.
@@ -169,6 +174,9 @@ simple (subtypes: static, private, const)
    .. seealso::
 
         :term:`method.insert.simple`
+
+
+.. _multi-type:
 
 multi (subtypes: static, private, const, rlookup)
    A multi command is an array of ``simple`` commands, indexed by a name.
