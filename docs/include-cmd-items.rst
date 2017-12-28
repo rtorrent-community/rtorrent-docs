@@ -329,8 +329,8 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
         .. code-block:: ini
 
-            d.down.rate = ‹hash› ≫ value ‹rate›
-            d.down.total = ‹hash› ≫ value ‹total›
+            d.down.rate = ‹hash› ≫ value ‹rate [bytes/s]›
+            d.down.total = ‹hash› ≫ value ‹total [bytes]›
 
         The total amount and current rate of download traffic for this item.
         It's possible for the total download to be greater than :term:`d.size_bytes`,
@@ -619,8 +619,8 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
         .. code-block:: ini
 
-            d.up.rate = ‹hash› ≫ value ‹rate›
-            d.up.total = ‹hash› ≫ value ‹total›
+            d.up.rate = ‹hash› ≫ value ‹rate [bytes/s]›
+            d.up.total = ‹hash› ≫ value ‹total [bytes]›
 
         The total amount and current rate of upload traffic for this item.
 
