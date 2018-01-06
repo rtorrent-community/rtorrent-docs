@@ -139,8 +139,8 @@
 
         .. code-block:: ini
 
-           network.scgi.open_local = ‹path› ≫ 0
-           network.scgi.open_port = ‹domain_or_ip›:‹port› ≫ 0
+           network.scgi.open_local = string ‹path› ≫ 0
+           network.scgi.open_port = string ‹domain_or_ip›:‹port› ≫ 0
 
         Open up a Unix domain socket or a TCP port for SCGI communication (i.e. the XMLRPC socket).
         Only use *one* of these!

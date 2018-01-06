@@ -284,11 +284,11 @@ Commands related to the operating system and the XMLRPC API.
             system.time_seconds ≫ value ‹time›
             system.time_usec ≫ value ‹time›
 
-        Returns the system times in `epoch`_ notation. ``system.time_usec`` returns the value
-        in microseconds instead of seconds. ``system.time`` is essentially an alias for
-        ``system.time_seconds``.
+        Returns the system times in `epoch <https://en.wikipedia.org/wiki/Unix_time>`_ notation.
+        ``system.time_usec`` returns the value in microseconds instead of seconds.
+        ``system.time`` is essentially an alias for ``system.time_seconds``.
 
-        **TODO:** Is there any practical difference when using the cached ``system.time``?
+        **TODO** Is there any practical difference when using the cached ``system.time``?
 
     system.umask.set
 

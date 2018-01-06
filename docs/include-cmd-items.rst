@@ -311,7 +311,7 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
         .. code-block:: ini
 
-            d.disconnect.seeders = ‹hash› ≫ value ‹rate›
+            d.disconnect.seeders = ‹hash› ≫ 0
 
         Cleanly drop all connections to seeders. This does not prevent them from
         reconnecting later on.
@@ -575,7 +575,6 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
             d.size_files = ‹hash› ≫ value ‹files›
             d.size_pex = ‹hash› ≫ value ‹peers›
 
-        Skipped pieces are ones that were received from peers, but weren't needed and thus ignored.
         Returns the various size attributes of an item.
 
         - **bytes**: The total number of bytes in the item's files.
@@ -762,7 +761,7 @@ Index counting starts at ``0``, the array size is :term:`d.size_files`.
 
             f.completed_chunks = ‹infohash› ≫ value ‹chunks›
 
-        The number of chunks in the file completed. Just as with term:`f.size_chunks`, this number is
+        The number of chunks in the file completed. Just as with :term:`f.size_chunks`, this number is
         inclusive of any chunks that contain only part of the file.
 
     f.frozen_path
@@ -793,11 +792,9 @@ Index counting starts at ``0``, the array size is :term:`d.size_files`.
 
             f.last_touched = ‹infohash› ≫ value ‹microseconds›
 
-        The last time, in `epoch`_ microseconds, *rTorrent* prepared to use the file
+        The last time, in `epoch <https://en.wikipedia.org/wiki/Unix_time>`_ microseconds, *rTorrent* prepared to use the file
         (for either reading or writing). This will not necessarily correspond to the file's
         access or modification times.
-
-.. _`epoch`: https://en.wikipedia.org/wiki/Unix_time
 
     f.match_depth_next
     f.match_depth_prev
@@ -811,7 +808,7 @@ Index counting starts at ``0``, the array size is :term:`d.size_files`.
             f.offset = ‹infohash› ≫ value ‹bytes›
 
         The offset (in bytes) of the file from the start of the torrent data. The first file starts at ``0``, the second file
-        at term:`f.size_bytes` of the first file, the third at term:`f.size_bytes` of the first two files combined, and so on.
+        at :term:`f.size_bytes` of the first file, the third at :term:`f.size_bytes` of the first two files combined, and so on.
 
     f.path
 
@@ -895,7 +892,7 @@ Index counting starts at ``0``, the array size is :term:`d.size_files`.
 
         Returns the number of bytes and chunks in the file respectively. If the file is only partially in some chunks,
         those are included in the count. This means the sum of all ``f.size_chunks`` can be
-        larger than :term:`d.size_chunks`
+        larger than :term:`d.size_chunks`.
 
 
 .. _p-commands:
@@ -1039,9 +1036,9 @@ Example:
 
         .. code-block:: ini
 
-            p.is_obfuscated = ‹target› ≫ bool (0 or 1)
+            p.is_incoming = ‹target› ≫ bool (0 or 1)
 
-        Return true if the remote peer was the first one to initiate the connection. See :term:`protocol.encryption.set`.
+        Return true if the remote peer was the first one to initiate the connection.
 
     p.is_obfuscated
 
@@ -1236,7 +1233,7 @@ and using ``Ctrl-K`` also implicitly unties an item.
             session.name.set = string ‹name› ≫ 0
 
         This controls the session name. By default this is set to :term:`system.hostname` + ':' +
-        term:`system.pid`. Like term:`session.path`, once the session is active this cannot
+        :term:`system.pid`. Like :term:`session.path`, once the session is active this cannot
         be changed
 
 
