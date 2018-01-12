@@ -904,8 +904,20 @@ Index counting starts at ``0``, the array size is :term:`d.size_files`.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 These commands can be used as arguments in a :term:`p.multicall`.
-They can also be called directly, but you need to pass `‹infohash›:p‹id›` as the first argument.
-The ``‹id›`` is the peer ID as returned by :term:`p.id`, encoded as a hexadecimal string.
+They can also be called directly, but you need to pass `‹infohash›:p‹peerhash›` as the first argument
+(referenced as ``target`` from here on out). The ``‹peerhash›`` is the ID as returned by
+:term:`p.id`, which is encoded as a hexadecimal string.
+
+
+Example:
+
+.. code-block:: console
+
+    $ rtxmlrpc --repr p.multicall "145B85116626651912298F9400805254FB1192AE" "" p.id= p.port=
+    [['17C14214B60B92FFDEBFB550380ED3866BF49691', 62066]]
+
+    $ rtxmlrpc --repr p.port "145B85116626651912298F9400805254FB1192AE:p17C14214B60B92FFDEBFB550380ED3866BF49691"
+    62066
 
 .. glossary::
 
@@ -921,34 +933,190 @@ The ``‹id›`` is the peer ID as returned by :term:`p.id`, encoded as a hexade
         See also :term:`d.multicall2` on basics regarding multi-calls.
 
     p.address
+
+        .. code-block:: ini
+
+            p.address = ‹target› ≫ string ‹address›
+
+        Returns the IP address of the peer.
+
     p.banned
     p.banned.set
+
+        .. code-block:: ini
+
+            p.banned ‹target› ≫ bool (0 or 1)
+            p.banned.set = ‹target›, bool (0 or 1) ≫ 0
+
+        Returns (or sets) whether to ban the peer for too much bad data being sent, which means rTorrent will never connect
+        to the peer again.
+        **TODO** What are the conditions for a peer being banned automatically?
+
+        .. warning::
+
+            Once a peer is set as banned, it cannot be unbanned. Only restarting rTorrent can clear the ban.
+
     p.call_target
+
+        .. code-block:: ini
+
+            p.banned "", ‹infohash›, ‹peerhash›, ‹cmd›, [‹arg1›, [, ‹arg2›…]] ≫ bool (0 or 1)
+
+        **TODO** While functional, the code looks incomplete and it isn't very useful.
+
     p.client_version
+
+        .. code-block:: ini
+
+            p.client_version = ‹target› ≫ string ‹client version›
+
+        Returns a string client containing the client and version of the peer, if *rTorrent* knows enough to parse the
+        peer ID. Otherwise, ``Unknown`` will be returned. The list of clients *rTorrent* understands is available
+        here: https://github.com/rakshasa/libtorrent/blob/master/src/torrent/peer/client_list.cc
+
     p.completed_percent
+
+        .. code-block:: ini
+
+            p.completed_percent = ‹target› ≫ value ‹percent›
+
+        Returns the percent of data the remote peer has completed.
+
     p.disconnect
     p.disconnect_delayed
+
+        .. code-block:: ini
+
+           p.disconnect = ‹target› ≫ 0
+           p.disconnect_delayed = ‹target› ≫ 0
+
+        Disconnects from the specified peer. The ``p.disconnect`` disconnects immediately, while ``p.disconnect_delayed``
+        puts the actual disconnect into a queue. **TODO** What causes delayed disconnect actions to finally be acted upon?
+
     p.down_rate
     p.down_total
+
+        .. code-block:: ini
+
+            p.down_rate = ‹target› ≫ value ‹rate  [bytes/s]›
+            p.down_total = ‹target› ≫ value ‹total  [bytes]›
+
+        Returns the rate and total of the bytes you are downloading from the peer.
+
     p.id
+
+        .. code-block:: ini
+
+             p.id = ‹target› ≫ string ‹peerhash›
+
+        Returns the peer ID hash, in the form of a 40-character hex string. This is the ID *rTorrent* uses to reference the peer
+        in all XMLRPC commands, and is different than the ID peers send to identify themselves.
+
     p.id_html
+
+        .. code-block:: ini
+
+            p.id_html = ‹target› ≫ string ‹client id›
+
+        Returns the client ID string, with non-printable characters `percent encoded`_, like URLs. This command is completely
+        unrelated to :term:`p.id`. This is instead the raw string that peers send to identify themselves uniquely, and is what
+        :term:`p.client_version` attempts to parse. See `BEP 20`_ for more information on the conventions clients
+        use for the value.
+
     p.is_encrypted
+
+        .. code-block:: ini
+
+            p.is_encrypted = ‹target› ≫ bool (0 or 1)
+
+        Returns true if the connection to the peer is encrypted (not just obfuscated). However, if this returns true,
+        :term:`p.is_obfuscated` will always be true as well. See :term:`protocol.encryption.set`.
+
     p.is_incoming
+
+        .. code-block:: ini
+
+            p.is_obfuscated = ‹target› ≫ bool (0 or 1)
+
+        Return true if the remote peer was the first one to initiate the connection. See :term:`protocol.encryption.set`.
+
     p.is_obfuscated
+
+        .. code-block:: ini
+
+            p.is_obfuscated = ‹target› ≫ bool (0 or 1)
+
+        Returns true if the header messages sent to the peer are obfuscated. If the connection is fully encrypted, this
+        is true automatically. Be aware that if, this means the data is still being sent over plain-text.
+
     p.is_preferred
-    p.is_snubbed
     p.is_unwanted
+
+        .. code-block:: ini
+
+            p.is_preferred = ‹target› ≫ bool (0 or 1)
+            p.is_unwanted = ‹target› ≫ bool (0 or 1)
+
+        Returns whether or not the peer is marked as preferred or wanted when
+        `IP filtering <https://github.com/rakshasa/rtorrent/wiki/IP-filtering>`_ is in use.
+
     p.options_str
+
+        .. code-block:: ini
+
+            p.options_str = ‹target› ≫ string ‹options›
+
+        Returns the reserved option bytes as a string. Currently only two options are recognized by *rTorrent*:
+        extensions (`BEP 10`_) and DHT (`BEP 5`_). For clients that support both (most modern ones do),
+        ``0000000000100005`` will be the returned string.
+
     p.peer_rate
     p.peer_total
+
+        .. code-block:: ini
+
+            p.peer_rate = ‹target› ≫ value ‹rate [bytes/s]›
+            p.peer_total = ‹target› ≫ value ‹total [bytes]›
+
+        Returns the rate and total of the bytes which the peer is downloading from everyone (local client included).
+        Note that this is calculated from the number of chunks the peer has completed, and as such
+        should not be taken as an exact indicator.
+
     p.port
+
+         .. code-block:: ini
+
+             p.port = ‹target› ≫ value ‹port›
+
+         Returns the remote port as an integer.
+
+    p.is_snubbed
     p.snubbed
     p.snubbed.set
+
+        .. code-block:: ini
+
+            p.snubbed ‹target› ≫ bool (0 or 1)
+            p.is_snubbed ‹target› ≫ bool (0 or 1)
+            p.snubbed.set = ‹target›, bool (0 or 1) ≫ 0
+
+        Control if a peer is snubbed, meaning that *rTorrent* will stop uploading to the peer. ``p.is_snubbed`` is an
+        alias for ``p.snubbed``.
+
     p.up_rate
     p.up_total
 
-        **TODO**
+        .. code-block:: ini
 
+            p.up_rate = ‹target› ≫ value ‹rate  [bytes/s]›
+            p.up_total = ‹target› ≫ value ‹total  [bytes]›
+
+        Returns the rate and total of the bytes you are uploading to the peer.
+
+.. _`BEP 5`: http://www.bittorrent.org/beps/bep_0005.html
+.. _`BEP 10`: http://www.bittorrent.org/beps/bep_0010.html
+.. _`BEP 20`: http://www.bittorrent.org/beps/bep_0020.html
+.. _`percent encoded`: https://tools.ietf.org/html/rfc3986#section-2.1
 
 .. _t-commands:
 
