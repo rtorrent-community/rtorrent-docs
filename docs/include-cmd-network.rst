@@ -140,9 +140,9 @@
         .. code-block:: ini
 
            network.scgi.open_local = ‹path› ≫ 0
-           network.scgi.open_port = ‹port› ≫ 0
+           network.scgi.open_port = ‹domain_or_ip›:‹port› ≫ 0
 
-        Open up a TCP port or a Unix domain socket for SCGI communication (i.e. the XMLRPC socket).
+        Open up a Unix domain socket or a TCP port for SCGI communication (i.e. the XMLRPC socket).
         Only use *one* of these!
 
         .. note::
@@ -150,7 +150,7 @@
             Using ``network.scgi.open_port`` means *any* user on the machine you run *rTorrent* on can
             execute *arbitrary* commands with the permission of the *rTorrent* runtime user.
             Most people don't realize that, now you do! Also, **never** use any other address than
-            ``127.0.0.1`` with it.
+            ``127.0.0.1`` or ``localhost`` with it.
 
 
     network.tos.set
