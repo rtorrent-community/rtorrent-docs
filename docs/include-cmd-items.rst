@@ -913,10 +913,10 @@ Example:
 
 .. code-block:: console
 
-    $ rtxmlrpc --repr p.multicall "145B85116626651912298F9400805254FB1192AE" "" p.id= p.port=
+    $ hash="145B85116626651912298F9400805254FB1192AE" # some valid info hash
+    $ rtxmlrpc --repr p.multicall "$hash" "" p.id= p.port=
     [['17C14214B60B92FFDEBFB550380ED3866BF49691', 62066]]
-
-    $ rtxmlrpc --repr p.port "145B85116626651912298F9400805254FB1192AE:p17C14214B60B92FFDEBFB550380ED3866BF49691"
+    $ rtxmlrpc --repr p.port "$hash:p17C14214B60B92FFDEBFB550380ED3866BF49691"
     62066
 
 .. glossary::
@@ -945,11 +945,12 @@ Example:
 
         .. code-block:: ini
 
-            p.banned ‹target› ≫ bool (0 or 1)
+            p.banned = ‹target› ≫ bool (0 or 1)
             p.banned.set = ‹target›, bool (0 or 1) ≫ 0
 
         Returns (or sets) whether to ban the peer for too much bad data being sent, which means rTorrent will never connect
         to the peer again.
+
         **TODO** What are the conditions for a peer being banned automatically?
 
         .. warning::
@@ -960,7 +961,7 @@ Example:
 
         .. code-block:: ini
 
-            p.banned "", ‹infohash›, ‹peerhash›, ‹cmd›, [‹arg1›, [, ‹arg2›…]] ≫ bool (0 or 1)
+            p.call_target = ‹infohash›, ‹peerhash›, ‹cmd›, [‹arg1›, [, ‹arg2›…]] ≫ bool (0 or 1)
 
         **TODO** While functional, the code looks incomplete and it isn't very useful.
 
@@ -972,7 +973,7 @@ Example:
 
         Returns a string client containing the client and version of the peer, if *rTorrent* knows enough to parse the
         peer ID. Otherwise, ``Unknown`` will be returned. The list of clients *rTorrent* understands is available
-        here: https://github.com/rakshasa/libtorrent/blob/master/src/torrent/peer/client_list.cc
+        in `client_list.cc <https://github.com/rakshasa/libtorrent/blob/master/src/torrent/peer/client_list.cc>`_.
 
     p.completed_percent
 
@@ -991,7 +992,9 @@ Example:
            p.disconnect_delayed = ‹target› ≫ 0
 
         Disconnects from the specified peer. The ``p.disconnect`` disconnects immediately, while ``p.disconnect_delayed``
-        puts the actual disconnect into a queue. **TODO** What causes delayed disconnect actions to finally be acted upon?
+        puts the actual disconnect into a queue.
+
+        **TODO** What causes delayed disconnect actions to finally be acted upon?
 
     p.down_rate
     p.down_total
@@ -1010,7 +1013,7 @@ Example:
              p.id = ‹target› ≫ string ‹peerhash›
 
         Returns the peer ID hash, in the form of a 40-character hex string. This is the ID *rTorrent* uses to reference the peer
-        in all XMLRPC commands, and is different than the ID peers send to identify themselves.
+        in all XMLRPC commands, and is different from the ID peers send to identify themselves.
 
     p.id_html
 
@@ -1047,7 +1050,7 @@ Example:
             p.is_obfuscated = ‹target› ≫ bool (0 or 1)
 
         Returns true if the header messages sent to the peer are obfuscated. If the connection is fully encrypted, this
-        is true automatically. Be aware that if, this means the data is still being sent over plain-text.
+        is true automatically. Be aware that this means the data is still being sent unencrypted.
 
     p.is_preferred
     p.is_unwanted
@@ -1057,7 +1060,7 @@ Example:
             p.is_preferred = ‹target› ≫ bool (0 or 1)
             p.is_unwanted = ‹target› ≫ bool (0 or 1)
 
-        Returns whether or not the peer is marked as preferred or wanted when
+        Returns whether or not the peer is marked as preferred or unwanted when
         `IP filtering <https://github.com/rakshasa/rtorrent/wiki/IP-filtering>`_ is in use.
 
     p.options_str
@@ -1096,8 +1099,8 @@ Example:
 
         .. code-block:: ini
 
-            p.snubbed ‹target› ≫ bool (0 or 1)
-            p.is_snubbed ‹target› ≫ bool (0 or 1)
+            p.snubbed = ‹target› ≫ bool (0 or 1)
+            p.is_snubbed = ‹target› ≫ bool (0 or 1)
             p.snubbed.set = ‹target›, bool (0 or 1) ≫ 0
 
         Control if a peer is snubbed, meaning that *rTorrent* will stop uploading to the peer. ``p.is_snubbed`` is an
@@ -1108,8 +1111,8 @@ Example:
 
         .. code-block:: ini
 
-            p.up_rate = ‹target› ≫ value ‹rate  [bytes/s]›
-            p.up_total = ‹target› ≫ value ‹total  [bytes]›
+            p.up_rate = ‹target› ≫ value ‹rate [bytes/s]›
+            p.up_total = ‹target› ≫ value ‹total [bytes]›
 
         Returns the rate and total of the bytes you are uploading to the peer.
 
