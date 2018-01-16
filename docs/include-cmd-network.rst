@@ -150,7 +150,7 @@
             Using ``network.scgi.open_port`` means *any* user on the machine you run *rTorrent* on can
             execute *arbitrary* commands with the permission of the *rTorrent* runtime user.
             Most people don't realize that, now you do! Also, **never** use any other address than
-            ``127.0.0.1`` or ``localhost`` with it.
+            ``127.0.0.1`` with it.
 
 
     network.tos.set
