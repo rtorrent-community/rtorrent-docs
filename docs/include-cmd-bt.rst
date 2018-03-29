@@ -42,32 +42,179 @@
 
     pieces.hash.on_completion
     pieces.hash.on_completion.set
+
+        .. code-block:: ini
+
+            pieces.hash.on_completion ≫ bool (0 or 1)
+            pieces.hash.on_completion.set = bool (0 or 1) ≫ 0
+
+        When set to true, this triggers a full hash check after a torrent completes.
+        This is not strictly necessary, as hashing already occurs as each piece is downloaded,
+        and turning it off is recommended if you encounter bugs such as
+        `completed torrents not announcing properly`_.
+
     pieces.hash.queue_size
+
+        **TODO**
+
     pieces.memory.block_count
+
+        .. code-block:: ini
+
+            pieces.memory.block_count ≫ value ‹blocks›
+
+        Returns the number of blocks *rTorrent* is tracking in memory. **TODO** What determines block size?
+
     pieces.memory.current
+
+        .. code-block:: ini
+
+            pieces.memory.current ≫ value ‹bytes›
+
+        Returns the amount of memory *rTorrent* is currently using to track pieces which haven't yet been
+        synced to a file.
+
     pieces.memory.max
     pieces.memory.max.set
+
+        .. code-block:: ini
+
+            pieces.memory.max ≫ value ‹bytes›
+            pieces.memory.max.set = value ‹bytes› ≫ 0
+
+        Controls the max amount of memory used to hold chunk information. By default this is set to 1/5
+        of the available detected memory.
+
     pieces.memory.sync_queue
+
+        .. code-block:: ini
+
+            pieces.memory.sync_queue ≫ value ‹bytes›
+
+        The amount of memory queued to be synced.
+
     pieces.preload.min_rate
     pieces.preload.min_rate.set
     pieces.preload.min_size
     pieces.preload.min_size.set
+
+        .. code-block:: ini
+
+            pieces.preload.min_rate ≫ value ‹bytes›
+            pieces.preload.min_rate.set = ‹bytes› ≫ 0
+            pieces.preload.min_size ≫ value ‹chunks›
+            pieces.preload.min_size.set = ‹chunks› ≫ 0
+
+        Preloading can be controlled to only activate when an item either reaches a certain rate
+        of upload, and when the piece size is greater than a certain amount. Both conditions must be met
+        in order for preloading to occur.
+
     pieces.preload.type
     pieces.preload.type.set
-    pieces.stats.total_size
+
+        .. code-block:: ini
+
+             pieces.preload.type ≫ value ‹enum›
+             pieces.preload.type.set = value ‹enum› ≫ 0
+
+        When a piece is to be uploaded to a peer, *rTorrent* can preload the piece of the file before
+        it does the non-blocking write to the network. This will not complete the whole piece
+        if parts of the piece is not already in memory, having instead to try again later.
+
+        Possible values for ``value`` are:
+
+        - ``0`` - Off
+        - ``1`` - MAdvise
+        - ``2`` - Direct page
+
+        Off means it doesn't do any preloading at all.
+
+        MAdvise means it calls `madvise`_ on the file for the specific mmap'ed memory range,
+        which tells the kernel to load it in memory when it gets around to it.
+        Which is hopefully before *rTorrent* writes to the network socket.
+
+        Direct paging means it touches each file page in order to force the kernel to load it into
+        memory. This can help if you're dealing with very large number of peers and large/many files,
+        especially in a low-memory setting, as you can avoid thrashing the disk where loaded file
+        pages get thrown out before they manage to get sent.
+
+        Adapted from https://github.com/rakshasa/rtorrent/issues/418#issuecomment-211335027
+
     pieces.stats_not_preloaded
     pieces.stats_preloaded
+
+        .. code-block:: ini
+
+             pieces.stats_not_preloaded ≫ value ‹num›
+             pieces.stats_preloaded ≫ value ‹num›
+
+        This counts the number of pieces that were preloaded or not, as per :term:`pieces.preload.min_size`
+        and :term:`pieces.preload.min_rate`. If :term:`pieces.preload.type` is set to ``0``,
+        all pieces will be marked as ``not_preloaded``.
+
+    pieces.stats.total_size
+
+        .. code-block:: ini
+
+            pieces.stats.total_size ≫ value ‹bytes›
+
+        Returns the total cumulative size of all files in all items. This includes incomplete files
+        and does not consider duplicates, so it will often be larger than the sum of all
+        the files as they exist on the disk.
+
     pieces.sync.always_safe
     pieces.sync.always_safe.set
+
+        .. code-block:: ini
+
+            pieces.sync.always_safe ≫ bool (0 or 1)
+            pieces.sync.always_safe.set = bool (0 or 1) ≫ 0
+
+        When safe sync is enabled, each chunk is synced to the file synchronously, which is
+        slightly slower but ensures that the file has been written corrently.
+
     pieces.sync.queue_size
+
+        .. code-block:: ini
+
+            pieces.sync.queue_size ≫ value ‹chunks›
+
+        The number of chunks that are queued up for writing in memory (i.e. not written
+        to a file yet).
+
     pieces.sync.safe_free_diskspace
+
+        .. code-block:: ini
+
+            pieces.sync.safe_free_diskspace ≫ value ‹bytes›
+
+        If :term:`d.free_diskspace` ever drops below this value, all chunks will behave as though
+        :term:`pieces.sync.always_safe` is set to true. This is set to :term:`pieces.memory.current`
+        \+ 512 MiB.
+
     pieces.sync.timeout
     pieces.sync.timeout.set
+
+        .. code-block:: ini
+
+            pieces.sync.timeout ≫ value ‹seconds›
+            pieces.sync.timeout.set = value ‹seconds› ≫ 0
+
+        If the piece hasn't been sync within this time period, immediately mark it for
+        syncing.
+
     pieces.sync.timeout_safe
     pieces.sync.timeout_safe.set
 
-        **TODO**
+        .. code-block:: ini
 
+            pieces.sync.timeout_safe ≫ value ‹seconds›
+            pieces.sync.timeout_safe.set = value ‹seconds› ≫ 0
+
+        **TODO** This does not appear to be in use.
+
+.. _`madvise`: http://man7.org/linux/man-pages/man2/madvise.2.html
+.. _`completed torrents not announcing properly`: https://github.com/rakshasa/rtorrent/issues/437
 
 .. _protocol-commands:
 
