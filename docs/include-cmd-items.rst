@@ -134,22 +134,35 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
     d.is_active
     d.is_open
-    d.open
-    d.pause
-    d.resume
-    d.close
-    d.close.directly
-    d.start
-    d.state
-    d.state_changed
-    d.state_counter
-    d.stop
-    d.try_close
-    d.try_start
-    d.try_stop
 
         **TODO**
 
+    d.state
+    d.state_changed
+    d.state_counter
+
+        **TODO**
+
+    d.open
+    d.close
+    d.pause
+    d.resume
+    d.close.directly
+    d.try_close
+
+        **TODO**
+
+    d.start
+    d.stop
+    d.try_start
+    d.try_stop
+
+        Starts or stops an item, including everything that needs to be done for that.
+        For starting, that includes hashing the data if it already exists.
+        On stop, incomplete chunks are discarded as part of the stop.
+
+        The ``try`` variants look at the :term:`d.ignore_commands` flag
+        and thus only conditionally start/stop the item.
 
     d.loaded_file
     d.tied_to_file
@@ -231,8 +244,15 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
         **TODO**
 
     d.complete
+    d.incomplete
 
-        **TODO**
+       .. code-block:: ini
+
+            d.complete = ‹hash› ≫ bool (0 or 1)
+            d.incomplete = ‹hash› ≫ bool (0 or 1)
+
+        Indicates whether an item is complete (100% done) or not.
+
 
     d.completed_bytes
     d.completed_chunks
@@ -397,6 +417,7 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
        - ``2``: If :term:`pieces.hash.on_completion` is enabled, the torrent is in the middle
          of hashing due to the finish event, and at the end, will be checked for completeness
        - ``3``: A rehash is occurring (i.e. the torrent has already been marked as complete once)
+
        See also: :term:`d.is_hash_checking`
 
     d.hashing_failed
@@ -413,11 +434,16 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
     d.ignore_commands
     d.ignore_commands.set
 
-        **TODO**
+       .. code-block:: ini
 
-    d.incomplete
+            d.ignore_commands = ‹hash› ≫ bool (0 or 1)
+            d.ignore_commands.set = ‹hash›, bool (0 or 1) ≫ 0
 
-        **TODO**
+        The ignore flag controls the :term:`d.try_close`, :term:`d.try_start`, and :term:`d.try_stop`
+        commands, and if set to true exclude the item at hand from reacting to those commands.
+
+        One use of that is being able to exclude items from ratio control, if you use the ``try``
+        versions in :term:`group.seeding.ratio.command` definitions.
 
     d.is_hash_checked
     d.is_hash_checking
