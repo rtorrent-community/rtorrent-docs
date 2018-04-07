@@ -40,3 +40,5 @@ What is the Difference Between 'paused' and 'stopped'?
 ------------------------------------------------------
 
 **TODO**
+
+See also :term:`d.state`.
