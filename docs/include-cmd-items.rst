@@ -131,17 +131,34 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
                     (cat, (d.directory), /),\
                     (cat, (d.directory), /, (d.name))"
 
-
-    d.is_active
-    d.is_open
-
-        **TODO**
-
     d.state
     d.state_changed
     d.state_counter
+    d.is_open
+    d.is_active
 
-        **TODO**
+        .. code-block:: ini
+
+            d.state = ‹hash› ≫ bool (0 or 1)
+            d.state_changed = ‹hash› ≫ value ‹timestamp›
+            d.state_counter = ‹hash› ≫ value ‹count›
+            d.is_open = ‹hash› ≫ bool (0 or 1)
+            d.is_active = ‹hash› ≫ bool (0 or 1)
+
+        These commands return the item's state (1 = started or paused, 0 = stopped),
+        when that changed the last time, and how often it did change.
+        Note that although pausing / resuming a started item does not change ``state``,
+        the timestamp and counter are.
+
+        In summary:
+
+        * Closed items are *not* ``open``, with ``state=0``.
+        * Paused items are ``open``, but *not* ``active``, with ``state=1``.
+        * Started items are both ``open`` and ``active``, with ``state=1``.
+
+        The three state values are persisted to the session, while ``active`` (paused) is not.
+        See :ref:`faq-stop-using-sed` on how you can use that to influence the startup
+        behaviour of rTorrent.
 
     d.open
     d.close
