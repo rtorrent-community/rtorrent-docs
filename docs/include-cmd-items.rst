@@ -451,7 +451,7 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
     d.ignore_commands
     d.ignore_commands.set
 
-       .. code-block:: ini
+        .. code-block:: ini
 
             d.ignore_commands = ‹hash› ≫ bool (0 or 1)
             d.ignore_commands.set = ‹hash›, bool (0 or 1) ≫ 0
