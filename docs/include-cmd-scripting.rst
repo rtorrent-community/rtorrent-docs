@@ -351,6 +351,8 @@ just like a cron job, but with a resolution of seconds.
         **TODO**
 
 
+.. _cmd-import:
+
 Importing Script Files
 ^^^^^^^^^^^^^^^^^^^^^^
 

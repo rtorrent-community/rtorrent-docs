@@ -151,6 +151,8 @@ TODO (singles)
         **TODO**
 
 
+.. _intermediate-commands:
+
 ‘Intermediate’ Commands
 ^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -171,7 +173,7 @@ Avoiding the *deprecated* commands is a must, these will disappear at some time.
 
         The default is ``true``.
         The undocumented ``-D`` command line options sets this to ``false``
-        with a ''Disabled deprecated commands`` console message.
+        with a ``Disabled deprecated commands`` console message.
 
     method.use_intermediate
     method.use_intermediate.set
@@ -183,7 +185,7 @@ Avoiding the *deprecated* commands is a must, these will disappear at some time.
 
         The default is 1 (allow everywhere), values other than 1 or 2 are treated like 0.
         The undocumented ``-I`` command line options sets this to 0
-        with a ''Disabled intermediate commands`` console message,
+        with a ``Disabled intermediate commands`` console message,
         while ``-K`` sets it to 2,
         printing ``Allowing intermediate commands without xmlrpc``.
 

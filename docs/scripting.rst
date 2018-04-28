@@ -236,8 +236,29 @@ Scripting Best Practices
 Using XMLRPC for Remote Control
 -------------------------------
 
+XMLRPC is the remote interface rTorrent offers to execute commands *after* startup in a running process.
+Commands are sent via either a UNIX domain socket or a TCP socket using a protocol called SCGI,
+typically used between a web server and a long-running CGI process.
+
+The ``/RPC2`` mount some software needs just bridges that internal connection to a full HTTP end point.
+Any XMLRPC library can be used against such a HTTP gateway, while using the ‘raw’ SCGI end point
+requires special client libraries that speak that protocol (see below).
+
+Commands usable via XMLRPC are *almost* the same you can use in configuration files.
+Differences are:
+
+ * There is the concept of *internal* commands that are not exposed to XMLRPC,
+   and only available in configuration and via the ``Ctrl-X`` prompt.
+   You can circumvent that restriction by putting commands into a file, and
+   then :term:`import`\ ing that.
+ * You (almost) *always* have to pass the so-called *target* which is the object the command should act on,
+   like a download item or a peer or file entry. See below for details.
+
 See the :doc:`cmd-ref` for descriptions of existing commands,
 the :ref:`generated index <genindex>` can help you to quickly find them by their name.
+
+
+.. rubric:: Command Targets
 
 All XMLPPC commands (with a few exceptions like :term:`system.listMethods`)
 take an info hash as the first argument when called over the API,
@@ -262,10 +283,36 @@ have special target forms with additional information appended:
 `‹infohash›:f‹file-index›`, `‹infohash›:p‹peer-id›`, and `‹infohash›:t‹tracker-index›`.
 
 
+.. rubric:: Configuration Considerations
+
+Be aware of the security implications of opening a XMLRPC socket,
+as described in the :term:`network.scgi.open_port` reference
+– you **must** safe-guard it via file level permissions or HTTP authorization.
+A TCP socket generally is open to *all* local users on a machine,
+unless you use network namespaces.
+That is why it is deprecated and a secured UNIX domain socket is better in all regards.
+
+If you activate the `daemon mode`_ introduced with rTorrent *0.9.7*,
+using XMLRPC is the *only* way to control a running rTorrent process
+
+Regarding available commands, the ``-D``, ``-I``, and ``-K`` :ref:`command line options <rtorrent-cli>`
+switch the *deprecated* and *intermediate* command groups off during startup.
+The related :term:`method.use_deprecated` and :term:`method.use_intermediate` commands
+reflect those options.
+If you run badly maintained or abandoned client software,
+you still need to keep the deprecated commands active.
+See :ref:`intermediate-commands` for more details.
+
+XMLRPC payloads can get quite large, especially when you get a large list of attributes
+for all loaded items.
+The :term:`network.xmlrpc.size_limit.set` command determines the size of the buffer used to hold those payloads.
+Use ``16M`` or more for larger instances, for example getting 20 attributes for 10,000 items
+generates a 1.4 KiB request, resulting in a roughly 10 MiB response.
+
+
+.. rubric:: Client Libraries
+
 **TODO**
 
-* TCP vs. Unix domain sockets
-* raw SCGI vs. HTTP gateways
-* XMLRPC buffer size
-* client libs
-* daemon mode
+
+.. _`daemon mode`: https://github.com/rakshasa/rtorrent/wiki/Daemon_Mode
