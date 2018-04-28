@@ -52,6 +52,8 @@ Here's also a short command syntax summary:
   when it comes to intricate details.
 
 
+.. _commands-intro:
+
 Commands
 ^^^^^^^^
 
@@ -70,6 +72,8 @@ A deep-dive into defining your own commands can be found in the
 Use the :doc:`cmd-ref` for details on specific commands,
 and the :ref:`generated index <genindex>` to find them by name.
 
+
+.. _escaping:
 
 Escaping
 ^^^^^^^^

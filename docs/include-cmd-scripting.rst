@@ -12,7 +12,10 @@
             method.insert = ‹name›, ‹type›[|‹sub-type›…][, ‹definition›] ≫ 0
 
         The general way to define *any* kind of command.
-        See :ref:`object-types` for the possible values in the 2nd argument.
+        See :ref:`object-types` for the possible values in the 2nd argument,
+        :ref:`commands-intro` regarding some basic info on custom commands,
+        and get comfortable with :ref:`escaping` because you typically need that
+        in more complex command definitions.
 
         **TODO** more details
 
