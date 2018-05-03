@@ -300,9 +300,9 @@ just like a cron job, but with a resolution of seconds.
             schedule2 = ‹name›, ‹start›, ‹interval›, ((‹command›[, ‹args›…])) ≫ 0
             schedule2 = ‹name›, ‹start›, ‹interval›, "‹command›=[‹args›…][ ; ‹command›=…]" ≫ 0
 
-        Call the given command(s) every ``interval`` seconds, starting from ``start``.
+        Call the given command(s) every ``interval`` seconds,
+        after an initial delay of ``start`` seconds after client startup.
         An interval of zero calls the task once, while a start of zero calls it immediately.
-        Currently command is forwarded to the option handler (*ed note*: whatever that means).
 
         The ``name`` serves both as a handle for :term:`schedule_remove2`,
         and as an easy way to document what this task actually does.
