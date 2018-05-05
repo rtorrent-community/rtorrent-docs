@@ -415,4 +415,21 @@ and the amount of peers requested in tracker announces.
 
         Throttle a specific peer by its IP address.
 
+    throttle.names
+
+        .. code-block:: ini
+
+            # rTorrent-PS 1.1+ only
+            throttle.names= ≫ array ‹names›
+
+        Returns a list of all defined throttle names,
+        including the built-in ones (i.e. ``''`` and ``'NULL'``).
+
+        Example:
+
+        .. code-block:: console
+
+            $ rtxmlrpc --repr throttle.names
+            ['', 'NULL', 'kb500', 'lo_up', 'onemb']
+
 .. END cmd-bt
