@@ -113,7 +113,6 @@ TODO (singles)
 
 .. glossary::
 
-    cat
     print
     add_peer
     bind

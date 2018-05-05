@@ -564,6 +564,30 @@ String Functions
 
 .. glossary::
 
+    cat
+
+        .. code-block:: ini
+
+            cat=«text»[,…] ≫ string
+            cat={"array", "of", "text"}[,…] ≫ string
+
+        ``cat`` takes a list of string or array arguments,
+        and smushes them all together with no delimiter.
+
+        Note that ``cat`` can be used to feed strings into the parser
+        that are otherwise not representable,
+        like passing an empty string where a command is expected via ``(cat,)``,
+        or text starting with a dollar sign using ``(cat,{$})``.
+
+        Example:
+
+            .. code-block:: ini
+
+                print=(cat, text\ or\ , {"array", " of", " text"})
+
+            will print ``(HH:MM:SS) text or array of text`` to the console.
+
+
     string.map
     string.replace
 
