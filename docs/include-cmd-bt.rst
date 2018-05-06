@@ -29,10 +29,10 @@ See the Github wiki for an example of `enabling DHT in rTorrent`_.
 
         Possible values are:
 
-        - ``on`` - start DHT immediately
-        - ``off`` - do not start DHT
-        - ``auto`` - start and stop DHT as needed
-        - ``disable`` - completely disable DHT
+        - ``on`` – start DHT immediately
+        - ``off`` – do not start DHT
+        - ``auto`` – start and stop DHT as needed
+        - ``disable`` – completely disable DHT
 
     dht.port
     dht.port.set
@@ -151,9 +151,9 @@ See the Github wiki for an example of `enabling DHT in rTorrent`_.
 
         Possible values for ``value`` are:
 
-        - ``0`` - Off
-        - ``1`` - MAdvise
-        - ``2`` - Direct page
+        - ``0`` – Off
+        - ``1`` – MAdvise
+        - ``2`` – Direct page
 
         Off means it doesn't do any preloading at all.
 
@@ -284,14 +284,14 @@ See the Github wiki for an example of `enabling DHT in rTorrent`_.
         RC4 encryption (encrypts the entire header and message, at the cost of a few CPU cycles),
         with flags to control the behavior of both.
 
-        - ``none`` - The default, don't attempt any encryption
-        - ``allow_incoming`` - Allow incoming encrypted connections from other peers
-        - ``try_outgoing`` - Attempt to set up encryption when initiating a connection
-        - ``require`` - Require encryption, and reject peers who don't support it
-        - ``require_RC4`` - Require RC4 encryption specifically
-        - ``require_rc4`` - Same as above
-        - ``enable_retry`` - If a peer is rejected for not supporting the encryption we need, retry the handshake
-        - ``prefer_plaintext`` - Prefer plaintext encryption
+        - ``none`` – The default, don't attempt any encryption
+        - ``allow_incoming`` – Allow incoming encrypted connections from other peers
+        - ``try_outgoing`` – Attempt to set up encryption when initiating a connection
+        - ``require`` – Require encryption, and reject peers who don't support it
+        - ``require_RC4`` – Require RC4 encryption specifically
+        - ``require_rc4`` – Same as above
+        - ``enable_retry`` – If a peer is rejected for not supporting the encryption we need, retry the handshake
+        - ``prefer_plaintext`` – Prefer plaintext encryption
 
         See `BitTorrent protocol encryption`_ for more information.
 
