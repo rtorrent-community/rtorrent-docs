@@ -3,22 +3,49 @@
 `dht.*` commands
 ^^^^^^^^^^^^^^^^
 
+See the Github wiki for an example of `enabling DHT in rTorrent`_.
+
 .. glossary::
 
     dht.add_node
 
-        **TODO**
+        .. code-block:: ini
+
+            dht.add_node = string ‹[host]:[port]› ≫ 0
+
+        Adds a hostname/port to use for bootstrapping DHT information.
 
     dht.mode.set
     dht
 
-        **TODO**
+        .. code-block:: ini
+
+            dht.mode.set = string ‹mode› ≫ 0
+            dht = string ‹mode› ≫ 0
+
+        Controls when (if at all) DHT is activated. Regardless of what this is set to, DHT
+        will never be used for torrents with the "private" flag enabled (see :term:`d.is_private`).
+        ``dht`` is an alias for ``dht.mode.set``.
+
+        Possible values are:
+
+        - ``on`` - start DHT immediately
+        - ``off`` - do not start DHT
+        - ``auto`` - start and stop DHT as needed
+        - ``disable`` - completely disable DHT
 
     dht.port
     dht.port.set
     dht_port
 
-        **TODO**
+        .. code-block:: ini
+
+            dht.port ≫ value ‹port›
+            dht.mode.set = value ‹port› ≫ 0
+            dht_port = value ‹port› ≫ 0
+
+        Controls which port DHT will listen on. Note that ``dht_port`` is an alias for ``dht.port.set``,
+        not ``dht.port``.
 
     dht.statistics
 
@@ -32,6 +59,7 @@
 
         **TODO**
 
+.. _`enabling DHT in rTorrent`: https://github.com/rakshasa/rtorrent/wiki/Common-Tasks-in-rTorrent#supporting-public-torrents-magnet-links-udp-trackers-dht
 
 .. _pieces-commands:
 
@@ -171,7 +199,7 @@
             pieces.sync.always_safe.set = bool (0 or 1) ≫ 0
 
         When safe sync is enabled, each chunk is synced to the file synchronously, which is
-        slightly slower but ensures that the file has been written corrently.
+        slightly slower but ensures that the file has been written correctly.
 
     pieces.sync.queue_size
 
@@ -200,7 +228,7 @@
             pieces.sync.timeout ≫ value ‹seconds›
             pieces.sync.timeout.set = value ‹seconds› ≫ 0
 
-        If the piece hasn't been sync within this time period, immediately mark it for
+        If the piece hasn't been synced within this time period, immediately mark it for
         syncing.
 
     pieces.sync.timeout_safe
@@ -243,16 +271,42 @@
 
     protocol.encryption.set
 
-        **TODO**
+        .. code-block:: ini
 
-        See also `BitTorrent protocol encryption`_.
+            protocol.encryption.set = string ‹flags› ≫ 0
+
+        This command takes a comma-separated list of flags, as seen in :term:`strings.encryption`,
+        and uses them to determine how to handle connections to other peers (i.e. tracker and DHT
+        connections are not effected by this setting). The flags are all applied simultaneously, which
+        means that certain applied flags may not take effect (e.g. for ``prefer_plaintext,require_rc4``,
+        plaintext will never used despite the flag being applied). rTorrent has support for both
+        plaintext "encryption" (uses no extra CPU cycles, provides only obfuscation of the header) and
+        RC4 encryption (encrypts the entire header and message, at the cost of a few CPU cycles),
+        with flags to control the behavior of both.
+
+        - ``none`` - The default, don't attempt any encryption
+        - ``allow_incoming`` - Allow incoming encrypted connections from other peers
+        - ``try_outgoing`` - Attempt to set up encryption when initiating a connection
+        - ``require`` - Require encryption, and reject peers who don't support it
+        - ``require_RC4`` - Require RC4 encryption specifically
+        - ``require_rc4`` - Same as above
+        - ``enable_retry`` - If a peer is rejected for not supporting the encryption we need, retry the handshake
+        - ``prefer_plaintext`` - Prefer plaintext encryption
+
+        See `BitTorrent protocol encryption`_ for more information.
 
 
     protocol.pex
     protocol.pex.set
 
-        **TODO**
+        .. code-block:: ini
 
+            protocol.pex ≫ bool (0 or 1)
+            protocol.pex.set = bool (0 or 1) ≫ 0
+
+        Controls whether `peer exchange`_ is enabled.
+
+.. _`peer exchange`: https://en.wikipedia.org/wiki/Peer_exchange
 
 .. _`BitTorrent protocol encryption`: http://en.wikipedia.org/wiki/BitTorrent_protocol_encryption
 
