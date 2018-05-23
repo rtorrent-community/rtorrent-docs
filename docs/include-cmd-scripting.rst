@@ -180,6 +180,8 @@
         It can also be used to split complicated command definitions,
         see :term:`method.insert.value` for an example.
 
+        See the explanation of the :ref:`multi type<multi-type>` for more details.
+
 
     method.rlookup
     method.rlookup.clear
