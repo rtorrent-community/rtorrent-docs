@@ -240,6 +240,54 @@ Commands related to the operating system and the XMLRPC API.
         Return the number of files which were closed, failed to open, and were
         successfully opened respectively.
 
+    system.has
+
+        .. code-block:: ini
+
+            # rTorrent-PS 1.1+ only
+            system.has = ‹capability› ≫ bool (0 or 1)
+
+        This can be used to write configuration files that work on older builds
+        (and on vanilla rTorrent), even when new features and commands are introduced.
+        It's especially useful in combination with a branched import, so whole snippets
+        using new features are safe and don't blow up in older builds.
+
+        If a method name (ending in ``=``) is passed, the call returns ``true``
+        when that method is already defined.
+
+        .. code-block:: console
+
+            $ rtxmlrpc system.has '' system.has=
+            1
+            $ rtxmlrpc system.has '' cute.kittens=
+            0
+
+        To make sure the ``system.has`` command can be actually used,
+        add this somewhere early in your configuration:
+
+        .. code-block:: ini
+
+            # `system.has` polyfill (the "false=" silences the `catch` command, in rTorrent-PS)
+            catch = {"false=", "method.redirect=system.has,false"}
+
+        The following branch somehow self-absorbedly shows how this can be used:
+
+        .. code-block:: ini
+
+            branch=(system.has, system.has), ((print, "Your build can haz system.has!"))
+
+        In a vanilla rTorrent, there is silence, and zero capabilities.
+
+        A very practical use-case is auto-detection of *rTorrent-PS 1.1+*:
+
+        .. code-block:: ini
+
+            # `system.has` polyfill (the "false=" silences the `catch` command, in rTorrent-PS)
+            catch = {"false=", "method.redirect=system.has,false"}
+
+            # Set "pyro.extended" to 1 to activate rTorrent-PS features!
+            method.insert = pyro.extended, const|value, (system.has, rtorrent-ps)
+
     system.hostname
 
         .. code-block:: ini
