@@ -249,8 +249,6 @@ Commands related to the operating system and the XMLRPC API.
 
         This can be used to write configuration files that work on older builds
         (and on vanilla rTorrent), even when new features and commands are introduced.
-        It's especially useful in combination with a branched import, so whole snippets
-        using new features are safe and don't blow up in older builds.
 
         If a method name (ending in ``=``) is passed, the call returns ``true``
         when that method is already defined.
@@ -287,6 +285,15 @@ Commands related to the operating system and the XMLRPC API.
 
             # Set "pyro.extended" to 1 to activate rTorrent-PS features!
             method.insert = pyro.extended, const|value, (system.has, rtorrent-ps)
+
+        It's also especially useful in combination with a branched import, so whole snippets
+        using new features are safe and don't blow up in older builds.
+        Or conditionally backfill something missing in older builds, like in this example:
+
+        .. code-block:: ini
+
+            # Define default columns for older rTorrent-PS builds
+            branch=(not, (system.has, canvas_v2)), ((import, rtorrent.d/05-rt-ps-columns.rc.include))
 
     system.hostname
 
