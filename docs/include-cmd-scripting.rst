@@ -542,25 +542,6 @@ Conditional Operators
             view.sort_new = messages, "compare=,d.message=,d.name="
 
 
-    string.contains
-    string.contains_i
-
-        .. code-block:: ini
-
-            # rTorrent-PS 1.1+ only
-            string.contains[_i]=«haystack»,«needle»[,…] ≫ bool (0 or 1)
-
-        Checks if a given string contains any of the strings following it.
-        The variant with ``_i`` is case-ignoring, but *only* works for pure ASCII needles.
-
-        Example:
-
-        .. code-block:: console
-
-            $ rtxmlrpc d.multicall.filtered '' 'string.contains_i=(d.name),Mate' d.name=
-            ['sparkylinux-4.0-x86_64-mate.iso']
-
-
 String Functions
 ^^^^^^^^^^^^^^^^
 
@@ -588,6 +569,64 @@ String Functions
                 print=(cat, text\ or\ , {"array", " of", " text"})
 
             will print ``(HH:MM:SS) text or array of text`` to the console.
+
+
+    string.len
+        .. code-block:: ini
+
+            # rTorrent-PS 1.1+ only
+            string.len=«text» ≫ value (length)
+
+        Examples:
+
+        .. literalinclude:: rtorrent-ps/tests/commands/string.len.txt
+            :language: console
+            :start-after: # Tests for
+
+
+    string.at
+        .. code-block:: ini
+
+            # rTorrent-PS 1.1+ only
+            string.at=«text»[,«pos»] ≫ string
+
+        Examples:
+
+        .. literalinclude:: rtorrent-ps/tests/commands/string.at.txt
+            :language: console
+            :start-after: # Tests for
+
+
+    string.substr
+        .. code-block:: ini
+
+            # rTorrent-PS 1.1+ only
+            string.=«text»[,«pos»[,«count»]] ≫ string
+
+        Examples:
+
+        .. literalinclude:: rtorrent-ps/tests/commands/string.substr.txt
+            :language: console
+            :start-after: # Tests for
+
+
+    string.contains
+    string.contains_i
+
+        .. code-block:: ini
+
+            # rTorrent-PS 1.1+ only
+            string.contains[_i]=«haystack»,«needle»[,…] ≫ bool (0 or 1)
+
+        Checks if a given string contains any of the strings following it.
+        The variant with ``_i`` is case-ignoring, but *only* works for pure ASCII needles.
+
+        Example:
+
+        .. code-block:: console
+
+            $ rtxmlrpc d.multicall.filtered '' 'string.contains_i=(d.name),Mate' d.name=
+            ['sparkylinux-4.0-x86_64-mate.iso']
 
 
     string.map

@@ -1,6 +1,6 @@
 [submodule "pimp-my-box"]
 	path = docs/pimp-my-box
 	url = https://github.com/pyroscope/pimp-my-box.git
-[submodule "docs/rtorrent-ps"]
+[submodule "rtorrent-ps"]
 	path = docs/rtorrent-ps
 	url = https://github.com/pyroscope/rtorrent-ps.git
