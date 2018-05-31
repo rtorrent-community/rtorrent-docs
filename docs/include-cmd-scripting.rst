@@ -389,6 +389,34 @@ Importing Script Files
             import = (cat, (cfg.basedir), "_rtlocal.rc")
 
 
+    import.return
+
+        .. code-block:: ini
+
+            # rTorrent-PS 1.1+ only
+            import.return= ≫ throw('import.return')
+
+        Leaves the currently imported file and returns to the level above.
+
+        Since this works by throwing an exception, you will see that
+        exception when called *outside* of an imported file.
+
+        To use this in a way compatible with older builds, protect an import like this:
+
+        .. code-block:: ini
+
+            branch=(system.has, "import.return="), ((import, using-math-stuff.rc))
+
+        Then in the ``using-math-stuff.rc`` file, you can return when certain capabilities are missing.
+
+        .. code-block:: ini
+
+            branch=(not, (system.has, "math.add=")), ((import.return))
+
+        You can do this incrementally ordered from older to younger capabilities,
+        using exactly those features a build has to offer.
+
+
 .. _cond-cmds:
 
 Conditions (if/then/else)
