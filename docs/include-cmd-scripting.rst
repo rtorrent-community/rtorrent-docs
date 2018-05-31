@@ -657,6 +657,60 @@ String Functions
             # prints 'low' as a console message, this is how you map integers
 
 
+Math Functions
+^^^^^^^^^^^^^^
+
+These commands are only available in rTorrent-PS 1.1+, in rTorrent-PS-CH,
+and maybe 2032 or so in rTorrent.
+
+.. glossary::
+
+    math.add
+    math.sub
+    math.mul
+    math.div
+    math.mod
+
+        **TODO**
+
+        These share the same code, so the errors shown in the following examples
+        usually apply to all commands, and are not repeated.
+
+        Examples:
+
+        .. literalinclude:: rtorrent-ps/tests/commands/math.txt
+            :language: console
+            :start-at: # math.add
+            :end-before: # END
+
+        .. literalinclude:: rtorrent-ps/tests/commands/math.txt
+            :language: console
+            :start-at: # math.sub
+            :end-before: # END
+
+        .. literalinclude:: rtorrent-ps/tests/commands/math.txt
+            :language: console
+            :start-at: # math.mul
+            :end-before: # END
+
+        .. literalinclude:: rtorrent-ps/tests/commands/math.txt
+            :language: console
+            :start-at: # math.div
+            :end-before: # END
+
+
+    math.min
+    math.max
+    math.med
+    math.avg
+
+        **TODO**
+
+    math.cnt
+
+        **TODO**
+
+
 Value Conversion & Formatting
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
