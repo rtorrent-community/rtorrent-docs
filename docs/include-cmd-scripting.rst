@@ -685,6 +685,10 @@ and maybe 2032 or so in rTorrent.
         These share the same code, so the errors shown in the following examples
         usually apply to all commands, and are not repeated.
 
+        Also take note that list arguments are handled recursively,
+        as-if there were a nested `math.*` call of the same type,
+        with the list as its arguments.
+
         Examples:
 
         .. literalinclude:: rtorrent-ps/tests/commands/math.txt
