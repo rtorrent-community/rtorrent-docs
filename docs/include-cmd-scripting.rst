@@ -363,7 +363,30 @@ Importing Script Files
     import
     try_import
 
-        **TODO**
+        .. code-block:: ini
+
+            import = ‹rc-file-path› ≫ 0
+            try_import = ‹rc-file-path› ≫ 0
+
+        Both of these commands open the given file
+        and execute the contained commands, one per logical line.
+
+        Physical ines can be continued by escaping the line end with ``\``.
+        The maximum length is 4096 bytes.
+
+        Lines beginning with ``#`` are comments.
+
+        ``try_import`` ignores a missing script file,
+        while ``import`` throws an error in that case.
+
+        If you're nesting imports, relative filenames are resolved using :term:`system.cwd`,
+        and *not* based on the location of the importing file.
+
+        Example:
+
+        .. code-block:: ini
+
+            import = (cat, (cfg.basedir), "_rtlocal.rc")
 
 
 .. _cond-cmds:
