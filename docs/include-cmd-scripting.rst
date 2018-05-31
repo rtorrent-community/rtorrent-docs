@@ -577,11 +577,14 @@ String Functions
             # rTorrent-PS 1.1+ only
             string.len=«text» ≫ value (length)
 
+        **TODO**
+
         Examples:
 
-        .. literalinclude:: rtorrent-ps/tests/commands/string.len.txt
+        .. literalinclude:: rtorrent-ps/tests/commands/string.txt
             :language: console
-            :start-after: # Tests for
+            :start-at: # string.len
+            :end-before: # END
 
 
     string.at
@@ -590,11 +593,14 @@ String Functions
             # rTorrent-PS 1.1+ only
             string.at=«text»[,«pos»] ≫ string
 
+        **TODO**
+
         Examples:
 
-        .. literalinclude:: rtorrent-ps/tests/commands/string.at.txt
+        .. literalinclude:: rtorrent-ps/tests/commands/string.txt
             :language: console
-            :start-after: # Tests for
+            :start-at: # string.at
+            :end-before: # END
 
 
     string.substr
@@ -603,11 +609,14 @@ String Functions
             # rTorrent-PS 1.1+ only
             string.=«text»[,«pos»[,«count»]] ≫ string
 
+        **TODO**
+
         Examples:
 
-        .. literalinclude:: rtorrent-ps/tests/commands/string.substr.txt
+        .. literalinclude:: rtorrent-ps/tests/commands/string.txt
             :language: console
-            :start-after: # Tests for
+            :start-at: # string.substr
+            :end-before: # END
 
 
     string.contains
