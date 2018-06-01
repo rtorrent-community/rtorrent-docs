@@ -69,15 +69,41 @@ def stop(ctx):
 
 @task
 def undoc(ctx):
-    """List PUBLIC undocumented commands."""
-    exceptions = [
-        'scheduler.(max|simple)', 'd.custom[0-5]',
-        'pyro',
-        'ui.color.custom[0-9]', 'ui.color.*.set',
-        # Groups that need work (excluded for brevity)
-        'choke_group', 'file.prioritize_toc', 'group2.seeding', 'group.seeding', 'group.insert', 'ratio',
-    ]
-    ctx.run('rtxmlrpc system.listMethods| '
-            'while read cmd; do'
-            '    egrep -m1 "^    $cmd" docs/*rst >/dev/null || echo "$cmd"; '
-            'done | egrep -v "^(' + '|'.join(exceptions) + ')" | sort')
+    """List undocumented commands."""
+    checks = dict(
+        public=[
+            'scheduler.(max|simple)', 'd.custom[0-5]',
+            'pyro',
+            'ui.color.custom[0-9]', 'ui.color.*.set',
+
+            # Groups that need work (excluded for brevity)
+            'choke_group', 'file.prioritize_toc', 'group2.seeding', 'group.seeding', 'group.insert', 'ratio',
+        ],
+        private=[
+            'ui.color.[^.]+.index', 'completion_', 'pyro._',
+
+            # Internal / automatic state management
+            'd.complete.set',
+            'd.connection_leech.set',
+            'd.connection_seed.set',
+            'd.down.choke_heuristics.leech.set',
+            'd.down.choke_heuristics.seed.set',
+            'd.hashing.set',
+            'd.loaded_file.set',
+            'd.mode.set',
+            'd.state_changed.set',
+            'd.state_counter.set',
+            'd.state.set',
+            'd.timestamp.finished.set',
+            'd.timestamp.finished.set_if_z',
+            'd.timestamp.started.set',
+            'd.timestamp.started.set_if_z',
+        ],
+    )
+
+    for kind, exceptions in checks.items():
+        ctx.run('rtxmlrpc system.has.{kind}_methods | '
+                'while read cmd; do'
+                '    egrep -m1 "^    $cmd" docs/*rst >/dev/null || echo "$cmd"; '
+                'done | egrep -v "^({exc_re})" | sort'
+                .format(kind=kind, exc_re='|'.join(exceptions)))
