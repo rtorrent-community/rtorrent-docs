@@ -1,7 +1,7 @@
 .. _ui-commands:
 
 `ui.*` commands
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^
 
 Commands in this group control aspects of the ‘curses’ UI.
 
@@ -75,6 +75,7 @@ Commands in this group control aspects of the ‘curses’ UI.
                 "ui.bind_key = download_list, ^, ui.current_view.set=rtcontrol"
 
 
+    ui.color.custom1…9
     ui.color.alarm
     ui.color.complete
     ui.color.even
@@ -121,6 +122,19 @@ Commands in this group control aspects of the ‘curses’ UI.
         See the `color scheme for 256 xterm colors`_ for an example.
 
 
+    ui.canvas_color
+    ui.canvas_color.set
+
+        **rTorrent-PS 1.1+ only**
+
+        **TODO**
+
+    ui.column.render
+
+        **rTorrent-PS 1.1+ only**
+
+        **TODO**
+
     ui.focus.end
     ui.focus.home
     ui.focus.pgdn
@@ -141,7 +155,7 @@ Commands in this group control aspects of the ‘curses’ UI.
 
         .. code-block:: ini
 
-            # rTorrent-PS 0.*+ only
+            # rTorrent-PS 0.*+ only, obsolete with 1.1+
 
         **TODO**
 

@@ -209,4 +209,109 @@ These are called *intermediate:*
 * ``group.‹name›.ratio.upload.set`` → ``group2.‹name›.ratio.upload.set``
 
 
+Standard Configuration Sets
+---------------------------
+
+`rTorrent` Wiki Template
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+The `CONFIG Template`_ wiki page defines a few commands in its configuration snippet.
+
+**TODO**
+
+
+.. _`CONFIG Template`: https://github.com/rakshasa/rtorrent/wiki/CONFIG-Template
+
+
+`pyrocore` Configuration
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+**TODO** check if they belong with "p-m-b"
+
+.. glossary::
+
+    d.data_path
+
+        Return path to an item's data – this is never empty, unlike :term:`d.base_path`.
+        Multi-file items return a path ending with a ``/``.
+
+        Definition:
+
+        .. code-block:: ini
+
+            method.insert = d.data_path, simple,\
+                "if=(d.is_multi_file),\
+                    (cat, (d.directory), /),\
+                    (cat, (d.directory), /, (d.name))"
+
+
+    d.session_file
+
+        Return path to session file.
+
+        Definition:
+
+        .. code-block:: ini
+
+            method.insert = d.session_file, simple, "cat=(session.path), (d.hash), .torrent"
+
+
+    d.tracker.bump_scrape
+
+        Send a scrape request for an item, set its ``tm_last_scrape`` custom attribute to now,
+        and save the session data. Part of `auto-scrape.rc`_, and bound to the ``&`` key
+        in *rTorrent-PS*, to manually request a scrape update.
+
+
+    d.timestamp.downloaded
+    d.last_active
+
+        **TODO**
+
+    d.watch.start
+    d.watch.startable
+    cfg.watch.start
+    cfg.watch.start.set
+
+        **TODO**
+
+        ``d.watch.startable`` is private.
+
+    d.category.set
+    load.category
+    load.category.normal
+    load.category.start
+
+        **TODO**
+
+        The `load` commands are private.
+
+    d.last_xfer
+    d.last_xfer.is_active
+
+        **TODO**
+
+    event.download.finished_delayed
+    event.download.finished_delayed.interval
+    event.download.finished_delayed.interval.set
+
+        **TODO**
+
+    quit
+
+        **TODO**
+
+    startup_time
+
+        **TODO**
+
+.. _`auto-scrape.rc`: https://github.com/pyroscope/pyrocore/blob/master/src/pyrocore/data/config/rtorrent.d/auto-scrape.rc
+
+
+`pimp-my-box` Configuration
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**TODO**
+
+
 .. END cmd-ref
