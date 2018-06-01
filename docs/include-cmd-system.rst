@@ -241,14 +241,24 @@ Commands related to the operating system and the XMLRPC API.
         successfully opened respectively.
 
     system.has
+    system.has.list
 
         .. code-block:: ini
 
             # rTorrent-PS 1.1+ only
             system.has = ‹capability› ≫ bool (0 or 1)
+            system.has.list = ≫ list of string (capabilities)
 
         This can be used to write configuration files that work on older builds
         (and on vanilla rTorrent), even when new features and commands are introduced.
+
+        The ``system.has.list`` command returns a list of non-method capabilities
+        the running client has on board.
+
+        .. code-block:: console
+
+            $ rtxmlrpc --repr system.has.list
+            ['canvas_v2', 'colors', 'rtorrent-ps', 'system.has']
 
         If a method name (ending in ``=``) is passed, the call returns ``true``
         when that method is already defined.
@@ -261,7 +271,7 @@ Commands related to the operating system and the XMLRPC API.
             0
 
         To make sure the ``system.has`` command can be actually used,
-        add this somewhere early in your configuration:
+        add this somewhere *early* in your configuration:
 
         .. code-block:: ini
 
