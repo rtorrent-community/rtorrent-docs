@@ -626,7 +626,7 @@ String Functions
         .. code-block:: ini
 
             # rTorrent-PS 1.1+ only
-            string.len=«text» ≫ value (length)
+            string.len = «text» ≫ value (length)
 
         **TODO**
 
@@ -638,27 +638,11 @@ String Functions
             :end-before: # END
 
 
-    string.at
-        .. code-block:: ini
-
-            # rTorrent-PS 1.1+ only
-            string.at=«text»[,«pos»] ≫ string
-
-        **TODO**
-
-        Examples:
-
-        .. literalinclude:: rtorrent-ps/tests/commands/string.txt
-            :language: console
-            :start-at: # string.at
-            :end-before: # END
-
-
     string.substr
         .. code-block:: ini
 
             # rTorrent-PS 1.1+ only
-            string.=«text»[,«pos»[,«count»]] ≫ string
+            string.substr = «text»[, «pos»[, «count»[, «default»]]] ≫ string
 
         **TODO**
 
@@ -676,7 +660,7 @@ String Functions
         .. code-block:: ini
 
             # rTorrent-PS 1.1+ only
-            string.contains[_i]=«haystack»,«needle»[,…] ≫ bool (0 or 1)
+            string.contains[_i] = «haystack», «needle»[, …] ≫ bool (0 or 1)
 
         Checks if a given string contains any of the strings following it.
         The variant with ``_i`` is case-ignoring, but *only* works for pure ASCII needles.
@@ -695,8 +679,8 @@ String Functions
         .. code-block:: ini
 
             # rTorrent-PS 1.1+ only
-            string.map=«text»,{«old»,«new»}[,…] ≫ string
-            string.replace=«text»,{«old»,«new»}[,…] ≫ string
+            string.map = «text», {«old»,«new»}[, …] ≫ string
+            string.replace = «text», {«old»,«new»}[, …] ≫ string
 
         ``string.map`` scans a list of replacement pairs for an ``old`` text that matches
         *all* of the given string, and replaces it by ``new``.
@@ -715,6 +699,28 @@ String Functions
 
             $ rtxmlrpc -i 'print = (string.map, (cat, (value,1)), {0,off}, {1,low}, {2,""}, {3,high})'
             # prints 'low' as a console message, this is how you map integers
+
+
+Array Functions
+^^^^^^^^^^^^^^^
+
+.. glossary::
+
+    array.at
+
+        .. code-block:: ini
+
+            # rTorrent-PS 1.1+ only
+            array.at = «array», «pos» ≫ object (element)
+
+        **TODO**
+
+        Examples:
+
+        .. literalinclude:: rtorrent-ps/tests/commands/array.txt
+            :language: console
+            :start-at: # array.at
+            :end-before: # END
 
 
 Math Functions
