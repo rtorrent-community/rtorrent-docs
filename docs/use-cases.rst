@@ -256,7 +256,7 @@ Then add a rule like this to the body of ``set_target_path``:
 Delayed Completion Handling
 ---------------------------
 
-The following config snippet defines a new ``event.download.finished_delayed`` trigger
+The following config snippet defines a new :term:`event.download.finished_delayed` trigger
 that works like the normal finished event, but only fires after a customizable delay.
 
 One use-case for such a thing is to move a download from fast storage (RAM disk, SSD)

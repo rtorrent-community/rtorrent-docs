@@ -217,6 +217,20 @@ The following sections explain some core commands added by well-known configurat
 If you want other setups (`rtinst`, `QuickBox`, …) to be documented, we accept pull requests.
 
 
+Examples in This Manual
+^^^^^^^^^^^^^^^^^^^^^^^
+
+These commands are from snippets presented in other chapters.
+
+.. glossary::
+
+    event.download.finished_delayed
+    event.download.finished_delayed.interval
+    event.download.finished_delayed.interval.set
+
+        See :ref:`event.download.finished_delayed` for a full explanation.
+
+
 `rTorrent` Wiki Template
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -315,12 +329,6 @@ In addition to the commands listed here, `pyrocore` also defines :term:`d.data_p
 
     d.last_xfer
     d.last_xfer.is_active
-
-        **TODO**
-
-    event.download.finished_delayed
-    event.download.finished_delayed.interval
-    event.download.finished_delayed.interval.set
 
         **TODO**
 
