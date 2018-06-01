@@ -40,6 +40,13 @@ To test the change, execute these commands:
 Then restart *rTorrent*, and you should see ``Hello from config.d!``
 amongst the initial console messages.
 
+.. hint::
+
+    Config drop-ins are very useful when you manage your systems in a state-of-the-art way,
+    i.e. using a configuration management tool like `Ansible`.
+    Then you can simply *add* files with customizations to a system,
+    without having to fiddle with *changing* existing files.
+
 .. note::
 
     If a drop-in file just contains commands that can be repeated several
