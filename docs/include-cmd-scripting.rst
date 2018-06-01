@@ -729,6 +729,24 @@ Math Functions
 These commands are only available in rTorrent-PS 1.1+, in rTorrent-PS-CH,
 and maybe 2032 or so in rTorrent.
 
+Values can either be of type *value* or *string* –
+strings are automatically converted,
+with an error thrown when the string contains something other than digits.
+
+The handled values are restricted to integer arithmetic (as in `bash`),
+because `rTorrent` has no floating point type.
+Division, average, and median always round down.
+
+All commands support multiple arguments, including lists.
+List arguments are handled recursively,
+as-if there were a nested `math.*` call of the same type,
+with the list as its arguments.
+
+When using multiple list arguments, or mixing them with plain numbers,
+this can lead to unexpected results with non-commutative operators,
+see the ``math.sub`` examples below.
+
+
 .. glossary::
 
     math.add
@@ -737,14 +755,10 @@ and maybe 2032 or so in rTorrent.
     math.div
     math.mod
 
-        **TODO**
+        Basic arithmetic operators (+, -, *, /, %).
 
         These share the same code, so the errors shown in the following examples
-        usually apply to all commands, and are not repeated.
-
-        Also take note that list arguments are handled recursively,
-        as-if there were a nested `math.*` call of the same type,
-        with the list as its arguments.
+        usually apply to all commands, and are not repeated for each operator.
 
         Examples:
 
@@ -768,17 +782,44 @@ and maybe 2032 or so in rTorrent.
             :start-at: # math.div
             :end-before: # END
 
+        .. literalinclude:: rtorrent-ps/tests/commands/math.txt
+            :language: console
+            :start-at: # math.mod
+            :end-before: # END
+
 
     math.min
     math.max
-    math.med
-    math.avg
-
-        **TODO**
-
     math.cnt
+    math.avg
+    math.med
 
-        **TODO**
+        Functions to calculate the minimum, maximum, element count, average, or median over the input values.
+
+        .. literalinclude:: rtorrent-ps/tests/commands/math.txt
+            :language: console
+            :start-at: # math.min
+            :end-before: # END
+
+        .. literalinclude:: rtorrent-ps/tests/commands/math.txt
+            :language: console
+            :start-at: # math.max
+            :end-before: # END
+
+        .. literalinclude:: rtorrent-ps/tests/commands/math.txt
+            :language: console
+            :start-at: # math.cnt
+            :end-before: # END
+
+        .. literalinclude:: rtorrent-ps/tests/commands/math.txt
+            :language: console
+            :start-at: # math.avg
+            :end-before: # END
+
+        .. literalinclude:: rtorrent-ps/tests/commands/math.txt
+            :language: console
+            :start-at: # math.med
+            :end-before: # END
 
 
 Value Conversion & Formatting
