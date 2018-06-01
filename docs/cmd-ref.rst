@@ -212,23 +212,35 @@ These are called *intermediate:*
 Standard Configuration Sets
 ---------------------------
 
+The following sections explain some core commands added by well-known configuration sets.
+
+If you want other setups (`rtinst`, `QuickBox`, …) to be documented, we accept pull requests.
+
+
 `rTorrent` Wiki Template
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 The `CONFIG Template`_ wiki page defines a few commands in its configuration snippet.
+See :ref:`config-deconstructed` for a detailed tour.
 
-**TODO**
-
-
-.. _`CONFIG Template`: https://github.com/rakshasa/rtorrent/wiki/CONFIG-Template
-
-
-`pyrocore` Configuration
-^^^^^^^^^^^^^^^^^^^^^^^^
-
-**TODO** check if they belong with "p-m-b"
 
 .. glossary::
+
+    cfg.basedir
+    cfg.watch
+    cfg.logs
+
+        These define important base paths in the file system layout of a `rTorrent` instance,
+        and are all private. They are used where appropriate to define further paths
+        like the session directory, and allow easy changes at just one place.
+
+        By default, ``cfg.watch`` and ``cfg.logs`` are sub-dirs of ``cfg.basedir``.
+
+
+    system.startup_time
+
+        A constant value that holds the :term:`system.time` when the client was started.
+
 
     d.data_path
 
@@ -244,6 +256,21 @@ The `CONFIG Template`_ wiki page defines a few commands in its configuration sni
                     (cat, (d.directory), /),\
                     (cat, (d.directory), /, (d.name))"
 
+
+.. _`CONFIG Template`: https://github.com/rakshasa/rtorrent/wiki/CONFIG-Template
+
+
+.. _pyrocore-cfg:
+
+`pyrocore` Configuration
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+**TODO** check if they belong with "p-m-b"
+
+In addition to the commands listed here, `pyrocore` also defines :term:`d.data_path`.
+
+
+.. glossary::
 
     d.session_file
 
@@ -305,6 +332,7 @@ The `CONFIG Template`_ wiki page defines a few commands in its configuration sni
 
         **TODO**
 
+
 .. _`auto-scrape.rc`: https://github.com/pyroscope/pyrocore/blob/master/src/pyrocore/data/config/rtorrent.d/auto-scrape.rc
 
 
@@ -312,6 +340,31 @@ The `CONFIG Template`_ wiki page defines a few commands in its configuration sni
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **TODO**
+
+In addition to the commands listed here, `pimp-my-box` also defines
+:term:`cfg.basedir`, :term:`cfg.watch`, and :term:`cfg.logs`,
+and includes anything from :ref:`pyrocore-cfg`.
+
+
+.. glossary::
+
+    pyro.extended
+
+        Set ``pyro.extended`` to ``1`` to activate `rTorrent-PS` features.
+        Note that this *tells* the rest of the configuration that it can
+        safely use the extended command set – it *won't* magically make a
+        vanilla `rTorrent` an extended one.
+
+        Starting with `rTorrent-PS 1.1+`, this setting is detected automatically,
+        thanks to :term:`system.has`.
+
+    pyro.bin_dir
+
+        A constant that should be set to the ``bin`` directory
+        where you installed the `pyrocore` tools.
+
+        Make sure you end it with a ``/``;
+        if this is left empty, then the shell's path is searched.
 
 
 .. END cmd-ref
