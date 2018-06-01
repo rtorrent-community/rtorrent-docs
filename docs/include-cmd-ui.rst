@@ -98,6 +98,7 @@ Commands in this group control aspects of the ‘curses’ UI.
     ui.color.stopped
     ui.color.title
     ui.color.‹type›.set
+    ui.color.‹type›.index
 
         .. code-block:: ini
 
@@ -106,18 +107,24 @@ Commands in this group control aspects of the ‘curses’ UI.
             ui.color.‹type›.set=‹color-spec› ≫ 0
 
         These commands allow you to set colors for selected elements of the user
-        interface in *rTorrent-PS*, in some cases depending on their status. You can either
-        provide colors by specifying the numerical index in the terminal's color
-        table, or by name (for the first 16 colors). The possible color names
-        are "black", "red", "green", "yellow", "blue", "magenta", "cyan",
-        "gray", and "white"; you can use them for both text and background
-        color, in the form "«fg» on «bg»", and you can add "bright" in front of
+        interface in *rTorrent-PS*, in some cases depending on their status.
+
+        You can either provide colors by specifying the numerical index in
+        the terminal's color table, or by name (for the first 16 colors).
+        The possible color names are "black", "red", "green", "yellow",
+        "blue", "magenta", "cyan", "gray", and "white".
+
+        You can use those names for both text and background color,
+        in the form "«fg» on «bg»", and you can add "bright" in front of
         a color to select a more luminous version. If you don't specify a color,
         the default of your terminal is used.
 
         Also, these additional modifiers can be placed in the color definitions,
         but it depends on the terminal you're using whether they have an effect:
         "bold", "standout", "underline", "reverse", "blink", and "dim".
+
+        The *private* ``ui.color.‹type›.index`` calls return the related ID in the `rTorrent-PS` color table.
+        These IDs are used in the color definitions ``C‹id›/‹len›`` of :term:`ui.column.render`.
 
         See the `color scheme for 256 xterm colors`_ for an example.
 
