@@ -70,7 +70,6 @@ TODO (Groups)
 ^^^^^^^^^^^^^
 
  * choke_group
- * fi
  * file
  * group
  * group2
@@ -146,6 +145,11 @@ TODO (singles)
     scgi_port
     torrent_list_layout
     upload_rate
+    fi.filename_last
+    fi.is_file
+    file.append
+    keys.layout
+    keys.layout.set
 
         **TODO**
 
@@ -223,6 +227,10 @@ Examples in This Manual
 These commands are from snippets presented in other chapters.
 
 .. glossary::
+
+    cfg.drop_in
+
+        See :ref:`drop-in-config`. This is a *private* command.
 
     event.download.finished_delayed
     event.download.finished_delayed.interval
@@ -336,9 +344,30 @@ In addition to the commands listed here, `pyrocore` also defines :term:`d.data_p
 
         **TODO**
 
+    cull
+    purge
+
+        **TODO**
+
+        These are *private* commands, use ``rtcontrol`` from outside the client.
+
     startup_time
 
         **TODO**
+
+    tag.add
+    tag.rm
+    tag.show
+
+        **TODO**
+
+        These are *private* commands, use ``rtcontrol`` from outside the client.
+
+    pyro.watchdog
+
+        **TODO**
+
+        This is a *private* command.
 
 
 .. _`auto-scrape.rc`: https://github.com/pyroscope/pyrocore/blob/master/src/pyrocore/data/config/rtorrent.d/auto-scrape.rc
