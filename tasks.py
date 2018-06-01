@@ -65,3 +65,19 @@ def stop(ctx):
                 ctx.run('ps {}'.format(pid), pty=False)
             ctx.run('kill {}'.format(pid), pty=False)
             time.sleep(.5)
+
+
+@task
+def undoc(ctx):
+    """List PUBLIC undocumented commands."""
+    exceptions = [
+        'scheduler.(max|simple)', 'd.custom[0-5]',
+        'pyro',
+        'ui.color.custom[0-9]', 'ui.color.*.set',
+        # Groups that need work (excluded for brevity)
+        'choke_group', 'file.prioritize_toc', 'group2.seeding', 'group.seeding', 'group.insert', 'ratio',
+    ]
+    ctx.run('rtxmlrpc system.listMethods| '
+            'while read cmd; do'
+            '    egrep -m1 "^    $cmd" docs/*rst >/dev/null || echo "$cmd"; '
+            'done | egrep -v "^(' + '|'.join(exceptions) + ')" | sort')
