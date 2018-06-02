@@ -234,6 +234,7 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
         This tracks the amount of bytes for a torrent which has been accepted from peers.
         Note that bytes aren't considered to be "completed" until the full chunk is
         downloaded and verified. See :term:`d.completed_bytes` for that value.
+        See also :term:`d.left_bytes` for the number of bytes yet to be accepted.
 
 
     d.check_hash
@@ -256,6 +257,14 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
 
     d.chunks_hashed
+
+        .. code-block:: ini
+
+            d.chunks_hashed = ‹hash› ≫ value ‹chunks›
+
+        While a torrent is hash checking, this tracks the number of chunks that have
+        successfully hashed.
+
     d.chunks_seen
 
         **TODO**
@@ -263,7 +272,7 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
     d.complete
     d.incomplete
 
-       .. code-block:: ini
+        .. code-block:: ini
 
             d.complete = ‹hash› ≫ bool (0 or 1)
             d.incomplete = ‹hash› ≫ bool (0 or 1)
@@ -282,6 +291,7 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
         Returns the number of completed bytes and chunks, respectively.
         "Completed" means the bytes/chunk has been downloaded and verified against the hash.
 
+
     d.connection_current
     d.connection_current.set
     d.connection_leech
@@ -296,6 +306,10 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
 
     d.delete_tied
+
+        .. code-block:: ini
+
+            d.delete_tied = ‹hash› ≫ 0
 
         Delete the :term:`d.tied_to_file`, which obviously also unties the item.
         This command is bound to the ``U`` key by default, and also called whenever
@@ -313,7 +327,20 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
     d.creation_date
 
-        **TODO**
+        .. code-block:: ini
+
+            d.creation_date = ‹hash› ≫ value ‹timestamp›
+
+        Returns a timestamp reflecting the .torrent file creation date (i.e. separate
+        from the date the item was loaded into the client). This value can be inspected with
+        tools like `lstor`_:
+
+        .. code-block:: console
+
+            $ lstor -o 'creation date' file.torrent
+            1480229112
+
+        **TODO** What does this return for magnet files?
 
 
     d.custom
@@ -449,9 +476,17 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
 
     d.erase
-    d.free_diskspace
 
         **TODO**
+
+    d.free_diskspace
+
+        .. code-block:: ini
+
+            d.free_diskspace = ‹hash› ≫ value ‹bytes›
+
+        Retreives the free space available on the drive where :term:`d.directory` exists.
+
 
     d.group
     d.group.name
@@ -554,13 +589,14 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
         **TODO**
 
+
     d.is_pex_active
 
         .. code-block:: ini
 
             d.is_pex_active = ‹hash› ≫ bool (0 or 1)
 
-        Return whether `PEX <https://en.wikipedia.org/wiki/Peer_exchange>`_ is active for this item.
+        Return whether `PEX`_ is active for this item.
         See :term:`protocol.pex` to determine if PEX is active globally.
 
 
@@ -575,14 +611,46 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
 
     d.left_bytes
+
+        .. code-block:: ini
+
+            d.left_bytes = ‹hash› ≫ value ‹bytes›
+
+        Tracks the number of bytes that have yet to be downloaded. See :term:`d.bytes_done` for the
+        inverse value, e.g. ``d.left_bytes`` plus :term:`d.bytes_done` will always equal :term:`d.size_bytes`.
+
+
     d.load_date
+
+        .. code-block:: ini
+
+            d.load_date = ‹hash› ≫ value ‹time›
+
+        Returns the timestamp of when the torrent was loaded into the client. This is the value used when comparing
+        fast-resume data against the actual files. Note that all torrents are considered to be newly loaded when
+        pulled from the session directory, so this value will update every time *rTorrent* is restarted.
+
+
     d.local_id
     d.local_id_html
 
-        **TODO**
+        .. code-block:: ini
+
+            d.local_id = ‹hash› ≫ string ‹ID›
+            d.local_id_html = ‹hash› ≫ string ‹ID›
+
+        Returns the peer ID assigned to this item. This is the same value that is sent to the tracker when
+        announces are done. ``d.local_id`` returns a hex string, while ``d.local_id_html`` returns the value
+        `percent encoded`_. See :term:`p.id` to find this value for remote peers.
+
 
     d.max_file_size
     d.max_file_size.set
+
+        .. code-block:: ini
+
+            d.max_file_size = ‹hash› ≫ value ‹bytes›
+            d.max_file_size.set = ‹hash›, value ‹bytes› ≫ 0
 
         Controls the maximum size of any file in the item.
         If a file exceeds this amount, the torrent cannot be opened and an error will be shown.
@@ -608,12 +676,19 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
     d.mode
 
-        **TODO**
+        **TODO**: Does not appear to be functional, only throws
+        ``Object operator [mode] could not find element``.
 
     d.peer_exchange
     d.peer_exchange.set
 
-        **TODO**
+        .. code-block:: ini
+
+            d.peer_exchange = ‹hash› ≫ bool (0 or 1)
+            d.peer_exchange.set = ‹hash›, bool (0 or 1) ≫ 0
+
+        Determines if `PEX`_ is enabled for this item. By default this is set to the value of
+        :term:`protocol.pex`.
 
     d.peers_accounted
     d.peers_complete
@@ -633,7 +708,19 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
     d.priority.set
     d.priority_str
 
-        **TODO**
+        .. code-block:: ini
+
+            d.priority = ‹hash› ≫ value ‹prio›
+            d.priority.set = ‹hash›, value ‹prio› ≫ 0
+            d.priority_str = ‹hash› ≫ string ‹name›
+
+        Controls the priority of the item. The possible settings (and the associated value)
+        are as follows:
+
+        - ``0`` - off
+        - ``1`` - low
+        - ``2`` - normal
+        - ``3`` - high
 
     d.ratio
 
@@ -693,15 +780,73 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
     d.throttle_name
     d.throttle_name.set
+
+        **TODO**
+
     d.timestamp.finished
     d.timestamp.started
+
+        .. code-block:: ini
+
+            d.timestamp.finished = ‹hash› ≫ value ‹epoch›
+            d.timestamp.started = ‹hash› ≫ value ‹epoch›
+
+        Returns the time (as an `epoch <https://en.wikipedia.org/wiki/Unix_time>`_ integer) the item was finished or started.
+        These values are set when :term:`event.download.finished` and :term:`event.download.resumed` are triggered,
+        respectively. If :term:`event.download.finished` has not triggered yet, :term:`d.timestamp.finished` will return 0.
+
+
     d.tracker.insert
+
+        .. code-block:: ini
+
+            d.tracker.insert = ‹hash›, value ‹group›, string ‹url› ≫ 0
+
+        Inserts a tracker into a tracker group. A tracker group can be numbered from 0-32, and consists of multiple URLs.
+
+
     d.tracker.send_scrape
+
+        .. code-block:: ini
+
+            d.tracker.send_scrape = ‹hash›, value ‹delay› ≫ 0
+
+        Manually triggers a `scrape request`_ after ``delay`` seconds. See `auto-scrape.rc`_ for an automated *rTorrent* scraping
+        system.
+
+
     d.tracker_announce
+
+        .. code-block:: ini
+
+            d.tracker_announce = ‹hash› ≫ 0
+
+        Manually triggers a tracker announce.
+
+
     d.tracker_focus
+    d.tracker_size
+
+        .. code-block:: ini
+
+            d.tracker_focus = ‹hash› ≫ value ‹num›
+            d.tracker_size = ‹hash› ≫ value ‹num›
+
+        Returns the number of trackers assigned to the torrent.
+
+
     d.tracker_numwant
     d.tracker_numwant.set
-    d.tracker_size
+
+        .. code-block:: ini
+
+            d.tracker_numwant = ‹hash› ≫ value ‹numwant›
+            d.tracker_numwant.set = ‹hash›, value ‹numwant› ≫ 0
+
+        Controls the `optional numwant parameter`_ sent to the tracker. By default it's set to ``-1``, and *rTorrent*
+        only sends ``numwant`` if it is greater than 0.
+
+
     d.up.choke_heuristics
     d.up.choke_heuristics.leech
     d.up.choke_heuristics.seed
@@ -722,9 +867,14 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
     d.update_priorities
 
+        .. code-block:: ini
+
+            d.update_priorities = ‹hash› ≫ 0
+
         After a scripted change to priorities using :term:`f.priority.set`,
         this command **must** be called. It updates the internal state of a
         download item based on the new priority settings.
+
 
     d.uploads_max
     d.uploads_max.set
@@ -755,7 +905,13 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
     d.wanted_chunks
 
-        **TODO**
+        .. code-block:: ini
+
+            d.wanted_chunks = ‹hash› ≫ value ‹chunks›
+
+        The number of chunks *rTorrent* wants to download. Contrast with :term:`d.completed_chunks`,
+        although ``d.wanted_chunks`` will not count chunks from files prioritized as "off" as wanted. See
+        :term:`f.priority` for commands relating to file prioritization.
 
 
     d.tracker_domain
@@ -783,6 +939,16 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
         **TODO**
 
 
+.. _`auto-scrape.rc`: https://github.com/pyroscope/pyrocore/blob/master/src/pyrocore/data/config/rtorrent.d/auto-scrape.rc
+
+.. _`scrape request`: https://en.wikipedia.org/wiki/Tracker_scrape
+
+.. _`optional numwant parameter`: https://wiki.theory.org/index.php/BitTorrentSpecification#Tracker_Request_Parameters
+
+.. _`PEX`: https://en.wikipedia.org/wiki/Peer_exchange
+
+.. _`lstor`: https://pyrocore.readthedocs.io/en/latest/usage.html#lstor
+
 .. _f-commands:
 
 `f.*` commands
@@ -791,6 +957,17 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 These commands can be used as arguments in a :term:`f.multicall`.
 They can also be called directly, but you need to pass `‹infohash›:f‹index›` as the first argument.
 Index counting starts at ``0``, the array size is :term:`d.size_files`.
+
+Example:
+
+.. code-block:: console
+
+    $ rtxmlrpc --repr f.multicall "145B85116626651912298F9400805254FB1192AE" "" f.path=
+    [['ubuntu-16.04.3-server-amd64.iso']]
+
+    $ rtxmlrpc --repr f.size_bytes "145B85116626651912298F9400805254FB1192AE:f0"
+    865075200
+
 
 .. glossary::
 
