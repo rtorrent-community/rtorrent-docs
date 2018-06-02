@@ -873,6 +873,27 @@ The ``to_*`` forms are **deprecated**.
 
         **TODO**
 
+    convert.time_delta
+
+        .. code-block:: ini
+
+            # rTorrent-PS 1.1+ only
+            convert.time_delta = ‹timestamp›[, ‹timebase›] ≫ string
+
+        Converts the difference of two timestamps into
+        an approximate but short and human readable representation
+        (the result is always 5 chars wide).
+
+        If ``timestamp`` is zero, the result is ``⋅␣⋅⋅␣``.
+        If ``timebase`` is missing or zero, the current time is used instead.
+
+        .. rubric:: Examples
+
+        .. literalinclude:: rtorrent-ps/tests/commands/misc.txt
+            :language: console
+            :start-at: # convert.time_delta
+            :end-before: # END
+
 
     convert.human_size
 
