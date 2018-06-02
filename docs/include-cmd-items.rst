@@ -349,6 +349,26 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
             i.e. ``(d.custom, bugfest  )`` will look for the ``bugfest␣␣`` key.
 
 
+    d.custom.if_z
+
+        .. code-block:: ini
+
+            # rTorrent-PS 1.1+ only
+            d.custom.if_z = ‹hash›, string ‹key›, string ‹default› ≫ string ‹value›
+
+        Just like :term:`d.custom`, but returns the `‹default›` value if the `‹key›` does not exist.
+
+
+    d.custom.keys
+
+        .. code-block:: ini
+
+            # rTorrent-PS 1.1+ only
+            d.custom.keys = ‹hash› ≫ list of string ‹defined keys›
+
+        Returns a list of custom keys that are defined for an item.
+
+
     d.disconnect.seeders
 
         .. code-block:: ini
