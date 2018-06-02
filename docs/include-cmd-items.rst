@@ -485,7 +485,9 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
             d.free_diskspace = ‹hash› ≫ value ‹bytes›
 
-        Retreives the free space available on the drive where :term:`d.directory` exists.
+        Return the *minimum* free space of devices where files of the item reside on.
+        In the usual case without symlinks and the like, it's the free space of the drive
+        holding :term:`d.directory`.
 
 
     d.group
