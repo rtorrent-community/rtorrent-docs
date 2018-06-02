@@ -401,7 +401,22 @@ Importing Script Files
         Since this works by throwing an exception, you will see that
         exception when called *outside* of an imported file.
 
-        To use this in a way compatible with older builds, protect an import like this:
+
+        .. rubric:: Example: Quick toggle of experimental configuration
+
+        Add a commented ``import.return`` into a configuration file,
+        above some code you work on, at the very end of the file.
+        Remove the ``#`` to test that code, put it back to ignore your experiment.
+
+        .. code-block:: ini
+
+            #import.return=
+            «here be dragons»
+
+
+        .. rubric:: Example: Protecting imports that use new features
+
+        First, protect the import like this (to make it compatible with older builds):
 
         .. code-block:: ini
 
