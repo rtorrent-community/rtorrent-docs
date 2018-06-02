@@ -47,7 +47,7 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
         It is also valid to pass no commands at all to ``d.multicall2``, but all you get from that
         is a list of empty lists.
 
-        Example:
+        .. rubric:: Example
 
         .. code-block:: console
 
@@ -301,7 +301,7 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
         This command is bound to the ``U`` key by default, and also called whenever
         an item is erased.
 
-        Example:
+        .. rubric:: Example
 
         .. code-block:: ini
 
@@ -367,6 +367,34 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
             d.custom.keys = ‹hash› ≫ list of string ‹defined keys›
 
         Returns a list of custom keys that are defined for an item.
+
+        .. rubric:: Example
+
+        .. code-block:: console
+
+            $ rtxmlrpc --repr d.custom.keys $(rtxmlrpc download_list | head -n1) | tr -d \\n
+            [… 'tm_downloaded', 'tm_last_scrape', 'tm_loaded', 'tm_started']
+
+
+    d.custom.items
+
+        .. code-block:: ini
+
+            # rTorrent-PS 1.1+ only
+            d.custom.items = ‹hash› ≫ map of key / value strings ‹defined items›
+
+        Returns keys and their associated values, for all custom values of an item.
+
+        .. rubric:: Example
+
+        .. code-block:: console
+
+            $ rtxmlrpc --repr d.custom.items $(rtxmlrpc download_list | head -n1)
+            {…
+             'tm_downloaded': '1522406424',
+             'tm_last_scrape': '1527931151',
+             'tm_loaded': '1522406432',
+             'tm_started': '1522406432'}
 
 
     d.disconnect.seeders
