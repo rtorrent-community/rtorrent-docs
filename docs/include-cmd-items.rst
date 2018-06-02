@@ -343,6 +343,11 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
         and collisions with other uses are quite likely. *ruTorrent* for example
         uses #1 for its label, and the other slots for various other purposes.
 
+        .. warning::
+
+            **Never** add spaces after the key when using new syntax,
+            i.e. ``(d.custom, bugfest  )`` will look for the ``bugfest␣␣`` key.
+
 
     d.disconnect.seeders
 
