@@ -276,7 +276,7 @@ often starting with a digit, ``!``, or ``~``, for ordering reasons.
 
         Be aware that during startup these view names can be *empty* strings!
 
-        Event handler example:
+        .. rubric:: Event handler example
 
         .. code-block:: ini
 
@@ -313,7 +313,7 @@ just like a cron job, but with a resolution of seconds.
         ``start`` and ``interval`` may optionally use a time format like ``[dd:]hh:mm:ss``.
         An interval of ``07:00:00:00`` would mean weekly execution.
 
-        Examples:
+        .. rubric:: Examples
 
         .. code-block:: ini
 
@@ -382,7 +382,7 @@ Importing Script Files
         If you're nesting imports, relative filenames are resolved using :term:`system.cwd`,
         and *not* based on the location of the importing file.
 
-        Example:
+        .. rubric:: Example
 
         .. code-block:: ini
 
@@ -564,7 +564,7 @@ Conditional Operators
         The timestamps are UNIX ones, like created by :term:`system.time_seconds`.
         The result is ``false`` if the timestramp is empty / zero.
 
-        Example:
+        .. rubric:: Example
 
         .. code-block:: ini
 
@@ -599,7 +599,7 @@ Conditional Operators
         If all fields are equal, then items are ordered in a random,
         but stable fashion.
 
-        Example (sort a view by message *and* name):
+        .. rubric:: Example: Sort a view by message *and* name
 
         .. code-block:: ini
 
@@ -628,7 +628,7 @@ String Functions
         like passing an empty string where a command is expected via ``(cat,)``,
         or text starting with a dollar sign using ``(cat,{$})``.
 
-        Example:
+        .. rubric:: Example
 
             .. code-block:: ini
 
@@ -645,7 +645,7 @@ String Functions
 
         **TODO**
 
-        Examples:
+        .. rubric:: Examples
 
         .. literalinclude:: rtorrent-ps/tests/commands/string.txt
             :language: console
@@ -661,7 +661,7 @@ String Functions
 
         **TODO**
 
-        Examples:
+        .. rubric:: Examples
 
         .. literalinclude:: rtorrent-ps/tests/commands/string.txt
             :language: console
@@ -680,7 +680,7 @@ String Functions
         Checks if a given string contains any of the strings following it.
         The variant with ``_i`` is case-ignoring, but *only* works for pure ASCII needles.
 
-        Example:
+        .. rubric:: Example
 
         .. code-block:: console
 
@@ -702,7 +702,7 @@ String Functions
 
         ``string.replace`` substitutes any occurence of the old text by the new one.
 
-        Example:
+        .. rubric:: Examples
 
         .. code-block:: console
 
@@ -730,7 +730,7 @@ Array Functions
 
         **TODO**
 
-        Examples:
+        .. rubric:: Examples
 
         .. literalinclude:: rtorrent-ps/tests/commands/array.txt
             :language: console
@@ -775,7 +775,7 @@ see the ``math.sub`` examples below.
         These share the same code, so the errors shown in the following examples
         usually apply to all commands, and are not repeated for each operator.
 
-        Examples:
+        .. rubric:: Examples
 
         .. literalinclude:: rtorrent-ps/tests/commands/math.txt
             :language: console
@@ -810,6 +810,8 @@ see the ``math.sub`` examples below.
     math.med
 
         Functions to calculate the minimum, maximum, element count, average, or median over the input values.
+
+        .. rubric:: Examples
 
         .. literalinclude:: rtorrent-ps/tests/commands/math.txt
             :language: console
