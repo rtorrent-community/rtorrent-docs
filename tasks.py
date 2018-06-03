@@ -80,7 +80,7 @@ def undoc(ctx):
             'choke_group', 'file.prioritize_toc', 'group2.seeding', 'group.seeding', 'group.insert', 'ratio',
         ],
         private=[
-            'ui.color.[^.]+.index', 'completion_', 'pyro._',
+            'ui.color.[^.]+.index', 'completion_', 'pyro._', 'pmb._',
 
             # Internal / automatic state management
             'd.complete.set',
