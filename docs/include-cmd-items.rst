@@ -519,13 +519,13 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
        Returns an integer denoting the state of the hash process. The possible values are:
 
-       - ``0``: No hashing is happening
-       - ``1``: The very first hash check is occurring
-       - ``2``: If :term:`pieces.hash.on_completion` is enabled, the torrent is in the middle
-         of hashing due to the finish event, and at the end, will be checked for completeness
-       - ``3``: A rehash is occurring (i.e. the torrent has already been marked as complete once)
+       * ``0`` – No hashing is happening.
+       * ``1`` – The very first hash check is occurring.
+       * ``2`` – If :term:`pieces.hash.on_completion` is enabled, the torrent is in the
+         middle of hashing due to the finish event, and at the end, will be checked for completeness.
+       * ``3`` – A rehash is occurring (i.e. the torrent has already been marked as complete once).
 
-       See also: :term:`d.is_hash_checking`
+       See also :term:`d.is_hash_checking`.
 
     d.hashing_failed
     d.hashing_failed.set
@@ -734,10 +734,10 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
         Controls the priority of the item. The possible settings (and the associated value)
         are as follows:
 
-        - ``0`` - off
-        - ``1`` - low
-        - ``2`` - normal
-        - ``3`` - high
+        * ``0`` – off
+        * ``1`` – low
+        * ``2`` – normal
+        * ``3`` – high
 
     d.ratio
 
@@ -777,10 +777,10 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
         Returns the various size attributes of an item.
 
-        - **bytes**: The total number of bytes in the item's files.
-        - **chunks**: The number of chunks, including the trailing chunk.
-        - **files**: The number of files (does not include directories).
-        - **pex**: The number of peers that were reported via the PEX extension.
+        * **bytes** – The total number of bytes in the item's files.
+        * **chunks** – The number of chunks, including the trailing chunk.
+        * **files** – The number of files (does not include directories).
+        * **pex** – The number of peers that were reported via the PEX extension.
           If :term:`d.is_pex_active` is false, this will be always be 0.
 
     d.skip.rate
@@ -1114,10 +1114,10 @@ Example:
 
         There are 3 possible priorities for files:
 
-        - ``0``: Off, do not download this file. Note that the file can still show up if there is an overlapping chunk
-          with a file that you do want to download
-        - ``1``: Normal, download this file normal
-        - ``2``: High, prioritize requesting chunks for this file above normal files.
+        * ``0`` off – Do not download this file. Note that the file can still show up
+          if there is an overlapping chunk with a file that you do want to download.
+        * ``1`` normal – Download this file normally.
+        * ``2`` high – Prioritize requesting chunks for this file above normal files.
 
         In the ncurses file view, you can rotate a selected file between these states with the space bar.
 

@@ -186,9 +186,9 @@
         Set the XMLRPC dialect to use, as defined by  ``xmlrpc-c``.
         The ``dialect`` parameter can have these values:
 
-        - 0: ``dialect_generic``
-        - 1: ``dialect_i8``
-        - 2: ``dialect_apache``
+        * 0 – ``dialect_generic``
+        * 1 – ``dialect_i8``
+        * 2 – ``dialect_apache``
 
         ``dialect_i8`` is the default value, which means the XMLRPC API will use the
         `xmlrpc-c i8 extension type <http://xmlrpc-c.sourceforge.net/doc/libxmlrpc.html#extensiontype>`_

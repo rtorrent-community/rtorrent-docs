@@ -29,10 +29,10 @@ See the Github wiki for an example of `enabling DHT in rTorrent`_.
 
         Possible values are:
 
-        - ``on`` – start DHT immediately
-        - ``off`` – do not start DHT
-        - ``auto`` – start and stop DHT as needed
-        - ``disable`` – completely disable DHT
+        * ``on`` – Start DHT immediately.
+        * ``off`` – Do not start DHT.
+        * ``auto`` – Start and stop DHT as needed.
+        * ``disable`` – Completely disable DHT.
 
     dht.port
     dht.port.set
@@ -151,22 +151,23 @@ See the Github wiki for an example of `enabling DHT in rTorrent`_.
 
         Possible values for ``value`` are:
 
-        - ``0`` – Off
-        - ``1`` – MAdvise
-        - ``2`` – Direct page
+        * ``0`` – off
+        * ``1`` – madvise
+        * ``2`` – direct page
 
         Off means it doesn't do any preloading at all.
 
-        MAdvise means it calls `madvise`_ on the file for the specific mmap'ed memory range,
+        `madvise` means it calls `madvise`_ on the file for the specific ``mmap``'ed memory range,
         which tells the kernel to load it in memory when it gets around to it.
-        Which is hopefully before *rTorrent* writes to the network socket.
+        Which is hopefully before `rTorrent` writes to the network socket.
 
         Direct paging means it touches each file page in order to force the kernel to load it into
         memory. This can help if you're dealing with very large number of peers and large/many files,
         especially in a low-memory setting, as you can avoid thrashing the disk where loaded file
         pages get thrown out before they manage to get sent.
 
-        Adapted from https://github.com/rakshasa/rtorrent/issues/418#issuecomment-211335027
+        |    *Adapted from*
+        |    https://github.com/rakshasa/rtorrent/issues/418#issuecomment-211335027
 
     pieces.stats_not_preloaded
     pieces.stats_preloaded
@@ -284,14 +285,14 @@ See the Github wiki for an example of `enabling DHT in rTorrent`_.
         RC4 encryption (encrypts the entire header and message, at the cost of a few CPU cycles),
         with flags to control the behavior of both.
 
-        - ``none`` – The default, don't attempt any encryption
-        - ``allow_incoming`` – Allow incoming encrypted connections from other peers
-        - ``try_outgoing`` – Attempt to set up encryption when initiating a connection
-        - ``require`` – Require encryption, and reject peers who don't support it
-        - ``require_RC4`` – Require RC4 encryption specifically
-        - ``require_rc4`` – Same as above
-        - ``enable_retry`` – If a peer is rejected for not supporting the encryption we need, retry the handshake
-        - ``prefer_plaintext`` – Prefer plaintext encryption
+        * ``none`` – The default, don't attempt any encryption.
+        * ``allow_incoming`` – Allow incoming encrypted connections from other peers.
+        * ``try_outgoing`` – Attempt to set up encryption when initiating a connection.
+        * ``require`` – Require encryption, and reject peers who don't support it.
+        * ``require_RC4`` – Require RC4 encryption specifically.
+        * ``require_rc4`` – Same as above.
+        * ``enable_retry`` – If a peer is rejected for not supporting the encryption we need, retry the handshake.
+        * ``prefer_plaintext`` – Prefer plaintext encryption.
 
         See `BitTorrent protocol encryption`_ for more information.
 
