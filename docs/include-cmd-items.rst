@@ -666,15 +666,30 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
     d.message
     d.message.set
+    d.message.alert
 
         .. code-block:: ini
 
             d.message = ‹hash› ≫ string ‹message›
             d.message.set = ‹hash›, string ‹message› ≫ 0
 
+            # rTorrent-PS 1.1+ only
+            d.message.alert = ‹hash› ≫ value ‹category›
+
         Used to store messages relating to the item, such as errors
         in communicating with the tracker or a hash check failure.
 
+        The ``d.message.alert`` command returns an enum categorizing messages into classes,
+        used for the configurable canvas of `rTorrent-PS`:
+
+            * ``␣`` 0 *ALERT_NORMAL*
+            * ``♺`` 1 *ALERT_NORMAL_CYCLING* (Tried all trackers)
+            * ``⚠`` 2 *ALERT_GENERIC*
+            * ``◔`` 3 *ALERT_TIMEOUT*
+            * ``⚡`` 4 *ALERT_CONNECT*
+            * ``↯`` 5 *ALERT_REQUEST*
+            * ``¿?`` 6 *ALERT_GONE*
+            * ``⨂`` 7 *ALERT_PERMS*
 
     d.mode
 
