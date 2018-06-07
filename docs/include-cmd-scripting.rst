@@ -477,6 +477,12 @@ Conditions (if/then/else)
 
         Using ``branch=foobar=, …`` is equivalent, just using the older command syntax for the condition.
 
+        .. code-block:: console
+
+            $ rtxmlrpc branch '' greater=value=2,value=2 cat=YES cat=NO
+            NO
+            $ rtxmlrpc branch '' greater=value=4,value=2 cat=YES cat=NO
+            YES
 
         **TODO:** More examples, using or/and/not and other more complex constructs.
 
