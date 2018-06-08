@@ -136,11 +136,23 @@ Commands in this group control aspects of the ‘curses’ UI.
 
         **TODO**
 
+
     ui.column.render
 
         **rTorrent-PS 1.1+ only**
 
         **TODO**
+
+
+    ui.column.hide
+    ui.column.show
+    ui.column.is_hidden
+    ui.column.hidden.list
+
+        **rTorrent-PS 1.1+ only**
+
+        **TODO**
+
 
     ui.focus.end
     ui.focus.home
