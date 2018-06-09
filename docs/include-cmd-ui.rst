@@ -12,8 +12,9 @@ Commands in this group control aspects of the ‘curses’ UI.
 
         .. code-block:: ini
 
-            ui.current_view ≫ string ‹viewname›
             ui.current_view.set = ‹viewname› ≫ 0
+            # rTorrent-PS 0.*+ and rTorrent 0.9.7+ only
+            ui.current_view ≫ string ‹viewname›
 
         Query or change the current view the user is seeing (querying since ``0.9.7``).
         :term:`view.list` gives you a list of all the added views.
@@ -23,8 +24,14 @@ Commands in this group control aspects of the ‘curses’ UI.
         Rotating through views requires querying the current view and the view list,
         to find the next one.
 
-        In *rTorrent-PS* 1.1+, view changes trigger event handlers for
+        In *rTorrent-PS* 1.1+, view changes also trigger event handlers for
         :term:`event.view.hide` and :term:`event.view.show`.
+
+        ``ui.current_view`` is needed
+        if you want to use a hyphen ``-`` as a view name in ``rtcontrol``
+        to refer to the currently shown view. An example for that is passing
+        ``-M-`` as an option, which performs in-place filtering of the current
+        view via ``rtcontrol``.
 
 
     ui.torrent_list.layout
@@ -50,14 +57,16 @@ Commands in this group control aspects of the ‘curses’ UI.
         .. code-block:: ini
 
             # rTorrent-PS 0.*+ only
-            ui.bind_key = display, key, "command=[...]" ≫ 0
+            ui.bind_key = ‹display›, ‹key›, "command=[...]" ≫ 0
             # rTorrent-PS 1.1+ only
             ui.bind_key.verbose = ≫ bool (0 or 1)
+            ui.bind_key.verbose.set = ‹mode› (0 or 1) ≫ 0
 
         Binds the given key on a specified display to execute the given command when pressed.
         Note that this needs to be called in a one-shot schedule, after *rTorrent* is fully initialized.
 
-        ``display`` must always be ``download_list``, for the moment.
+        ``display`` must always be ``download_list``, for the moment
+        (currently, no other displays are supported).
 
         ``key`` can be either a single character for normal keys,
         ``^`` plus a character for control keys,
@@ -66,13 +75,19 @@ Commands in this group control aspects of the ‘curses’ UI.
         The :term:`ui.bind_key.verbose` flag determines whether replacing an existing binding
         is logged (``1``, the default) or not (``0``).
 
-        Configuration example:
+        .. rubric:: Configuration Example
 
         .. code-block:: ini
 
-            # Bind '^' to show the "rtcontrol" result
+            # Bind '^' to show the last "rtcontrol" result
             schedule2 = bind_view_rtcontrol, 1, 0,\
                 "ui.bind_key = download_list, ^, ui.current_view.set=rtcontrol"
+
+        .. important::
+
+            This currently can NOT be used immediately when ``rtorrent.rc`` is parsed,
+            so it has to be scheduled for one-shot execution,
+            shortly after startup (see above example).
 
 
     ui.color.custom1…9
@@ -179,7 +194,7 @@ Commands in this group control aspects of the ‘curses’ UI.
         **TODO**
 
 
-.. _`color scheme for 256 xterm colors`: https://github.com/pyroscope/pyrocore/blob/master/src/pyrocore/data/config/color-schemes/default-256.rc
+.. _`color scheme for 256 xterm colors`: https://github.com/pyroscope/pyrocore/blob/master/src/pyrocore/data/config/color-schemes/default-256.rc#L1
 
 
 .. _view-commands:
@@ -233,9 +248,28 @@ Commands in this group control aspects of the ‘curses’ UI.
         takes up three lines, to a more condensed form exclusive to *rTorrent-PS*,
         where each item only takes up one line.
 
+        Further explanations on what the columns show and what forms of
+        abbreviations are used, to get a display as compact as possible while
+        still showing all the important stuff, can be found on `Extended Canvas Explained`_.
+        There you also find hints on **how to correctly setup your terminal**.
+
         Note that each view has its own state, and that if the view
-        name is empty, the current view is toggled. You can set the default
-        state in your configuration, by adding a toggle command for each view
-        you want collapsed after startup (the default is expanded).
+        name is empty, the current view is toggled.
+        Newly added views are expanded –
+        but in `rTorrent-PS 1.1+` the built-in views are collapsed by default.
+
+        You can set the default state of views to collapsed in your configuration,
+        by adding a toggle command for each created view.
+
+        Also when using `rTorrent-PS` before version 1.1,
+        you should bind the current view toggle to a key, like this:
+
+        .. code-block:: ini
+
+            schedule = bind_collapse,0,0,"ui.bind_key=download_list,*,view.collapsed.toggle="
+
+
+.. _`Extended Canvas Explained`: https://rtorrent-ps.readthedocs.io/en/latest/manual.html#extended-canvas-explained
+
 
 .. END cmd-ui
