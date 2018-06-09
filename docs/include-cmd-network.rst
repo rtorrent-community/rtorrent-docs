@@ -210,12 +210,6 @@
         Human-readable forms such as ``2M`` are also allowed (for 2 MiB, i.e. 2097152 bytes).
 
 
-.. note::
-
-    The following are only available in *rTorrent-PS*!
-
-.. glossary::
-
     network.history.auto_scale
     network.history.auto_scale.set
     network.history.depth
@@ -250,6 +244,7 @@
         you get the upper and lower bounds of traffic
         within your configured time window, and each bar of the graph
         represents an interval determined by the sampling schedule.
+
         Pressing ``=`` toggles between a graph display with base line 0,
         and a zoomed view that scales it to the current bounds.
 

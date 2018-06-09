@@ -939,6 +939,8 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
         chosen tracker is the first HTTP one with active peers (seeders or
         leechers), or else the first one.
 
+        .. rubric:: Example
+
         .. code-block:: ini
 
             # Trackers view (all items, sorted by tracker domain and then name).
@@ -975,7 +977,7 @@ These commands can be used as arguments in a :term:`f.multicall`.
 They can also be called directly, but you need to pass `‹infohash›:f‹index›` as the first argument.
 Index counting starts at ``0``, the array size is :term:`d.size_files`.
 
-Example:
+.. rubric:: Example
 
 .. code-block:: console
 
@@ -1152,7 +1154,7 @@ They can also be called directly, but you need to pass `‹infohash›:p‹peerh
 :term:`p.id`, which is encoded as a hexadecimal string.
 
 
-Example:
+.. rubric:: Example
 
 .. code-block:: console
 

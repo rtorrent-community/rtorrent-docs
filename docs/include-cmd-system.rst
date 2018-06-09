@@ -183,7 +183,7 @@ Commands related to the operating system and the XMLRPC API.
         Query the value of an environment variable,
         returns an empty string if ``$varname`` is not defined.
 
-        Example:
+        .. rubric:: Example
 
         .. code-block:: ini
 
@@ -541,7 +541,7 @@ Commands related to the operating system and the XMLRPC API.
         current date and time in ISO8601 format. If an empty path is passed, the
         file is closed.
 
-        Example:
+        .. rubric:: Example
 
         .. code-block:: ini
 
