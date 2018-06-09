@@ -102,9 +102,43 @@ TODO (Groups)
         **TODO**
 
     trackers.alias.items
+
+        Returns all the mappings in the form ``«domain»=«alias»`` as a list.
+
+        Note that domains that were not explicitly defined so far, but shown
+        previously, are also contained in the list, with an empty alias. So to
+        create a list for you to fill in the aliases, scroll through all your
+        items on ``main`` or ``trackers``, so you can dump the domains of all
+        loaded items.
+
+        Example that prints all the domains and their aliases as commands that
+        define them:
+
+        .. code-block:: shell
+
+            rtxmlrpc trackers.alias.items \
+                | sed -r -e 's/=/, "/' -e 's/^/trackers.alias.set_key = /' -e 's/$/"/' \
+                | tee ~/rtorrent/rtorrent.d/tracker-aliases.rc
+
+        This also dumps them into the ``tracker-aliases.rc`` file to persist
+        your mappings, and also make them easily editable. To reload edited
+        alias definitions, use this:
+
+        .. code-block:: shell
+
+            rtxmlrpc "try_import=,~/rtorrent/rtorrent.d/tracker-aliases.rc"
+
+
     trackers.alias.set_key
 
-        **TODO**
+        Sets an alias that replaces the given domain, when displayed on the
+        right of the collapsed canvas.
+
+        .. rubric:: Configuration Example
+
+        .. code-block:: ini
+
+            trackers.alias.set_key = bttracker.debian.org, Debian
 
 
 TODO (singles)
