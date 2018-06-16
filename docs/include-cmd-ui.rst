@@ -147,14 +147,14 @@ Commands in this group control aspects of the ‘curses’ UI.
     ui.canvas_color
     ui.canvas_color.set
 
-        **rTorrent-PS 1.1+ only**
+        .. rubric:: *rTorrent-PS 1.1+ only*
 
         **TODO**
 
 
     ui.column.render
 
-        **rTorrent-PS 1.1+ only**
+        .. rubric:: *rTorrent-PS 1.1+ only*
 
         **TODO**
 
@@ -164,9 +164,23 @@ Commands in this group control aspects of the ‘curses’ UI.
     ui.column.is_hidden
     ui.column.hidden.list
 
-        **rTorrent-PS 1.1+ only**
+        .. rubric:: *rTorrent-PS 1.1+ only*
 
         **TODO**
+
+
+    ui.column.sacrificed
+    ui.column.sacrificed.set
+    ui.column.sacrificed.toggle
+    ui.column.sacrificial.list
+
+        .. rubric:: *rTorrent-PS 1.1+ only*
+
+        The ``ui.column.sacrificed`` value is *false* (0) by default,
+        and can set set as usual.
+        The ``ui.column.sacrificed.toggle`` command changes the state of this value
+        and :term:`ui.column.hide`\ s or :term:`ui.column.show`\ s all the columns
+        that ``ui.column.sacrificial.list`` returns (as a list of values).
 
 
     ui.focus.end
