@@ -949,7 +949,7 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
         But you can also use it in a :term:`d.multicall.filtered` command together with :term:`string.equals`,
         to easily select items of one or more specified tracker(s).
 
-        .. rubric:: Example
+        .. rubric:: Examples
 
         .. code-block:: ini
 
@@ -958,6 +958,14 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
             view.add          = trackers
             view.sort_new     = trackers, "compare=,d.tracker_alias=,d.name="
             view.sort_current = trackers, "compare=,d.tracker_alias=,d.name="
+
+        .. code-block:: console
+
+            $ rtxmlrpc d.multicall.filtered '' 'string.equals=(d.tracker_alias),Linux,Debian' \
+                       d.tracker_domain= d.name=
+            ['linuxtracker.org', 'Container Linux 1745.7.0.iso']
+            ['linuxtracker.org', 'robolinux64-mate3d-v9.3.iso']
+            ['bttracker.debian.org', 'debian-9.4.0-amd64-netinst.iso']
 
 
     d.tracker_scrape.complete
