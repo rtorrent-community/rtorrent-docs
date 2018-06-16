@@ -626,8 +626,9 @@ String Functions
             cat=«text»[,…] ≫ string
             cat={"array", "of", "text"}[,…] ≫ string
 
-        ``cat`` takes a list of string or array arguments,
-        and smushes them all together with no delimiter.
+        ``cat`` takes a list of object arguments, or an array of objects,
+        and smushes them all together with no delimiter
+        (see :term:`string.join` for the variant *with* a delimiter).
 
         Note that ``cat`` can be used to feed strings into the parser
         that are otherwise not representable,
@@ -649,7 +650,7 @@ String Functions
             # rTorrent-PS 1.1+ only
             string.len = «text» ≫ value (length)
 
-        **TODO**
+        Returns the length of an UTF-8 encoded string in terms of Unicode characters.
 
         .. rubric:: Examples
 
@@ -659,19 +660,34 @@ String Functions
             :end-before: # END
 
 
-    string.substr
+    string.equals
+    string.startswith
+    string.endswith
+
         .. code-block:: ini
 
             # rTorrent-PS 1.1+ only
-            string.substr = «text»[, «pos»[, «count»[, «default»]]] ≫ string
+            string.equals = «text», «other»[, …] ≫ bool (0 or 1)
+            string.startswith = «text», «prefix»[, …] ≫ bool (0 or 1)
+            string.endswith = «text», «tail»[, …] ≫ bool (0 or 1)
 
-        **TODO**
+        Checks whether the first argument is equal to, starts with, or ends with another string.
+
+        If you pass more than two arguments,
+        *any* match with the 2nd to last argument will return *true* (1).
 
         .. rubric:: Examples
 
+        .. code-block:: ini
+
+            # Show ETA column only on 'active' and 'leeching' views
+            method.set_key = event.view.show, ~eta_toggle, \
+                "branch = \"string.equals=$ui.current_view=, active, leeching\", \
+                    ui.column.show=533, ui.column.hide=533"
+
         .. literalinclude:: rtorrent-ps/tests/commands/string.txt
             :language: console
-            :start-at: # string.substr
+            :start-after: # string.compare
             :end-before: # END
 
 
@@ -692,6 +708,64 @@ String Functions
 
             $ rtxmlrpc d.multicall.filtered '' 'string.contains_i=(d.name),Mate' d.name=
             ['sparkylinux-4.0-x86_64-mate.iso']
+
+
+    string.substr
+        .. code-block:: ini
+
+            # rTorrent-PS 1.1+ only
+            string.substr = «text»[, «pos»[, «count»[, «default»]]] ≫ string
+
+        Returns part of an UTF-8 encoded string.
+        The positional arguments can be passed as either strings (base 10) or values,
+        and they count Unicode characters.
+        A negative *«pos»* is relative to the end of the string.
+
+        When *«pos»* is outside the string bounds (including ‘at the end’),
+        then *«default»* is returned when provided,
+        instead of an empty string.
+
+        .. rubric:: Examples
+
+        .. literalinclude:: rtorrent-ps/tests/commands/string.txt
+            :language: console
+            :start-at: # string.substr
+            :end-before: # END
+
+
+    string.join
+        .. code-block:: ini
+
+            # rTorrent-PS 1.1+ only
+            string.join = «delim»[, «object»[, …]] ≫ string
+
+        Works just like :term:`cat` (including conversion of the passed objects to strings),
+        but concatenates the arguments using a provided delimiter.
+
+        .. rubric:: Examples
+
+        .. literalinclude:: rtorrent-ps/tests/commands/string.txt
+            :language: console
+            :start-at: # string.join
+            :end-before: # END
+
+
+    string.split
+        .. code-block:: ini
+
+            # rTorrent-PS 1.1+ only
+            string.split = «text», «delim» ≫ array of string (parts)
+
+        Splits an UTF-8 encoded string into parts delimited by the 2nd argument.
+        If that delimiter is the empty string, you'll get a Unicode character array
+        of the first argument.
+
+        .. rubric:: Examples
+
+        .. literalinclude:: rtorrent-ps/tests/commands/string.txt
+            :language: console
+            :start-at: # string.split
+            :end-before: # END
 
 
     string.map
