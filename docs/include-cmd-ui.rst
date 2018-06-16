@@ -44,19 +44,15 @@ Commands in this group control aspects of the ‘curses’ UI.
         Used internally before erasing an item, to move the focus away from it.
 
 
-.. note::
-
-    The following are only available in *rTorrent-PS*!
-
-.. glossary::
-
     ui.bind_key
     ui.bind_key.verbose
     ui.bind_key.verbose.set
 
+        .. rubric:: *rTorrent-PS 0.x+ / 1.1+ only*
+
         .. code-block:: ini
 
-            # rTorrent-PS 0.*+ only
+            # rTorrent-PS 0.x+ only
             ui.bind_key = ‹display›, ‹key›, "command=[...]" ≫ 0
             # rTorrent-PS 1.1+ only
             ui.bind_key.verbose = ≫ bool (0 or 1)
@@ -115,9 +111,10 @@ Commands in this group control aspects of the ‘curses’ UI.
     ui.color.‹type›.set
     ui.color.‹type›.index
 
+        .. rubric:: *rTorrent-PS 0.x+ only*
+
         .. code-block:: ini
 
-            # rTorrent-PS 0.*+ only
             ui.color.‹type›= ≫ string ‹color-spec›
             ui.color.‹type›.set=‹color-spec› ≫ 0
 
@@ -149,14 +146,18 @@ Commands in this group control aspects of the ‘curses’ UI.
 
         .. rubric:: *rTorrent-PS 1.1+ only*
 
-        **TODO**
+        *Not working right now.*
 
 
     ui.column.render
 
         .. rubric:: *rTorrent-PS 1.1+ only*
 
-        **TODO**
+        This is a multi-command that holds the column layout definitions
+        for the customizable *canvas v2* display in `rTorrent-PS` version 1.1+,
+        and maps them to their rendering commands.
+
+        See `Customizing the Display Layout`_ in the `rTorrent-PS` manual for a detailed explanation.
 
 
     ui.column.hide
@@ -166,7 +167,22 @@ Commands in this group control aspects of the ‘curses’ UI.
 
         .. rubric:: *rTorrent-PS 1.1+ only*
 
-        **TODO**
+        .. code-block:: ini
+
+            ui.column.hide = ‹column index›[, …] ≫ 0
+            ui.column.show = ‹column index›[, …] ≫ 0
+            ui.column.is_hidden = ‹column index› ≫ bool (0 or 1)
+            ui.column.hidden.list = ≫ array of value (column index list)
+
+        Hide or show columns by their index.
+        The hide/show commands take any number of arguments, or a list of values.
+
+        The ``ui.column.is_hidden`` command allows to query the visibility of a column,
+        and the last command returns a list of index values for all hidden columns.
+
+        The hiddden state is *not* persisted over client restarts.
+        Also note that some columns are auto-hidden in case the terminal gets too narrow
+        to show all of them.
 
 
     ui.column.sacrificed
@@ -190,25 +206,27 @@ Commands in this group control aspects of the ‘curses’ UI.
     ui.focus.page_size
     ui.focus.page_size.set
 
-        .. code-block:: ini
+        .. rubric:: *rTorrent-PS 0.x+ only*
 
-            # rTorrent-PS 0.*+ only
+        These commands support quick paging through the download list,
+        and jumping to the start or end of it.
+        See `bind-navigation-keys.rc`_ on how to use them in a `rTorrent-PS` configuration.
 
-        **TODO**
+        With the ``ui.focus.page_size.set`` command, the amount of items to skip
+        can be changed from the default value of 50, e.g. in the ``_rtlocal.rc`` file.
+
 
     ui.style.progress
     ui.style.progress.set
     ui.style.ratio
     ui.style.ratio.set
 
-        .. code-block:: ini
-
-            # rTorrent-PS 0.*+ only, obsolete with 1.1+
-
-        **TODO**
+        .. rubric:: *rTorrent-PS 0.x+ only, obsolete with 1.1+*
 
 
+.. _`Customizing the Display Layout`: https://rtorrent-ps.readthedocs.io/en/latest/setup.html#custom-layout
 .. _`color scheme for 256 xterm colors`: https://github.com/pyroscope/pyrocore/blob/master/src/pyrocore/data/config/color-schemes/default-256.rc#L1
+.. _`bind-navigation-keys.rc`: https://github.com/pyroscope/pyrocore/blob/master/src/pyrocore/data/config/rtorrent.d/bind-navigation-keys.rc#L1
 
 
 .. _view-commands:
