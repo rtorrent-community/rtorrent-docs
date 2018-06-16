@@ -931,13 +931,23 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
         :term:`f.priority` for commands relating to file prioritization.
 
 
+    d.tracker_alias
     d.tracker_domain
 
-        **rTorrent-PS only**
+        .. rubric:: *rTorrent-PS only*
 
-        Returns the (shortened) tracker domain of the given download item. The
-        chosen tracker is the first HTTP one with active peers (seeders or
-        leechers), or else the first one.
+        ``d.tracker_domain`` returns a shortened version of the domain in the tracker's URL,
+        for a given download item.
+        The chosen tracker is the first HTTP one with active peers (seeders or leechers),
+        or else the first one.
+
+        ``d.tracker_alias`` (1.1+ only) is basically the same,
+        but uses the mappings defined by :term:`trackers.alias.set_key` to transform its return value.
+        The main use-case for that is to be able to sort the `rTorrent-PS` ``trackers`` view
+        by the same values as shown to the very right of the terminal.
+
+        But you can also use it in a :term:`d.multicall.filtered` command together with :term:`string.equals`,
+        to easily select items of one or more specified tracker(s).
 
         .. rubric:: Example
 
@@ -946,14 +956,15 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
             # Trackers view (all items, sorted by tracker domain and then name).
             # This will ONLY work if you use rTorrent-PS!
             view.add          = trackers
-            view.sort_new     = trackers, "compare=,d.tracker_domain=,d.name="
-            view.sort_current = trackers, "compare=,d.tracker_domain=,d.name="
+            view.sort_new     = trackers, "compare=,d.tracker_alias=,d.name="
+            view.sort_current = trackers, "compare=,d.tracker_alias=,d.name="
+
 
     d.tracker_scrape.complete
     d.tracker_scrape.downloaded
     d.tracker_scrape.incomplete
 
-        **rTorrent-PS 1.1+ only**
+        .. rubric:: *rTorrent-PS 1.1+ only*
 
         **TODO**
 
