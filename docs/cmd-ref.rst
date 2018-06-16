@@ -360,14 +360,40 @@ In addition to the commands listed here, `pyrocore` also defines :term:`d.data_p
 
         ``d.watch.startable`` is private.
 
+
     d.category.set
     load.category
     load.category.normal
     load.category.start
 
-        **TODO**
+        To add an item to a category previously added with :term:`pyro.category.add`,
+        or move it from its old one, use ``d.category.set`` and pass the new category name.
 
-        The `load` commands are private.
+        The *load* commands use this to load items from watch directories
+        named like a category – all items loaded from there are added to the related category view.
+        :term:`cfg.watch` is used as the root directory which contains the category watch directories.
+        They are *private*, and all use the equivalent *verbose* built-in command under the hood.
+        To make starting the new items optional,
+        ``load.category`` uses the :term:`d.watch.startable` mechanism.
+
+        The definitions are in `rtorrent.d/categories.rc`_,
+        and a usage example is in `rtorrent.d/autolabel-categories.rc`_.
+
+
+    pyro.category.add
+    pyro.category.list
+
+        The *private* ``pyro.category.add`` command adds a named category.
+        That means a ``category_‹name›`` view is defined – you can
+        rotate though those views in `rTorrent-PS` using the ``<`` and ``>`` keys.
+
+        See :term:`d.category.set` and :term:`load.category` on how to put new items into a category.
+
+        If you call the ``pyro.category.list`` command,
+        it prints a list of currently defined categories to the `rTorrent` console.
+
+        For a full example, see `rtorrent.d/autolabel-categories.rc`_.
+
 
     d.last_xfer
     d.last_xfer.is_active
@@ -395,7 +421,26 @@ In addition to the commands listed here, `pyrocore` also defines :term:`d.data_p
 
         **TODO**
 
-        These are *private* commands, use ``rtcontrol`` from outside the client.
+        These are *private* commands, from outside the client use ``rtcontrol`` with ``--tag``,
+        and its ``tagged`` field.
+
+    pyro.logfile_path
+
+        **TODO**
+
+    pyro.collapsed_view.add
+    pyro.view.collapsed.toggle
+
+        **TODO**
+
+    pyro.view.toggle_visible
+
+        **TODO**
+
+    pyro.color_theme.name
+
+        Used in color theme files of `rTorrent-PS` to announce switching to a different theme
+        (defined in `pyrocore`'s `rtorrent.d/theming.rc`_).
 
     pyro.watchdog
 
@@ -404,7 +449,11 @@ In addition to the commands listed here, `pyrocore` also defines :term:`d.data_p
         This is a *private* command.
 
 
-.. _`auto-scrape.rc`: https://github.com/pyroscope/pyrocore/blob/master/src/pyrocore/data/config/rtorrent.d/auto-scrape.rc
+.. _`auto-scrape.rc`: https://github.com/pyroscope/pyrocore/blob/master/src/pyrocore/data/config/rtorrent.d/auto-scrape.rc#L1
+.. _`rtorrent.d/categories.rc`: https://github.com/pyroscope/pyrocore/blob/master/src/pyrocore/data/config/rtorrent.d/categories.rc#L1
+.. _`rtorrent.d/theming.rc`: https://github.com/pyroscope/pyrocore/blob/master/src/pyrocore/data/config/rtorrent.d/theming.rc#L1
+.. _`rtorrent.d/autolabel-categories.rc`: https://github.com/pyroscope/pimp-my-box/blob/master/roles/rtorrent-ps/templates/rtorrent/rtorrent.d/autolabel-categories.rc#L5-L7
+
 
 
 `pimp-my-box` Configuration
