@@ -40,7 +40,7 @@ Call operating system commands, possibly catching their output for use within *r
         .. code-block:: ini
 
             # Write a PID file into the session directory
-            execute.throw = bash, -c, (cat, "echo >", (session.path), "rtorrent.pid", " ", (system.pid))
+            execute.throw = sh, -c, (cat, "echo >", (session.path), "rtorrent.pid", " ", (system.pid))
 
         Note that the result of the ``(cat, …)`` command ends up as a *single* argument passed on to ``bash``.
 
@@ -414,7 +414,7 @@ Commands related to the operating system and the XMLRPC API.
 
             system.pid ≫ value ‹pid›
 
-        Returns the process's identifier.
+        Returns the main process ID of the running client.
 
     system.random
 
