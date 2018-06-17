@@ -148,12 +148,40 @@ Commands related to the operating system and the XMLRPC API.
 
         .. rubric:: *since rTorrent 0.9.7*
 
-        This **does** shut down `rTorrent` – either quickly, or with waiting for
-        `BitTorrent` close events to be sent to trackers of active items.
+        These **do** shut down `rTorrent` – either quickly, or with waiting for
+        `BitTorrent` stop events to be sent to trackers of active items.
+
+        In older versions of `rTorrent`, the only way to shut down the client
+        without user interaction is to send a signal, read on for that…
+
+        .. _posix-signals:
+
+        .. rubric:: POSIX Signal Handling
+
+        ``SIGINT`` and ``SIGHUP`` act like ``system.shutdown.normal``,
+        while ``SIGTERM`` is equivalent to ``system.shutdown.quick``.
+        ``SIGHUP`` support exists in `rTorrent-PS` and since `rTorrent` 0.9.7.
+
+        ``SIGWINCH`` causes a forced canvas redraw.
+
+        ``SIGPIPE`` is generally ignored, and ``SIGUSR1`` ‘does nothing’.
+
+        ``SIGSEGV``, ``SIGILL``, and ``SIGFPE`` cause panic,
+        meaning things are cleaned up if possible, before exiting the client.
+        Also a stack dump is created, if that was enabled during compilation.
+
+        ``SIGBUS`` behaves almost the same (exits the client),
+        but also prints some additional information regarding the signal reason,
+        like *Invalid address alignment* or *Non-existent physical address*.
+
 
     system.shutdown
 
-        This shuts down the XMLRPC server. This does **not** shut down `rTorrent`.
+        This shuts down the XMLRPC server, but does **not** shut down `rTorrent`.
+        It's a built-in of the `xmlrpc-c` library.
+
+        See also :term:`system.shutdown.normal` and  :term:`system.shutdown.quick`.
+
 
     system.api_version
     system.client_version
@@ -165,7 +193,7 @@ Commands related to the operating system and the XMLRPC API.
             system.client_version ≫ string ‹version›
             system.library_version ≫ string ‹version›
 
-        The versions of the XMLRPC API, the *rTorrent* client, and the *libtorrent* library respectively.
+        The versions of the XMLRPC API, the `rTorrent` client, and the `libtorrent` library respectively.
         The client and library versions are currently tightly coupled, while ``system.api_version``
         is incremented whenever changes are made to the XMLRPC API.
 
