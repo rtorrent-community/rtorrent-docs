@@ -3,28 +3,30 @@
 `ui.*` commands
 ^^^^^^^^^^^^^^^
 
-Commands in this group control aspects of the ‘curses’ UI.
+Commands in this group control aspects of the `curses` UI.
 
 .. glossary::
 
     ui.current_view
     ui.current_view.set
 
+        .. rubric:: *ui.current_view since rTorrent-PS 0.x / rTorrent 0.9.7*
+
         .. code-block:: ini
 
             ui.current_view.set = ‹viewname› ≫ 0
-            # rTorrent-PS 0.*+ and rTorrent 0.9.7+ only
             ui.current_view ≫ string ‹viewname›
 
-        Query or change the current view the user is seeing (querying since ``0.9.7``).
-        :term:`view.list` gives you a list of all the added views.
+        Query or change the current view the user is seeing.
+        :term:`view.list` gives you a list of all the built-in and added views.
 
         Typical uses are to change and then restore the active view,
         or rotate through a set of views.
         Rotating through views requires querying the current view and the view list,
         to find the next one.
 
-        In *rTorrent-PS* 1.1+, view changes also trigger event handlers for
+        In `rTorrent-PS` 1.1+ and `rTorrent` 0.9.8+,
+        view changes also trigger event handlers for
         :term:`event.view.hide` and :term:`event.view.show`.
 
         ``ui.current_view`` is needed
@@ -34,10 +36,14 @@ Commands in this group control aspects of the ‘curses’ UI.
         view via ``rtcontrol``.
 
 
+    torrent_list_layout
     ui.torrent_list.layout
     ui.torrent_list.layout.set
 
-        Offers a choice between ``full`` and ``compact`` layout (since ``0.9.7``).
+        .. rubric:: *since rTorrent 0.9.7*
+
+        Offers a choice between ``full`` and ``compact`` layout.
+
 
     ui.unfocus_download
 

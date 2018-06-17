@@ -100,6 +100,35 @@ def undoc(ctx):
             'd.timestamp.started.set_if_z',
         ],
     )
+    commands_097 = [x for x in """
+        d.is_meta
+        directory.watch.added
+        load.raw_start_verbose
+        math.add
+        math.avg
+        math.cnt
+        math.div
+        math.max
+        math.med
+        math.min
+        math.mod
+        math.mul
+        math.sub
+        network.http.current_open
+        network.http.ssl_verify_host
+        network.http.ssl_verify_host.set
+        strings.log_group
+        strings.tracker_event
+        system.daemon
+        system.daemon.set
+        system.env
+        system.shutdown.normal
+        system.shutdown.quick
+        torrent_list_layout
+        ui.current_view
+        ui.torrent_list.layout
+        ui.torrent_list.layout.set
+    """.strip().split()]
 
     for kind, exceptions in checks.items():
         ctx.run('rtxmlrpc system.has.{kind}_methods | '
@@ -107,3 +136,8 @@ def undoc(ctx):
                 '    egrep -m1 "^    $cmd" docs/*rst >/dev/null || echo "$cmd"; '
                 'done | egrep -v "^({exc_re})" | sort'
                 .format(kind=kind, exc_re='|'.join(exceptions)))
+
+    ctx.run(': v0.9.7 commands')
+    for cmd_name in commands_097:
+        ctx.run('egrep -m1 "^    {cmd}" docs/*rst >/dev/null || echo "{cmd}"'
+                .format(cmd=cmd_name), echo=False)

@@ -131,9 +131,29 @@ Commands related to the operating system and the XMLRPC API.
         Unlike :term:`d.multicall2`, this is a generic multicall not specific to rTorrent.
         See the `xmlrpc-c system.multicall docs`_ for more.
 
+
+    system.daemon
+    system.daemon.set
+
+        .. rubric:: *since rTorrent 0.9.7*
+
+        When set to true, `rTorrent` starts in the background without any `curses` UI.
+        It can then only be controlled via XMLRPC commands and POSIX signals.
+
+        See `Daemon Mode`_ in the `rTorrent` wiki for more.
+
+
+    system.shutdown.normal
+    system.shutdown.quick
+
+        .. rubric:: *since rTorrent 0.9.7*
+
+        This **does** shut down `rTorrent` – either quickly, or with waiting for
+        `BitTorrent` close events to be sent to trackers of active items.
+
     system.shutdown
 
-        This shuts down the XMLRPC server. This does **not** shut down rTorrent.
+        This shuts down the XMLRPC server. This does **not** shut down `rTorrent`.
 
     system.api_version
     system.client_version
@@ -175,9 +195,10 @@ Commands related to the operating system and the XMLRPC API.
 
     system.env
 
+        .. rubric:: *since rTorrent-PS 0.x / rTorrent 0.9.7*
+
         .. code-block:: ini
 
-            # 0.9.7+ / rTorrent-PS 0.*+ only
             system.env = ‹varname› ≫ string ‹env-value›
 
         Query the value of an environment variable,
@@ -243,9 +264,10 @@ Commands related to the operating system and the XMLRPC API.
     system.has
     system.has.list
 
+        .. rubric:: *rTorrent-PS 1.1+ only*
+
         .. code-block:: ini
 
-            # rTorrent-PS 1.1+ only
             system.has = ‹capability› ≫ bool (0 or 1)
             system.has.list = ≫ list of string (capabilities)
 
@@ -311,9 +333,10 @@ Commands related to the operating system and the XMLRPC API.
     system.has.private_methods
     system.has.public_methods
 
+        .. rubric:: *rTorrent-PS 1.1+ only*
+
         .. code-block:: ini
 
-            # rTorrent-PS 1.1+ only
             system.has.private_methods = ≫ list of string (method names)
             system.has.public_methods = ≫ list of string (method names)
 
@@ -367,9 +390,10 @@ Commands related to the operating system and the XMLRPC API.
 
     system.random
 
+        .. rubric:: *rTorrent-PS 1.0+ only*
+
         .. code-block:: ini
 
-            # rTorrent-PS 1.0+ only
             system.random = [[‹lower›,] ‹upper›] ≫ value
 
         Generate *uniformly* distributed random numbers in the range
@@ -407,10 +431,12 @@ Commands related to the operating system and the XMLRPC API.
 
         Set the `umask`_ for the running *rTorrent* process.
 
+
 .. _`umask`: https://en.wikipedia.org/wiki/Umask
 .. _`XML-RPC Introspection`: http://xmlrpc-c.sourceforge.net/introspection.html
 .. _`xmlrpc-c system.multicall docs`: https://openacs.org/api-doc/proc-view?proc=system.multicall
 .. _`xmlrpc-c system.capabilities`: http://xmlrpc-c.sourceforge.net/doc/libxmlrpc_server.html#system.capabilities
+.. _`Daemon Mode`: https://github.com/rakshasa/rtorrent/wiki/Daemon_Mode
 
 
 .. _log-commands:
@@ -531,9 +557,10 @@ Commands related to the operating system and the XMLRPC API.
 
     log.messages
 
+        .. rubric:: *rTorrent-PS 0.x+ only*
+
         .. code-block:: ini
 
-            # rTorrent-PS 0.*+ only
             log.messages = ‹log file path› ≫ 0
 
         (Re-)opens a log file that contains the messages normally only visible

@@ -20,9 +20,10 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
     d.multicall.filtered
     download_list
 
+        .. rubric:: *'d.multicall.filtered' is rTorrent-PS 1.1+ only*
+
         .. code-block:: ini
 
-            # 'd.multicall.filtered' is rTorrent-PS 1.1+ only
             d.multicall2 = ‹view›, [‹cmd1›=[‹args›][, ‹cmd2›=…]] ≫ list of lists of results ‹rows of results›
             d.multicall.filtered = ‹view›, ‹predicate›, [‹cmd1›=[‹args›][, ‹cmd2›=…]] ≫ same as 'multicall2'
             download_list = ‹view› ≫ list of strings ‹info hashes›
@@ -378,9 +379,10 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
     d.custom.if_z
 
+        .. rubric:: *rTorrent-PS 1.1+ only*
+
         .. code-block:: ini
 
-            # rTorrent-PS 1.1+ only
             d.custom.if_z = ‹hash›, string ‹key›, string ‹default› ≫ string ‹value›
 
         Just like :term:`d.custom`, but returns the `‹default›` value if the `‹key›` does not exist.
@@ -388,9 +390,10 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
     d.custom.keys
 
+        .. rubric:: *rTorrent-PS 1.1+ only*
+
         .. code-block:: ini
 
-            # rTorrent-PS 1.1+ only
             d.custom.keys = ‹hash› ≫ list of string ‹defined keys›
 
         Returns a list of custom keys that are defined for an item.
@@ -405,9 +408,10 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
     d.custom.items
 
+        .. rubric:: *rTorrent-PS 1.1+ only*
+
         .. code-block:: ini
 
-            # rTorrent-PS 1.1+ only
             d.custom.items = ‹hash› ≫ map of key / value strings ‹defined items›
 
         Returns keys and their associated values, for all custom values of an item.
@@ -555,25 +559,27 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
     d.is_hash_checked
     d.is_hash_checking
 
-       .. code-block:: ini
+        .. code-block:: ini
 
             d.is_hash_checked = ‹hash› ≫ bool (0 or 1)
             d.is_hash_checking = ‹hash› ≫ bool (0 or 1)
 
-       These mark the hashing state of a torrent. ``d.is_hash_checked`` is counter-intuitive in that
-       regardless of how much the torrent has successfully completed hash checking, if a torrent is active
-       and is not in the middle of hashing (i.e. ``d.is_hash_checking`` returns ``0``), it will always
-       return ``1``.
+        These mark the hashing state of a torrent. ``d.is_hash_checked`` is counter-intuitive in that
+        regardless of how much the torrent has successfully completed hash checking, if a torrent is active
+        and is not in the middle of hashing (i.e. ``d.is_hash_checking`` returns ``0``), it will always
+        return ``1``.
 
     d.is_meta
 
-       .. code-block:: ini
+        .. rubric:: *since rTorrent-PS 1.1 / rTorrent 0.9.7*
+
+        .. code-block:: ini
 
             d.is_meta = ‹hash› ≫ bool (0 or 1)
 
-       Meta torrents refer to magnet torrents which are still in the process of gathering data from trackers/peers.
-       Once enough data is collected, the meta torrent is removed and a "regular" torrent is created. Since meta
-       torrents lack certain data fields, this is useful for filtering them out of commands that don't play well with them.
+        Meta torrents refer to magnet torrents which are still in the process of gathering data from trackers/peers.
+        Once enough data is collected, the meta torrent is removed and a "regular" torrent is created. Since meta
+        torrents lack certain data fields, this is useful for filtering them out of commands that don't play well with them.
 
     d.is_multi_file
 
@@ -668,12 +674,12 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
     d.message.set
     d.message.alert
 
+        .. rubric:: *d.message.alert is rTorrent-PS 1.1+ only*
+
         .. code-block:: ini
 
             d.message = ‹hash› ≫ string ‹message›
             d.message.set = ‹hash›, string ‹message› ≫ 0
-
-            # rTorrent-PS 1.1+ only
             d.message.alert = ‹hash› ≫ value ‹category›
 
         Used to store messages relating to the item, such as errors
@@ -865,11 +871,16 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
 
     d.up.choke_heuristics
+    d.up.choke_heuristics.set
     d.up.choke_heuristics.leech
     d.up.choke_heuristics.seed
-    d.up.choke_heuristics.set
+    d.up.choke_heuristics.leech.set
+    d.up.choke_heuristics.seed.set
 
         **TODO**
+
+        ``d.up.choke_heuristics.leech.set`` and ``d.up.choke_heuristics.seed.set`` are *private*.
+
 
     d.up.rate
     d.up.total
@@ -1477,11 +1488,29 @@ and using ``Ctrl-K`` also implicitly unties an item.
     load.raw_start_verbose
     load.raw_verbose
 
-        Load a metafile passed into as base64 data. The method for encoding the data for XML-RPC
+        .. rubric:: *load.raw_start_verbose since rTorrent 0.9.7*
+
+        Load a metafile passed as *base64* data. The method of encoding the data for XMLRPC
         will vary depending on which tool you're using.
+
+        Take note that :term:`d.tied_to_file` and :term:`d.loaded_file` (until a client restart)
+        will be empty for items added by these commands
+        – which is the case for all items added via `ruTorrent`.
 
         As with :term:`load.normal`, ``raw`` loads them stopped, and ``raw_verbose``
         reports problems to the console.
+
+        .. rubric:: Example
+
+        .. code-block:: console
+
+            $ mktor -q README.md local
+            $ rtxmlrpc --debug load.raw_verbose '' @README.md.torrent | egrep 'xmlrpclib|stats'
+            DEBUG    load.raw_verbose('', <xmlrpclib.Binary instance at 0x15e1200>) took 0.000 secs
+            DEBUG    XMLRPC stats: 3 req, out 795 bytes [564 bytes max], in 445 bytes [153 bytes max], …
+            $ rtxmlrpc d.multicall.filtered '' 'string.contains=$d.name=,README' \
+                       d.name= d.tied_to_file= d.loaded_file=
+            ['README.md', '', '']
 
 
 .. _session-commands:

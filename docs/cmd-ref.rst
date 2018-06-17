@@ -246,6 +246,8 @@ These are called *intermediate:*
 * ``group.‹name›.ratio.upload`` → ``group2.‹name›.ratio.upload``
 * ``group.‹name›.ratio.upload.set`` → ``group2.‹name›.ratio.upload.set``
 
+`rTorrent` 0.9.7 adds some missing ``group.seeding.*`` command aliases.
+
 
 Standard Configuration Sets
 ---------------------------

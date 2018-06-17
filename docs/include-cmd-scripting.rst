@@ -264,9 +264,10 @@ often starting with a digit, ``!``, or ``~``, for ordering reasons.
     event.view.hide
     event.view.show
 
+        .. rubric:: *since rTorrent-PS 1.1 / rTorrent 0.9.8*
+
         .. code-block:: ini
 
-            # rTorrent-PS 1.1+ only
             event.view.hide = ‹new-view-name› ≫ 0
             event.view.show = ‹old-view-name› ≫ 0
 
@@ -391,9 +392,10 @@ Importing Script Files
 
     import.return
 
+        .. rubric:: *rTorrent-PS 1.1+ only*
+
         .. code-block:: ini
 
-            # rTorrent-PS 1.1+ only
             import.return= ≫ throw('import.return')
 
         Leaves the currently imported file and returns to the level above.
@@ -867,8 +869,8 @@ Array Functions
 Math Functions
 ^^^^^^^^^^^^^^
 
-These commands are only available in rTorrent-PS 1.1+, in rTorrent-PS-CH,
-and maybe 2032 or so in rTorrent.
+Most of these commands are available in `rTorrent-PS` 1.1+, in `rTorrent-PS-CH`,
+and `rTorrent` 0.9.7+. Deviations are explicitly noted.
 
 Values can either be of type *value* or *string* –
 strings are automatically converted,
