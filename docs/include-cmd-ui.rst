@@ -153,11 +153,32 @@ Commands in this group control aspects of the ‘curses’ UI.
 
         .. rubric:: *rTorrent-PS 1.1+ only*
 
-        This is a multi-command that holds the column layout definitions
+        This is a multi-command that holds the column layout specifications
         for the customizable *canvas v2* display in `rTorrent-PS` version 1.1+,
         and maps them to their rendering commands.
 
         See `Customizing the Display Layout`_ in the `rTorrent-PS` manual for a detailed explanation.
+
+
+    ui.column.spec
+
+        .. rubric:: *rTorrent-PS 1.1+ only*
+
+        .. code-block:: ini
+
+            ui.column.spec = ‹column index› ≫ string (column specification)
+
+        For a given column index, looks up the column specification as defined in
+        :term:`ui.column.render`.
+        This can also be used to check whether a certain index is defined
+        – an undefined one returns an empty string.
+
+        .. rubric:: Examples
+
+        .. literalinclude:: rtorrent-ps/tests/commands/ui.txt
+            :language: console
+            :start-after: # ui.column.spec
+            :end-before: # END
 
 
     ui.column.hide
