@@ -181,6 +181,11 @@ Commands in this group control aspects of the `curses` UI.
 
         .. rubric:: Examples
 
+        .. code-block:: ini
+
+            # Permanently remove the 'ignoring commands' column
+            method.set_key = ui.column.render, (ui.column.spec, 130)
+
         .. literalinclude:: rtorrent-ps/tests/commands/ui.txt
             :language: console
             :start-after: # ui.column.spec
