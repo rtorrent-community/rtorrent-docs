@@ -434,7 +434,7 @@ Importing Script Files
 
 .. _cond-cmds:
 
-Conditions (if/then/else)
+Conditions (if/branch/do)
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. glossary::
@@ -451,7 +451,9 @@ Conditions (if/then/else)
         and based on its value execute either
         the command or commands given as the 2nd argument,
         or else the ones in the 3rd argument.
-        See :ref:`cond-ops` below for details on these predicates.
+        See :ref:`cond-ops` below for details on these predicates,
+        and :term:`do` for calling several commands in ‘new’ syntax
+        as the *then* or *else* part.
 
         The fundamental difference between ``branch`` and ``if`` is
         the first takes commands to evaluate for the predicate,
@@ -487,6 +489,41 @@ Conditions (if/then/else)
         **TODO:** More examples, using or/and/not and other more complex constructs.
 
 
+    do
+
+        .. rubric:: *rTorrent-PS 1.1+ only*
+
+        .. code-block:: ini
+
+            do = ‹cmd1›, [, ‹cmd2›…] ≫ 0
+
+        The ``do`` command behaves just like the vanilla :term:`catch` command,
+        the only difference being that it doesn't catch exceptions.
+
+        It can be used to group a sequence of commands in ‘new’ syntax,
+        for execution as the *then* or *else* command of :term:`if` or :term:`branch`.
+
+        Otherwise you'd need to use ``"cmd1=… ; cmd2=…; …"`` for such a sequence,
+        with all the usual escaping problems when calling commands with several arguments.
+
+        .. rubric:: Examples
+
+        .. code-block:: ini
+
+            branch = (system.has, "do="), \
+                ((do, \
+                    ((print, "Just")), \
+                    ((print, "DO")), \
+                    ((print, "it!")) \
+                )), \
+                ((print, "Awwwwww!"))
+
+        .. literalinclude:: rtorrent-ps/tests/commands/misc.txt
+            :language: console
+            :start-after: # do
+            :end-before: # END
+
+
 .. _cond-ops:
 
 Conditional Operators
@@ -496,7 +533,7 @@ Conditional Operators
 
     false
 
-        **TODO**
+        Ignores any amount of arguments, and always returns ``0``.
 
     and
     or
@@ -645,9 +682,10 @@ String Functions
 
 
     string.len
+        .. rubric:: *rTorrent-PS 1.1+ only*
+
         .. code-block:: ini
 
-            # rTorrent-PS 1.1+ only
             string.len = «text» ≫ value (length)
 
         Returns the length of an UTF-8 encoded string in terms of Unicode characters.
@@ -664,9 +702,10 @@ String Functions
     string.startswith
     string.endswith
 
+        .. rubric:: *rTorrent-PS 1.1+ only*
+
         .. code-block:: ini
 
-            # rTorrent-PS 1.1+ only
             string.equals = «text», «other»[, …] ≫ bool (0 or 1)
             string.startswith = «text», «prefix»[, …] ≫ bool (0 or 1)
             string.endswith = «text», «tail»[, …] ≫ bool (0 or 1)
@@ -694,9 +733,10 @@ String Functions
     string.contains
     string.contains_i
 
+        .. rubric:: *rTorrent-PS 1.1+ only*
+
         .. code-block:: ini
 
-            # rTorrent-PS 1.1+ only
             string.contains[_i] = «haystack», «needle»[, …] ≫ bool (0 or 1)
 
         Checks if a given string contains any of the strings following it.
@@ -711,9 +751,11 @@ String Functions
 
 
     string.substr
+
+        .. rubric:: *rTorrent-PS 1.1+ only*
+
         .. code-block:: ini
 
-            # rTorrent-PS 1.1+ only
             string.substr = «text»[, «pos»[, «count»[, «default»]]] ≫ string
 
         Returns part of an UTF-8 encoded string.
@@ -734,9 +776,10 @@ String Functions
 
 
     string.join
+        .. rubric:: *rTorrent-PS 1.1+ only*
+
         .. code-block:: ini
 
-            # rTorrent-PS 1.1+ only
             string.join = «delim»[, «object»[, …]] ≫ string
 
         Works just like :term:`cat` (including conversion of the passed objects to strings),
@@ -751,9 +794,10 @@ String Functions
 
 
     string.split
+        .. rubric:: *rTorrent-PS 1.1+ only*
+
         .. code-block:: ini
 
-            # rTorrent-PS 1.1+ only
             string.split = «text», «delim» ≫ array of string (parts)
 
         Splits an UTF-8 encoded string into parts delimited by the 2nd argument.
@@ -771,9 +815,10 @@ String Functions
     string.map
     string.replace
 
+        .. rubric:: *rTorrent-PS 1.1+ only*
+
         .. code-block:: ini
 
-            # rTorrent-PS 1.1+ only
             string.map = «text», {«old»,«new»}[, …] ≫ string
             string.replace = «text», {«old»,«new»}[, …] ≫ string
 
@@ -803,9 +848,10 @@ Array Functions
 
     array.at
 
+        .. rubric:: *rTorrent-PS 1.1+ only*
+
         .. code-block:: ini
 
-            # rTorrent-PS 1.1+ only
             array.at = «array», «pos» ≫ object (element)
 
         **TODO**
