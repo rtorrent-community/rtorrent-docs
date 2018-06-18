@@ -626,9 +626,10 @@ Conditional Operators
 
     compare
 
+        .. rubric:: *rTorrent-PS 0.x+ only*
+
         .. code-block:: ini
 
-            # rTorrent-PS 0.*+ only
             compare = ‹order›, ‹sort_key›=[, ...] ≫ bool (0 or 1)
 
         Compares two items like :term:`less` or :term:`greater`, but allows
@@ -1003,9 +1004,10 @@ The ``to_*`` forms are **deprecated**.
 
     convert.time_delta
 
+        .. rubric:: *rTorrent-PS 1.1+ only*
+
         .. code-block:: ini
 
-            # rTorrent-PS 1.1+ only
             convert.time_delta = ‹timestamp›[, ‹timebase›] ≫ string
 
         Converts the difference of two timestamps into
@@ -1025,9 +1027,10 @@ The ``to_*`` forms are **deprecated**.
 
     convert.human_size
 
+        .. rubric:: *rTorrent-PS 1.1+ only*
+
         .. code-block:: ini
 
-            # rTorrent-PS 1.1+ only
             convert.human_size = ‹bytes›[, ‹format›] ≫ string
 
         Converts a size in bytes to a compact, human readable string.
@@ -1058,9 +1061,10 @@ The ``to_*`` forms are **deprecated**.
 
     convert.magnitude
 
+        .. rubric:: *rTorrent-PS 1.1+ only*
+
         .. code-block:: ini
 
-            # rTorrent-PS 1.1+ only
             convert.magnitude = ‹number› ≫ string
 
         Converts any positive number below 10 million into
@@ -1096,9 +1100,10 @@ The ``to_*`` forms are **deprecated**.
 
     value
 
+        .. rubric:: *since rTorrent-PS 1.1 / rTorrent 0.9.8*
+
         .. code-block:: ini
 
-            # rTorrent-PS 1.1+ only
             value = ‹number›[, ‹base›] ≫ value
 
         Converts a given number with the given base (or 10 as the default) to an integer value.
