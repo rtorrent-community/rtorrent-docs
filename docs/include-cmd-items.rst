@@ -385,7 +385,8 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
             d.custom.if_z = ‹hash›, string ‹key›, string ‹default› ≫ string ‹value›
 
-        Just like :term:`d.custom`, but returns the `‹default›` value if the `‹key›` does not exist.
+        Just like :term:`d.custom`, but returns the `‹default›` value if the `‹key›` does not exist,
+        or if its value is empty.
 
 
     d.custom.keys
