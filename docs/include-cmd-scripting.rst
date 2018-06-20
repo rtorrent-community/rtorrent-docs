@@ -815,6 +815,34 @@ String Functions
             :end-before: # END
 
 
+    string.strip
+    string.lstrip
+    string.rstrip
+
+        .. rubric:: *rTorrent-PS 1.1+ only*
+
+        .. code-block:: ini
+
+            string.strip = «text»[, «strippable»[, …]] ≫ string
+            string.lstrip = «text»[, «head»[, …]] ≫ string
+            string.rstrip = «text»[, «tail»[, …]] ≫ string
+
+        Strips a string on both sides, or its left / right side only.
+
+        If no additional arguments are passed, whitespace is removed (as defined by `C++` ``std::isspace``).
+
+        Additional arguments define segments that can be removed on the side(s) handled by the specific command.
+        Their order is of no importance, segments are removed until none of them fits anymore,
+        or the final result is empty.
+
+        .. rubric:: Examples
+
+        .. literalinclude:: rtorrent-ps/tests/commands/string.txt
+            :language: console
+            :start-at: # string.strip
+            :end-before: # END
+
+
     string.map
     string.replace
 
