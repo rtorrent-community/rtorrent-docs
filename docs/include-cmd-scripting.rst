@@ -815,6 +815,32 @@ String Functions
             :end-before: # END
 
 
+    string.lpad
+    string.rpad
+
+        .. rubric:: *rTorrent-PS 1.1+ only*
+
+        .. code-block:: ini
+
+            string.lpad = «text», «padlen»[, «padding»] ≫ string
+            string.rpad = «text», «padlen»[, «padding»] ≫ string
+
+        Pad a string at the start or end, to the required padding length (counting UTF-8 code points).
+        Strings longer than the padding length are returned unchanged.
+        If no padding string is provided or if it is empty, a single space is assumed.
+
+        The first argument can also be of type value, since zero-padding
+        numbers is a common use-case. Note that for numbers that might be negative,
+        only padding with spaces makes sense.
+
+        .. rubric:: Examples
+
+        .. literalinclude:: rtorrent-ps/tests/commands/string.txt
+            :language: console
+            :start-at: # string.[lr]pad
+            :end-before: # END
+
+
     string.strip
     string.lstrip
     string.rstrip
