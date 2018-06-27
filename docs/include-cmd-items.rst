@@ -388,6 +388,93 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
         Just like :term:`d.custom`, but returns the `‹default›` value if the `‹key›` does not exist,
         or if its value is empty.
 
+        .. rubric:: Examples
+
+        .. literalinclude:: rtorrent-ps/tests/commands/custom.txt
+            :language: console
+            :start-at: # d.custom.if_z
+            :end-before: # END
+
+
+    d.custom.set_if_z
+
+        .. rubric:: *rTorrent-PS 1.1+ only*
+
+        .. code-block:: ini
+
+            d.custom.set_if_z = ‹hash›, string ‹key›, string ‹value› ≫ 0
+
+        This is a companion to :term:`d.custom.if_z` and sets a custom value only once,
+        if it was missing or empty previously.
+
+        .. rubric:: Examples
+
+        .. literalinclude:: rtorrent-ps/tests/commands/custom.txt
+            :language: console
+            :start-at: # d.custom.set_if_z
+            :end-before: # END
+
+
+    d.custom.erase
+
+        .. rubric:: *rTorrent-PS 1.1+ only*
+
+        .. code-block:: ini
+
+            d.custom.erase = ‹hash›, string ‹key›[, …] ≫ 0
+
+        Removes the given custom key(s) – erasing non-existent keys is not an error.
+
+        .. rubric:: Examples
+
+        .. literalinclude:: rtorrent-ps/tests/commands/custom.txt
+            :language: console
+            :start-at: # d.custom.erase
+            :end-before: # END
+
+
+    d.custom.toggle
+
+        .. rubric:: *rTorrent-PS 1.1+ only*
+
+        .. code-block:: ini
+
+            d.custom.toggle = ‹hash›, string ‹key› ≫ value ‹negated›
+
+        Inverts the truthiness of a custom attribute using ``0`` or ``1`` as the only results.
+        Empty strings and ``0`` become ``1``, and any other string becomes ``0``.
+
+        It also returns the current *value* that was set (as in the *value type*, i.e. as an integer).
+
+        .. rubric:: Examples
+
+        .. literalinclude:: rtorrent-ps/tests/commands/custom.txt
+            :language: console
+            :start-at: # d.custom.toggle
+            :end-before: # END
+
+
+    d.custom.as_value
+
+        .. rubric:: *rTorrent-PS 1.1+ only*
+
+        .. code-block:: ini
+
+            d.custom.as_value = ‹hash›, string ‹key› ≫ value ‹number›
+
+        Returns a custom attribute as a *value* (base 10 integer).
+        Missing keys and empty strings are ``0``,
+        while non-numbers raise an exception.
+
+        Major use-cases of this are custom timestamp fields, and querying toggles (see :term:`d.custom.toggle`).
+
+        .. rubric:: Examples
+
+        .. literalinclude:: rtorrent-ps/tests/commands/custom.txt
+            :language: console
+            :start-at: # d.custom.as_value
+            :end-before: # END
+
 
     d.custom.keys
 
