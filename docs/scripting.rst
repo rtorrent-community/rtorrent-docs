@@ -202,10 +202,27 @@ multi (subtypes: static, private, const, rlookup)
         :term:`method.set_key`
 
 
+.. _fmt-type-conv:
+
 Formatting & Type Conversions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-**TODO**
+Many commands are specific as to what type they expect for their arguments
+– that is when you need type conversion commands.
+There's also some commands that take an input value and format it,
+typically for human consumption. The time and byte size conversion methods serve this purpose.
+
+The :term:`cat` command is the Swiss army knife of conversion,
+and makes a string of practically all `rTorrent` types.
+:term:`string.join` is the same, but takes a delimiter string that is added between the converted parts.
+
+To coerce strings to integers, use :term:`value` – it takes an optional base value,
+and also returns arguments that already *are* an integer as-is.
+
+The ``convert.*`` command group with methods like :term:`convert.elapsed_time`
+is mostly of the ‘format values for humans’ variety,
+
+See :ref:`conversion` for all the formatting helper details.
 
 
 Custom Attributes
