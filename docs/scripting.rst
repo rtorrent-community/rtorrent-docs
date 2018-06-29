@@ -228,8 +228,18 @@ See :ref:`conversion` for all the formatting helper details.
 Custom Attributes
 ^^^^^^^^^^^^^^^^^
 
-**TODO**
+**TODO** intro
 
+The numbered forms like :term:`d.custom1` are very limited and thus overcrowded.
+Old software like `ruTorrent` that also never changed to the new named forms pretty much hogs these
+– colliding use can lead to all sorts of problems and misbehaviour.
+
+So avoid the old numbered forms and instead prefer the named custom attributes,
+while also using *unique* names.
+The only ‘old’ command you *should* use is :term:`d.custom1`, and *only* with `ruTorrent`'s
+semantics of using it as a category label.
+So you might refer to it in a completion event handler for target path building,
+or set it in watch schedules for use by `ruTorrent`.
 
 
 Advanced Concepts
