@@ -1561,14 +1561,50 @@ and using ``Ctrl-K`` also implicitly unties an item.
     load.start
     load.start_verbose
 
-        **TODO** Synopsis
+        .. code-block:: ini
 
-        Load a metafile or watch a pattern for new files to be loaded (in watch directory schedules).
+            # all other commands have the same arguments
+            load.normal = ‹metafile pattern›, [‹cmd1›=[‹args›][, ‹cmd2›=…]] ≫ 0
 
-        ``normal`` loads them stopped, and ``verbose`` reports problems to the console
-        (like when a new file's infohash collides with an already loaded item).
+        Load a single metafile, or expand a pattern of new files to be loaded.
+        These commands are typically used in watch directory schedules.
 
-        **TODO** Post-load commands
+        ``normal`` loads them stopped, and ``verbose`` reports problems to the console,
+        like when a new file's infohash collides with an already loaded item.
+
+        .. code-block:: ini
+
+            # Simple watches that load items started or closed
+            schedule2 = watch_start, 1, 10, ((load.start_verbose, (cat, (cfg.watch), "start/*.torrent")))
+            schedule2 = watch_load,  2, 10, ((load.verbose, (cat, (cfg.watch), "load/*.torrent")))
+
+        .. rubric:: Post-load commands
+
+        You can list any number of commands as additional arguments,
+        after the metafile pattern in a load command.
+        Typical uses are calling :term:`d.delete_tied`, setting custom attributes via
+        :term:`d.custom.set`, or immediately setting a specific download directory
+        with :term:`d.directory.set` (as opposed to doing that in completion moving).
+
+        These commands are executed before the new item is fully added to the download list,
+        and some commands like :term:`d.start` won't work in that state.
+        So you sometimes have to use :term:`event.download.inserted_new` handlers instead.
+
+        .. code-block:: ini
+
+            schedule2 = watch_with_catgeory, 27, 10, \
+                ((load.verbose, (cat,(cfg.watch),"foobar/*.torrent"), "d.custom1.set=foobar"))
+
+        .. rubric:: Remotely loading an item with a specific path
+
+        The following example is also using post-load commands, but does so ‘from the outside’
+        using the XMLRPC API.
+
+        .. code-block:: shell
+
+            LOAD_PRIORITY=2
+            rtxmlrpc -q load.verbose '' "$metafile_path" \
+                "d.directory_base.set=\"$data_dir\"" "d.priority.set=$LOAD_PRIORITY"
 
 
     load.raw
@@ -1577,6 +1613,11 @@ and using ``Ctrl-K`` also implicitly unties an item.
     load.raw_verbose
 
         .. rubric:: *load.raw_start_verbose since rTorrent 0.9.7*
+
+        .. code-block:: ini
+
+            # all other commands have the same arguments
+            load.raw = ‹binary (i.e. raw) metafile›, [‹cmd1›=[‹args›][, ‹cmd2›=…]] ≫ 0
 
         Load a metafile passed as *base64* data. The method of encoding the data for XMLRPC
         will vary depending on which tool you're using.
