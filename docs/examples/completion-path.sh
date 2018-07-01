@@ -86,6 +86,7 @@ EOF
     cat <<'EOF'
 
 # Completion moving
+# vim: ft=dosini
 
 method.insert = completion_path, simple|private, "execute.capture = \
     ~/rtorrent/scripts/completion-path.sh, \
@@ -126,6 +127,8 @@ method.insert = completion_move_handler, simple|private, \
 
 method.set_key = event.download.finished, move_on_completion, \
     "completion_move_handler = (completion_path)"
+
+# END move_on_completion
 EOF
     exit 1
 fi
