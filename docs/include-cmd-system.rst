@@ -197,6 +197,31 @@ Commands related to the operating system and the XMLRPC API.
         The client and library versions are currently tightly coupled, while ``system.api_version``
         is incremented whenever changes are made to the XMLRPC API.
 
+
+    system.client_version.as_value
+
+        .. rubric:: *rTorrent-PS 1.1+ only*
+
+        .. code-block:: ini
+
+            system.client_version.as_value ≫ value ‹Mmmpp version decimal›
+
+        Returns the same information as :term:`system.client_version`, but instead of
+        a dotted string you get an integer number that can be easily compared in version checks.
+
+        :term:`system.has` should be preferred though to write configuration that
+        works across some client version range.
+
+        .. rubric:: Example
+
+        .. code-block:: console
+
+            $ rtxmlrpc --repr system.client_version.as_value
+            906
+            $ rtxmlrpc --repr system.client_version
+            '0.9.6'
+
+
     system.colors.enabled
     system.colors.max
     system.colors.rgb
