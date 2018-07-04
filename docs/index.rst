@@ -37,19 +37,34 @@ If everyone chimes in, we all profit in the end.
 
 
 Contents of This Manual
------------------------
+=======================
 
-..    :caption: The Handbook
 ..  toctree::
-    :maxdepth: 4
+    :maxdepth: 2
+    :caption: Getting Started
 
     overview
     installation
     cookbook
+
+..  toctree::
+    :maxdepth: 2
+    :caption: Using rTorrent
+
     use-cases
-    scripting
     faq
+
+..  toctree::
+    :maxdepth: 2
+    :caption: rTorrent Scripting
+
+    scripting
     cmd-ref
+
+..  toctree::
+    :maxdepth: 2
+    :caption: Other Topics
+
     contributing
 
 
