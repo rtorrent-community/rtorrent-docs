@@ -78,7 +78,10 @@ In addition to the commands listed here, `pyrocore` also defines :term:`d.data_p
     startup_time
 
         The :term:`system.time` the client was started at.
-        Used in the message shown by `rTorrent-PS` when pressing ``u``, and for similar purposes.
+        Used in the message shown by `rTorrent-PS` when pressing ``u``,
+        and for similar purposes throughout ``rtcontrol``.
+
+        This is an alias for :term:`system.startup_time`.
 
 
     d.session_file
