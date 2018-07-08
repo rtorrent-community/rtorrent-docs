@@ -677,11 +677,11 @@ String Functions
 
         .. rubric:: Example
 
-            .. code-block:: ini
+        .. code-block:: ini
 
-                print=(cat, text\ or\ , {"array", " of", " text"})
+            print=(cat, text\ or\ , {"array", " of", " text"})
 
-            will print ``(HH:MM:SS) text or array of text`` to the console.
+        will print ``(HH:MM:SS) text or array of text`` to the console.
 
 
     string.len

@@ -198,7 +198,6 @@ In addition to the commands listed here, `pyrocore` also defines :term:`d.data_p
         This is a *private* command.
 
 
-.. _`auto-scrape.rc`: https://github.com/pyroscope/pyrocore/blob/master/src/pyrocore/data/config/rtorrent.d/auto-scrape.rc#L1
 .. _`rtorrent.d/categories.rc`: https://github.com/pyroscope/pyrocore/blob/master/src/pyrocore/data/config/rtorrent.d/categories.rc#L1
 .. _`rtorrent.d/theming.rc`: https://github.com/pyroscope/pyrocore/blob/master/src/pyrocore/data/config/rtorrent.d/theming.rc#L1
 .. _`rtorrent.d/autolabel-categories.rc`: https://github.com/pyroscope/pimp-my-box/blob/master/roles/rtorrent-ps/templates/rtorrent/rtorrent.d/autolabel-categories.rc#L5-L7

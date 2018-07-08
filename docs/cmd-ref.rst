@@ -254,4 +254,7 @@ Standard Configuration Sets
 
 .. include:: include-cmd-stdcfg.rst
 
+
+.. _`auto-scrape.rc`: https://github.com/pyroscope/pyrocore/blob/master/src/pyrocore/data/config/rtorrent.d/auto-scrape.rc#L1
+
 .. END cmd-ref

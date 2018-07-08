@@ -1076,8 +1076,6 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
         **TODO**
 
 
-.. _`auto-scrape.rc`: https://github.com/pyroscope/pyrocore/blob/master/src/pyrocore/data/config/rtorrent.d/auto-scrape.rc
-
 .. _`scrape request`: https://en.wikipedia.org/wiki/Tracker_scrape
 
 .. _`optional numwant parameter`: https://wiki.theory.org/index.php/BitTorrentSpecification#Tracker_Request_Parameters
