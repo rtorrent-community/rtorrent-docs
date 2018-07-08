@@ -52,7 +52,7 @@ See :ref:`config-deconstructed` for a detailed tour.
         Return path to an item's data – this is never empty, unlike :term:`d.base_path`.
         Multi-file items return a path ending with a ``/``.
 
-        Definition:
+        .. rubric:: Definition
 
         .. code-block:: ini
 
@@ -70,18 +70,22 @@ See :ref:`config-deconstructed` for a detailed tour.
 `pyrocore` Configuration
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-**TODO** check if they belong with "p-m-b"
-
 In addition to the commands listed here, `pyrocore` also defines :term:`d.data_path`.
 
 
 .. glossary::
 
+    startup_time
+
+        The :term:`system.time` the client was started at.
+        Used in the message shown by `rTorrent-PS` when pressing ``u``, and for similar purposes.
+
+
     d.session_file
 
-        Return path to session file.
+        Return path to an items's session file.
 
-        Definition:
+        .. rubric:: Definition
 
         .. code-block:: ini
 
@@ -96,9 +100,40 @@ In addition to the commands listed here, `pyrocore` also defines :term:`d.data_p
 
 
     d.timestamp.downloaded
-    d.last_active
 
-        **TODO**
+        The modification time of the :term:`d.tied_to_file`, or else :term:`system.time`.
+        This is set *once* when an item is newly added to the download list, so a later
+        :term:`d.delete_tied` does not change it.
+
+
+    d.timestamp.last_active
+
+        Last time any peer was connected. This is checked at least once per minute,
+        but very short connections might not be recorded.
+
+        Redefine the ``pyro_update_last_active`` schedule if you want the check to
+        run at a different frequency.
+
+
+    d.timestamp.last_xfer
+    d.last_xfer.is_active
+    pyro.last_xfer.min_rate
+    pyro.last_xfer.min_rate.set
+
+        Last time any data was transferred for this item.
+
+        ``pyro.last_xfer.min_rate`` sets the threshold in bytes
+        below which activity is not counted, and defaults to ``5000``.
+        Do not set this too low, since there is always some accounting traffic on an item,
+        when peers connect and then are not interested in transferring actual data.
+
+        ``d.last_xfer.is_active`` checks that threshold against both current upstream and downstream traffic.
+
+        Checking is done several times per minute,
+        but very short transfer bursts might not be recorded.
+        Redefine the ``pyro_update_last_xfer`` schedule if you want the check to
+        run at a different frequency.
+
 
     d.watch.start
     d.watch.startable
@@ -144,38 +179,29 @@ In addition to the commands listed here, `pyrocore` also defines :term:`d.data_p
         For a full example, see `rtorrent.d/autolabel-categories.rc`_.
 
 
-    d.last_xfer
-    d.last_xfer.is_active
-
-        **TODO**
-
-    quit
-
-        **TODO**
-
     cull
     purge
 
-        **TODO**
+        Convenience commands for use with the ``Ctrl-X`` prompt,
+        to call ``rtcontrol --cull`` or  ``rtcontrol --purge`` on the currently selected item.
 
-        These are *private* commands, use ``rtcontrol`` from outside the client.
+        These are *private* commands, from a shell prompt or script use ``rtcontrol`` directly.
 
-    startup_time
-
-        **TODO**
 
     tag.add
     tag.rm
     tag.show
 
-        **TODO**
+        Convenience commands for use with the ``Ctrl-X`` prompt,
+        to call ``rtcontrol --tag`` on the currently selected item.
+
+        ``tag.show`` is bound to the ``Ctrl-G`` key in `rTorrent-PS`,
+        and uses the ``tag_show`` output format to define what is printed to the console
+        (the list of tags and the item's name by default).
 
         These are *private* commands, from outside the client use ``rtcontrol`` with ``--tag``,
         and its ``tagged`` field.
 
-    pyro.logfile_path
-
-        **TODO**
 
     pyro.collapsed_view.add
     pyro.view.collapsed.toggle
@@ -217,6 +243,11 @@ and includes anything from :ref:`pyrocore-cfg`.
 
 .. glossary::
 
+    quit
+
+        **TODO** ``disable-control-q.rc``
+
+
     pyro.extended
 
         Set ``pyro.extended`` to ``1`` to activate `rTorrent-PS` features.
@@ -227,6 +258,7 @@ and includes anything from :ref:`pyrocore-cfg`.
         Starting with `rTorrent-PS 1.1+`, this setting is detected automatically,
         thanks to :term:`system.has`.
 
+
     pyro.bin_dir
 
         A constant that should be set to the ``bin`` directory
@@ -234,3 +266,8 @@ and includes anything from :ref:`pyrocore-cfg`.
 
         Make sure you end it with a ``/``;
         if this is left empty, then the shell's path is searched.
+
+
+    pyro.logfile_path
+
+        **TODO**
