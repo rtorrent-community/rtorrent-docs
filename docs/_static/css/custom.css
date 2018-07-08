@@ -2,3 +2,9 @@
 body {
     color: #000;
 }
+.rst-content dl dt {
+	margin-bottom: 2px;
+}
+.rst-content dl dd+dt {
+	margin-top: 18px;
+}
