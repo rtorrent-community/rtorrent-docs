@@ -958,6 +958,52 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
         only sends ``numwant`` if it is greater than 0.
 
 
+    d.tracker_alias
+    d.tracker_domain
+
+        .. rubric:: *rTorrent-PS only*
+
+        ``d.tracker_domain`` returns a shortened version of the domain in the tracker's URL,
+        for a given download item.
+        The chosen tracker is the first HTTP one with active peers (seeders or leechers),
+        or else the first one.
+
+        ``d.tracker_alias`` (1.1+ only) is basically the same,
+        but uses the mappings defined by :term:`trackers.alias.set_key` to transform its return value.
+        The main use-case for that is to be able to sort the `rTorrent-PS` ``trackers`` view
+        by the same values as shown to the very right of the terminal.
+
+        But you can also use it in a :term:`d.multicall.filtered` command together with :term:`string.equals`,
+        to easily select items of one or more specified tracker(s).
+
+        .. rubric:: Examples
+
+        .. code-block:: ini
+
+            # Trackers view (all items, sorted by tracker domain and then name).
+            # This will ONLY work if you use rTorrent-PS!
+            view.add          = trackers
+            view.sort_new     = trackers, "compare=,d.tracker_alias=,d.name="
+            view.sort_current = trackers, "compare=,d.tracker_alias=,d.name="
+
+        .. code-block:: console
+
+            $ rtxmlrpc d.multicall.filtered '' 'string.equals=(d.tracker_alias),Linux,Debian' \
+                       d.tracker_domain= d.name=
+            ['linuxtracker.org', 'Container Linux 1745.7.0.iso']
+            ['linuxtracker.org', 'robolinux64-mate3d-v9.3.iso']
+            ['bttracker.debian.org', 'debian-9.4.0-amd64-netinst.iso']
+
+
+    d.tracker_scrape.complete
+    d.tracker_scrape.downloaded
+    d.tracker_scrape.incomplete
+
+        .. rubric:: *rTorrent-PS 1.1+ only*
+
+        **TODO**
+
+
     d.up.choke_heuristics
     d.up.choke_heuristics.set
     d.up.choke_heuristics.leech
@@ -1028,52 +1074,6 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
         The number of chunks *rTorrent* wants to download. Contrast with :term:`d.completed_chunks`,
         although ``d.wanted_chunks`` will not count chunks from files prioritized as "off" as wanted. See
         :term:`f.priority` for commands relating to file prioritization.
-
-
-    d.tracker_alias
-    d.tracker_domain
-
-        .. rubric:: *rTorrent-PS only*
-
-        ``d.tracker_domain`` returns a shortened version of the domain in the tracker's URL,
-        for a given download item.
-        The chosen tracker is the first HTTP one with active peers (seeders or leechers),
-        or else the first one.
-
-        ``d.tracker_alias`` (1.1+ only) is basically the same,
-        but uses the mappings defined by :term:`trackers.alias.set_key` to transform its return value.
-        The main use-case for that is to be able to sort the `rTorrent-PS` ``trackers`` view
-        by the same values as shown to the very right of the terminal.
-
-        But you can also use it in a :term:`d.multicall.filtered` command together with :term:`string.equals`,
-        to easily select items of one or more specified tracker(s).
-
-        .. rubric:: Examples
-
-        .. code-block:: ini
-
-            # Trackers view (all items, sorted by tracker domain and then name).
-            # This will ONLY work if you use rTorrent-PS!
-            view.add          = trackers
-            view.sort_new     = trackers, "compare=,d.tracker_alias=,d.name="
-            view.sort_current = trackers, "compare=,d.tracker_alias=,d.name="
-
-        .. code-block:: console
-
-            $ rtxmlrpc d.multicall.filtered '' 'string.equals=(d.tracker_alias),Linux,Debian' \
-                       d.tracker_domain= d.name=
-            ['linuxtracker.org', 'Container Linux 1745.7.0.iso']
-            ['linuxtracker.org', 'robolinux64-mate3d-v9.3.iso']
-            ['bttracker.debian.org', 'debian-9.4.0-amd64-netinst.iso']
-
-
-    d.tracker_scrape.complete
-    d.tracker_scrape.downloaded
-    d.tracker_scrape.incomplete
-
-        .. rubric:: *rTorrent-PS 1.1+ only*
-
-        **TODO**
 
 
 .. _`scrape request`: https://en.wikipedia.org/wiki/Tracker_scrape
