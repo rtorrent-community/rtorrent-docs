@@ -167,6 +167,11 @@ In addition to the commands listed here, `pyrocore` also defines :term:`d.data_p
         and a usage example is in `rtorrent.d/autolabel-categories.rc`_.
 
 
+    pyro.category.separated
+
+        **TODO**
+
+
     pyro.category.add
     pyro.category.list
 
@@ -207,18 +212,38 @@ In addition to the commands listed here, `pyrocore` also defines :term:`d.data_p
 
 
     pyro.collapsed_view.add
+
+        .. code-block:: ini
+
+            pyro.collapsed_view.add = ‹view name› ≫ 0
+
+        Like :term:`view.add`, but sets the new view to collapsed state.
+
+
     pyro.view.collapsed.toggle
 
-        **TODO**
+        .. code-block:: ini
+
+            pyro.view.collapsed.toggle = ‹view name› ≫ 0
+
+        The same as :term:`view.collapsed.toggle`, but protected by
+        the :term:`pyro.extended` flag (i.e. safe to call in vanilla `rTorrent`).
+
 
     pyro.view.toggle_visible
 
-        **TODO**
+        .. code-block:: ini
+
+            pyro.view.toggle_visible = ‹view name› ≫ 0
+
+        Toggle visibility of an item for the given view.
+
 
     pyro.color_theme.name
 
         Used in color theme files of `rTorrent-PS` to announce switching to a different theme
         (defined in `pyrocore`'s `rtorrent.d/theming.rc`_).
+
 
     pyro.watchdog
 
