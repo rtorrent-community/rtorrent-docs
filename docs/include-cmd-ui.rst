@@ -248,12 +248,34 @@ Commands in this group control aspects of the `curses` UI.
         can be changed from the default value of 50, e.g. in the ``_rtlocal.rc`` file.
 
 
+    ui.find.term
+    ui.find.term.set
+
+        .. versionadded:: 1.2 **rTorrent-PS only**
+
+        This string variable holds the current search term,
+        and is normally set by entering a value into the :kbd:`Ctrl-F` prompt.
+
+        When you hit :kbd:`Enter` in the ``find>`` prompt, the entered text
+        is saved here and then :term:`ui.find.next` is called.
+
+
+    ui.find.next
+
+        .. versionadded:: 1.2 **rTorrent-PS only**
+
+        This command is bound to :kbd:`Shift-F` and :kbd:`F3` and jumps to the next hit
+        for a non-empty :term:`ui.find.term`. The search is ignoring case (for :abbr:`ASCII` names).
+
+        A console message is shown if nothing is found in the curren view, or if the view is empty.
+
+
     ui.style.progress
     ui.style.progress.set
     ui.style.ratio
     ui.style.ratio.set
 
-        .. rubric:: *rTorrent-PS 0.x+ only, obsolete with 1.1+*
+        .. deprecated:: 1.1 rTorrent-PS *canvas v2* made these obsolete
 
 
 .. _`Customizing the Display Layout`: https://rtorrent-ps.readthedocs.io/en/latest/setup.html#custom-layout
