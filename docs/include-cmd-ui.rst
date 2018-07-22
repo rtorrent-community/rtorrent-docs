@@ -267,7 +267,7 @@ Commands in this group control aspects of the `curses` UI.
         This command is bound to :kbd:`Shift-F` and :kbd:`F3` and jumps to the next hit
         for a non-empty :term:`ui.find.term`. The search is ignoring case (for :abbr:`ASCII` names).
 
-        A console message is shown if nothing is found in the curren view, or if the view is empty.
+        A console message is shown if nothing is found in the current view, or if the view is empty.
 
 
     ui.style.progress
