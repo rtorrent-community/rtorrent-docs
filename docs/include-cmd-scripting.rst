@@ -186,7 +186,27 @@
     method.rlookup
     method.rlookup.clear
 
-        **TODO**
+        .. code-block:: ini
+
+            method.rlookup = ‹key› ≫ list of strings
+            method.rlookup.clear = ‹key› ≫ 0
+
+        ``method.rlookup`` returns a list of multi-method names
+        that have a reverse lookup entry for the given key.
+        ``method.rlookup.clear`` erases all those entries registered for ``‹key›``,
+        and also the reverse-lookup list for that key.
+
+        So if you added something under the same key to several events,
+        you can find them again easily and also remove them in one go.
+        Internally, this is used to clear old event handlers when setting
+        new ones with :term:`view.filter_on`.
+
+        .. rubric:: Example
+
+        .. code-block:: console
+
+            $ rtxmlrpc --repr method.rlookup '' \!view.main
+            ['event.download.finished', 'event.download.inserted_new']
 
 
     method.redirect

@@ -170,7 +170,8 @@ multi (subtypes: static, private, const, rlookup)
    Note that many internal entries in multi commands used by the system are prefixed
    with either ``!`` or ``~``, to push them to the front or end of the processing order.
 
-   **TODO** rlookup?!
+   The ``rlookup`` flag enables a reverse index from method keys to method names.
+   See :term:`method.rlookup` for more details on that.
 
    .. seealso::
 
