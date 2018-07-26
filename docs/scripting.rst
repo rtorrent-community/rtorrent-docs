@@ -78,7 +78,10 @@ and the :ref:`generated index <genindex>` to find them by name.
 Escaping
 ^^^^^^^^
 
-The most basic form of escaping is when you have to supply a command
+The most basic form of escaping are literal string values that contain spaces.
+Use double quotes for that as in ``"this example"``.
+
+Quotes must also be used when you have to supply a command
 with multiple arguments to another command as part of an argument list.
 You have to tell rTorrent which comma belongs to the inner argument
 list, and which to the outer one, by quoting the inner command using
@@ -88,38 +91,11 @@ double quotation marks:
 
     outer = arg1, "inner=arg21,arg22", arg3
 
-It's also good style to avoid deep nesting by defining your own custom
-commands (see :term:`method.insert`, and also :ref:`config-deconstructed`
-and :doc:`use-cases` for many examples).
-You can then use these building blocks in another command, instead of a
-literal nested group. The additional benefit is you can name things for
-documentation purposes, and also avoid overly long lines.
-
+To have a string literal or another command in a quote, escape
+quotes with a backslash.
 In practice, anything but a single nested quote should be avoided,
 because the next level already gives you the ``\\\"`` awkwardness.
-
-Make *plenty* use of line continuations, i.e. escaping of line ends to
-break up long physical lines into several short ones. Put the breaks
-into places where you can use any amount of whitespace, and then indent
-the parts according to the structure of the logical line.
-
-.. code-block:: ini
-
-    method.insert = indent_sequence_of_cmds_and_their_args, private|simple,\
-        "load.verbose =\
-            (cat, (cfg.watch), (argument.0), /*.torrent),\
-            (cat, d.category.set=, (argument.0)) ;\
-         category.view.update = (argument.0)"
-
-    schedule2 = polling, 10, 120,\
-        ((d.multicall2, main,\
-            "branch=\"or={d.up.rate=,d.down.rate=,}\",\
-                poll=$interval.active=,\
-                poll=$interval.idle="))
-
-Also note how using combinations of ‘new’ and ‘old’ syntax
-keeps the needed amount of escaping at bay
-(double parentheses are also a form of escaping).
+See :ref:`best-practices` for more on that.
 
 
 .. _object-types:
@@ -252,10 +228,53 @@ Advanced Concepts
 **TODO**
 
 
+.. _best-practices:
+
 Scripting Best Practices
 ------------------------
 
 **TODO**
+
+Form Follows Function
+^^^^^^^^^^^^^^^^^^^^^
+
+Format your code so that it is naturally broken down into its structural parts.
+This greatly helps others to understand what's going on,
+and your future self has a chance to understand what you wrote a while ago, too.
+
+It's good style to avoid deep nesting of quotes by defining helper commands
+(see :term:`method.insert`, and also :ref:`config-deconstructed`
+and :doc:`use-cases` for many examples).
+
+You can then use these building blocks in another command, instead of a
+literal nested group. The additional benefit is you can name things for
+documentation purposes, and also avoid overly long lines.
+
+In practice, anything but a single nested quote should be avoided,
+because the next level already gives you the ``\\\"`` awkwardness.
+
+Make *plenty* use of line continuations, i.e. escaping of line ends to
+break up long physical lines into several short ones. Put the breaks
+into places where you can use any amount of whitespace, and then indent
+the parts according to the structure of the logical line.
+
+.. code-block:: ini
+
+    method.insert = indent_sequence_of_cmds_and_their_args, private|simple,\
+        "load.verbose =\
+            (cat, (cfg.watch), (argument.0), /*.torrent),\
+            (cat, d.category.set=, (argument.0)) ;\
+         category.view.update = (argument.0)"
+
+    schedule2 = polling, 10, 120,\
+        ((d.multicall2, main,\
+            "branch=\"or={d.up.rate=,d.down.rate=,}\",\
+                poll=$interval.active=,\
+                poll=$interval.idle="))
+
+Also note how using combinations of ‘new’ and ‘old’ syntax
+keeps the needed amount of escaping at bay
+(double parentheses are also a form of escaping).
 
 
 .. _xmlrpc-api:
