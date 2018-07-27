@@ -532,13 +532,15 @@ Commands related to the operating system and the XMLRPC API.
         including their return code and output.
         This can grow large quickly, see :ref:`log-rotation` for how to manage this and other log files.
 
-        Passing an empty string closes the file.
+        Passing an empty string closes the file (but be aware of issue
+        `#743 <https://github.com/rakshasa/rtorrent/pull/743>`_, only fixed in 0.9.8+ / PS 1.1).
 
         Example:
 
         .. code-block:: ini
 
             log.execute = (cat, (cfg.logs), "execute.log")
+
 
     log.xmlrpc
 
