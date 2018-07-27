@@ -205,7 +205,9 @@ See :ref:`conversion` for all the formatting helper details.
 Custom Attributes
 ^^^^^^^^^^^^^^^^^
 
-**TODO** intro
+Custom attributes allow you to store additional information on an item,
+in the form of key / value pairs.
+There are 5 numbered slots, and unlimited named attributes.
 
 The numbered forms like :term:`d.custom1` are very limited and thus overcrowded.
 Old software like `ruTorrent` that also never changed to the new named forms pretty much hogs these
@@ -213,10 +215,23 @@ Old software like `ruTorrent` that also never changed to the new named forms pre
 
 So avoid the old numbered forms and instead prefer the named custom attributes,
 while also using *unique* names.
+Use :term:`d.custom` to get a named value, and :term:`d.custom.set` to change one.
+The form :term:`d.custom_throw` raises an error if you query a non-existent key.
+
 The only ‘old’ command you *should* use is :term:`d.custom1`, and *only* with `ruTorrent`'s
 semantics of using it as a category label.
 So you might refer to it in a completion event handler for target path building,
 or set it in watch schedules for use by `ruTorrent`.
+
+There are also commands that allow more versatile access, but are not available yet everywhere
+(see the command reference for availability).
+:term:`d.custom.as_value` gets a custom attribute as a number,
+and :term:`d.custom.if_z` returns a default value for empty values.
+To remove a key, use :term:`d.custom.erase`.
+The commands :term:`d.custom.keys` and :term:`d.custom.items` return
+all keys or key/value pairs for an item.
+To define a value only once use :term:`d.custom.set_if_z`,
+and finally :term:`d.custom.toggle` can be used to invert bools.
 
 
 Advanced Concepts
