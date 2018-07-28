@@ -241,7 +241,31 @@ Advanced Concepts
 ‘✴.multicall’ Demystified
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-**TODO**
+A multicall applies a given list of commands repeatedly on a set of objects,
+passing each object to the command calls and collecting the results in a 2-dimensinal array
+(a list of lists).
+Each row is as long as the list of commands,
+and there are as many rows as objects.
+It is the only form of looping `rTorrent` knows about.
+
+All multicall variants stem from the XMLRPC-C :term:`system.multicall` built-in,
+which allows to call several arbitrary commands in a single request.
+
+Other forms apply a set of commands to a set of entries in various lists:
+
+ * :term:`d.multicall2` iterates over all download items in a given view
+ * :term:`f.multicall` applies ``f.*`` commands to all files in an item
+ * :term:`p.multicall` works on the peer list
+ * :term:`t.multicall` goes through the tracker list
+
+Follow the links to the command references to get more details and see some examples.
+
+`rTorrent-PS` and maybe `rTorrent` 0.9.8+ also has :term:`d.multicall.filtered`,
+which takes an additional argument after the view name to only apply
+commands to items that satisfy the given filter condition.
+This can greatly reduce the amount of information that
+has to be passed back in an XMLRPC response,
+when you'd otherwise discard most of the items after client-side filtering.
 
 
 .. _best-practices:
