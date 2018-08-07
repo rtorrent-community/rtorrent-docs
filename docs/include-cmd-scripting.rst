@@ -798,6 +798,29 @@ String Functions
             :end-before: # END
 
 
+    string.shorten
+
+        .. versionadded:: 1.2 **rTorrent-PS only**
+
+        .. code-block:: ini
+
+            string.shorten = «text»[, «maxlen»[, «tail»]] ≫ string
+
+        Returns a condensed version of a UTF-8 encoded string,  no longer than *«maxlen»*,
+        by replacing a middle piece of it with ``…`` if necessary.
+        The length arguments can be passed as either strings (base 10) or values,
+        and they count Unicode characters.
+
+        *«tail»* determines the maximal length of the trailing part, with a default of 5.
+
+        .. rubric:: Examples
+
+        .. literalinclude:: rtorrent-ps/tests/commands/string.txt
+            :language: console
+            :start-at: # string.shorten
+            :end-before: # END
+
+
     string.join
         .. rubric:: *rTorrent-PS 1.1+ only*
 
