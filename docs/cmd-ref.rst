@@ -10,6 +10,25 @@ and :ref:`xmlrpc-api` for some general hints on using the XMLRPC API
 or the :ref:`search`.
 The :ref:`generated index <genindex>` also lists all the command names.
 
+.. important::
+
+    All ``d.*`` commands take an info hash as the first argument when called over the XML-RPC API,
+    to uniquely identify the *target* object. ‘Target’ is the term used for that 1st parameter in
+    error messages and so on.
+
+      .. code-block:: ini
+
+         d.name = ‹hash› ≫ string ‹name›
+
+    When called within configuration methods or in a ``Ctrl-X`` prompt, the target is implicit.
+    It is explicit and *must* be provided for all XMLRPC calls, with very few exceptions like the
+    `xmlrpc-c` built-ins.
+
+    Also note that :command:`rtxmlrpc` has some magic that adds this to any command ending in
+    ``.multicall`` or ``.multicall.filtered``, from the time this change was introduced.
+    :term:`d.multicall2` came later and thus needs an explicit target, and it is a bit of a mess.
+    Changing this to be consistent is a breaking change, and might happen sometime in the future.
+
 
 .. contents:: List of Command Groups
     :local:

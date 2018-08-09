@@ -3,16 +3,7 @@
 `d.*` commands
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-All ``d.*`` commands take an info hash as the first argument when called over the XML-RPC API,
-to uniquely identify the *target* object. ‘Target’ is the term used for that 1st parameter in
-error messages and so on.
-
-  .. code-block:: ini
-
-     d.name = ‹hash› ≫ string ‹name›
-
-When called within configuration methods or in a ``Ctrl-X`` prompt, the target is implicit.
-
+See the hint at the start of this chapter regarding the (sometimes implicit) *target* argument.
 
 .. glossary::
 
