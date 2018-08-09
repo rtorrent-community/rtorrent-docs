@@ -24,7 +24,7 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
 
         .. code-block:: ini
 
-            d.multicall2 = ‹view›, [‹cmd1›=[‹args›][, ‹cmd2›=…]] ≫ list of lists of results ‹rows of results›
+            d.multicall2 = '', ‹view›, [‹cmd1›=[‹args›][, ‹cmd2›=…]] ≫ list of lists of results ‹rows of results›
             d.multicall.filtered = ‹view›, ‹predicate›, [‹cmd1›=[‹args›][, ‹cmd2›=…]] ≫ same as 'multicall2'
             download_list = ‹view› ≫ list of strings ‹info hashes›
 
@@ -36,6 +36,7 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
         assembling the results of those calls in a row per item.
         Typically, the given commands either just have a side effect (e.g. :term:`d.stop`),
         or return some item attribute (e.g. :term:`d.name`).
+        The first argument is always an empty string.
 
         ``d.multicall.filtered`` is only available in *rTorrent-PS*,
         and evaluates the ``predicate`` condition as a filter for each item,
