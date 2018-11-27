@@ -1067,13 +1067,20 @@ When called within configuration methods or in a ``Ctrl-X`` prompt, the target i
             ['bttracker.debian.org', 'debian-9.4.0-amd64-netinst.iso']
 
 
-    d.tracker_scrape.complete
     d.tracker_scrape.downloaded
+    d.tracker_scrape.complete
     d.tracker_scrape.incomplete
 
         .. rubric:: *rTorrent-PS 1.1+ only*
 
-        **TODO**
+        .. code-block:: ini
+
+            d.tracker_scrape.downloaded = ‹target› ≫ value ‹amount›
+            d.tracker_scrape.complete = ‹target› ≫ value ‹amount›
+            d.tracker_scrape.incomplete = ‹target› ≫ value ‹amount›
+
+        Returns the number of downloads, complete peers and incomplete peers from scrapes to the
+        active trackers, respectively. See :term:`t.scrape_downloaded` for the respective tracker methods.
 
 
 .. _`scrape request`: https://en.wikipedia.org/wiki/Tracker_scrape
@@ -1491,6 +1498,16 @@ These commands can be used as arguments in a :term:`t.multicall`.
 They can also be called directly, but you need to pass `‹infohash›:t‹index›` as the first argument.
 Index counting starts at ``0``, the array size is :term:`d.tracker_size`.
 
+.. rubric:: Example
+
+.. code-block:: console
+
+    $ rtxmlrpc --repr t.multicall DDEE5CB75C12F3165EF79A12A5CD6158BEF029AD '' t.url=
+    [['http://torrent.ubuntu.com:6969/announce'],
+     ['http://ipv6.torrent.ubuntu.com:6969/announce']]
+    $ rtxmlrpc --repr t.url DDEE5CB75C12F3165EF79A12A5CD6158BEF029AD:t0
+    'http://torrent.ubuntu.com:6969/announce'
+
 .. glossary::
 
     t.multicall
@@ -1506,38 +1523,213 @@ Index counting starts at ``0``, the array size is :term:`d.tracker_size`.
 
     t.activity_time_last
     t.activity_time_next
+
+        .. code-block:: ini
+
+            t.activity_time_last = ‹target› ≫ value ‹epoch time in seconds›
+            t.activity_time_next = ‹target› ≫ value ‹epoch time in seconds›
+
+        ``t.activity_time_last`` returns the last time there was an attempt to announce to this tracker, regardless of
+        whether or not the announce succeeded. ``t.activity_time_next`` indicates when rtorrent will attempt to announce
+        to the tracker next. In most cases, ``t.activity_time_next - t.activity_time_last`` will equal :term:`t.normal_interval`.
+
+        One common exception occurs when the tracker returns an error. In that case, rtorrent will being announcing more frequently,
+        starting out with the next announce in 5 seconds, and then doubling the interval it waits until the maximum of 320 seconds
+        between each announce is reached.
+
     t.can_scrape
-    t.disable
-    t.enable
-    t.failed_counter
-    t.failed_time_last
-    t.failed_time_next
-    t.group
-    t.id
-    t.is_busy
+
+        .. code-block:: ini
+
+            t.can_scrape = ‹target› ≫ bool (0 or 1)
+
+        Checks if the announce URL is scrapeable. *rTorrent* considers a HTTP tracker scrapeable if the announce URL
+        contains the string ``/announce`` somewhere after the rightmost ``/`` (inclusively).
+        See :term:`d.tracker.send_scrape` for actually issuing the scrape request.
+
+    t.is_usable
     t.is_enabled
     t.is_enabled.set
-    t.is_extra_tracker
+    t.disable
+    t.enable
+
+        .. code-block:: ini
+
+            t.is_usable = ‹target› ≫ bool (0 or 1)
+            t.is_enabled = ‹target› ≫ bool (0 or 1)
+            t.is_enabled.set = ‹target›, bool (0 or 1) ≫ 0
+            t.disable = ‹target› ≫ 0
+            t.enable = ‹target› ≫ 0
+
+        These commands control enabling or disabling the tracker. If a tracker is disabled, *rTorrent* will
+        stop trying to announce to it. ``t.is_usable`` is an alias for ``t.is_enabled``.
+
+    t.failed_counter
+
+        .. code-block:: ini
+
+            t.failed_counter = ‹target› ≫ value ‹count›
+
+         This tracks the number of failed requests to the tracker. Note that this value resets to 0 if a
+         request succeeds. See also :term:`t.success_counter`
+
+    t.failed_time_last
+    t.failed_time_next
+
+        .. code-block:: ini
+
+            t.failed_time_last = ‹target› ≫ value ‹seconds›
+            t.failed_time_next = ‹target› ≫ value ‹seconds›
+
+         This tracks the last time a request failed, and when the next request is planned to happen.
+         *rTorrent* backs off failed requests exponentially, i.e. each time a request fails,
+         it doubles the interval until it tries again.
+
+    t.group
+
+        .. code-block:: ini
+
+            t.group = ‹target› ≫ value ‹group id›
+
+        As per _`BEP 12` , trackers can exist in a "group" with other trackers, and *rTorrent* will follow
+        the behavior as defined in the BEP. Up to 32 groups are supported, beginning with group 0.
+
+    t.id
+
+        .. code-block:: ini
+
+            t.id = ‹target› ≫ string ‹tracker id›
+
+        If a previous HTTP tracker response contains the ``tracker id`` key, ``t.id`` will contain that value,
+        and it will be added as a parameter to any subsequent requests to that same tracker.
+
+    t.is_busy
     t.is_open
-    t.is_usable
+
+         .. code-block:: ini
+
+            t.is_busy = ‹target› ≫ bool (0 or 1)
+            t.is_open = ‹target› ≫ bool (0 or 1)
+
+        Returns true if the request is in the middle of processing, and false otherwise. Both commands are
+        identical.
+
+    t.is_extra_tracker
+
+         .. code-block:: ini
+
+            t.is_extra_tracker = ‹target› ≫ bool (0 or 1)
+
+         Returns true if the tracker was added via :term:`d.tracker.insert`, rather than existing in the
+         original metafile.
+
     t.latest_event
+
+        .. code-block:: ini
+
+            t.latest_event = ‹target› ≫ value ‹event id›
+
+        Returns a value which indicates what the last event key sent the tracker was:
+
+        * ``0`` - None: a normal update request was sent
+        * ``1`` - ``completed``
+        * ``2`` - ``started``
+        * ``3`` - ``stopped``
+        * ``4`` - ``scrape``: This is isn't an actual event key the BitTorrent spec defines, instead this
+          indicates that the tracker is currently processing a scrape request.
+
     t.latest_new_peers
     t.latest_sum_peers
+
+        .. code-block:: ini
+
+            t.latest_sum_peers = ‹target› ≫ value ‹peers›
+            t.latest_new_peers = ‹target› ≫ value ‹peers›
+
+        ``t.latest_sum_peers`` returns the total number of peers from the last announce, while
+        ``t.latest_new_peers`` returns the number of peers from the last announce which are new to *rTorrent*.
+
     t.min_interval
     t.normal_interval
-    t.scrape_complete
+
+        .. code-block:: ini
+
+            t.min_interval = ‹target› ≫ value ‹seconds›
+            t.normal_interval = ‹target› ≫ value ‹seconds›
+
+        Returns the values for the minimum and normal announce intervals as returned from the tracker request.
+
     t.scrape_counter
+
+        .. code-block:: ini
+
+            t.scrape_counter = ‹target› ≫ value ‹count›
+
+        Returns the count of successful scrapes for this session. Note that there is currently no corresponding
+        method to count failed scrapes.
+
+    t.scrape_complete
     t.scrape_downloaded
     t.scrape_incomplete
+
+        .. code-block:: ini
+
+            t.scrape_downloaded = ‹target› ≫ value ‹amount›
+            t.scrape_complete = ‹target› ≫ value ‹amount›
+            t.scrape_incomplete = ‹target› ≫ value ‹amount›
+
+        Returns the number of downloads, complete peers and incomplete peers as returned from the most recent
+        tracker scrape, respectively.
+
     t.scrape_time_last
+
+        .. code-block:: ini
+
+            t.scrape_time_last = ‹target› ≫ value ‹seconds›
+
+        Returns the last time incomplete/complete peer counts were updated. N.B.: This is updated anytime
+        there's a incomplete/complete key in a tracker's response, not just from a scrape request.
+
     t.success_counter
+
+        .. code-block:: ini
+
+            t.success_counter = ‹target› ≫ value ‹count›
+
+         Similar to :term:`t.failed_counter`, this tracks the number of successful requests to the tracker.
+
     t.success_time_last
     t.success_time_next
+
+        .. code-block:: ini
+
+            t.success_time_last = ‹target› ≫ value ‹seconds›
+            t.success_time_next = ‹target› ≫ value ‹seconds›
+
+         Similar to :term:`t.failed_time_last`, this tracks the last time a request succeeded, and when
+         the next planned request (assuming it will be successful) is planned to happen.
+
     t.type
+
+        .. code-block:: ini
+
+            t.type = ‹target› ≫ value ‹type id›
+
+        There are 3 trackers types, each corresponing to the following values:
+
+        * ``1`` - HTTP
+        * ``2`` - UDP
+        * ``3`` - DHT
+
     t.url
 
-        **TODO**
+        .. code-block:: ini
 
+            t.url = ‹target› ≫ string ‹url›
+
+        Returns the full URL of the tracker.
+
+.. _`BEP 12`: http://bittorrent.org/beps/bep_0012.html
 
 .. _load-commands:
 
@@ -1590,7 +1782,7 @@ and using ``Ctrl-K`` also implicitly unties an item.
 
         .. code-block:: ini
 
-            schedule2 = watch_with_catgeory, 27, 10, \
+            schedule2 = watch_with_category, 27, 10, \
                 ((load.verbose, (cat,(cfg.watch),"foobar/*.torrent"), "d.custom1.set=foobar"))
 
         .. rubric:: Remotely loading an item with a specific path
@@ -1697,6 +1889,10 @@ and using ``Ctrl-K`` also implicitly unties an item.
 
 
     session.save
+
+        .. code-block:: ini
+
+            session.save ≫ 0
 
         Flushes the full session state for all torrents to the related files in the session folder.
         Note that this can cause
