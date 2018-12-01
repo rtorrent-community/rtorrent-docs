@@ -613,13 +613,13 @@ See the hint at the start of this chapter regarding the (sometimes implicit) *ta
     d.hashing_failed
     d.hashing_failed.set
 
-       .. code-block:: ini
+        .. code-block:: ini
 
             d.hashing_failed = ‹hash› ≫ bool (0 or 1)
             d.hashing_failed.set = ‹hash›, bool (0 or 1) ≫ 0
 
-       Checks to see if the hashing has failed or not. This flag is primarily used to determine
-       whether or not a torrent should be marked for hashing when it's started/resumed.
+        Checks to see if the hashing has failed or not. This flag is primarily used to determine
+        whether or not a torrent should be marked for hashing when it's started/resumed.
 
     d.ignore_commands
     d.ignore_commands.set
@@ -1520,12 +1520,16 @@ Index counting starts at ``0``, the array size is :term:`d.tracker_size`.
             t.activity_time_last = ‹target› ≫ value ‹epoch time in seconds›
             t.activity_time_next = ‹target› ≫ value ‹epoch time in seconds›
 
-        ``t.activity_time_last`` returns the last time there was an attempt to announce to this tracker, regardless of
-        whether or not the announce succeeded. ``t.activity_time_next`` indicates when rtorrent will attempt to announce
-        to the tracker next. In most cases, ``t.activity_time_next - t.activity_time_last`` will equal :term:`t.normal_interval`.
+        ``t.activity_time_last`` returns the last time there was an attempt to
+        announce to this tracker, regardless of whether or not the announce succeeded.
+        ``t.activity_time_next`` indicates when rtorrent will attempt to announce
+        to the tracker next. In most cases, ``t.activity_time_next - t.activity_time_last``
+        will equal :term:`t.normal_interval`.
 
-        One common exception occurs when the tracker returns an error. In that case, rtorrent will being announcing more frequently,
-        starting out with the next announce in 5 seconds, and then doubling the interval it waits until the maximum of 320 seconds
+        One common exception occurs when the tracker returns an error.
+        In that case, rtorrent will being announcing more frequently,
+        starting out with the next announce in 5 seconds, and then
+        doubling the interval it waits until the maximum of 320 seconds
         between each announce is reached.
 
     t.can_scrape
@@ -1534,8 +1538,10 @@ Index counting starts at ``0``, the array size is :term:`d.tracker_size`.
 
             t.can_scrape = ‹target› ≫ bool (0 or 1)
 
-        Checks if the announce URL is scrapeable. *rTorrent* considers a HTTP tracker scrapeable if the announce URL
-        contains the string ``/announce`` somewhere after the rightmost ``/`` (inclusively).
+        Checks if the announce URL is scrapeable. *rTorrent* considers a HTTP tracker
+        scrapeable if the announce URL contains the string ``/announce`` somewhere
+        after the rightmost ``/`` (inclusively).
+
         See :term:`d.tracker.send_scrape` for actually issuing the scrape request.
 
     t.is_usable
@@ -1552,8 +1558,9 @@ Index counting starts at ``0``, the array size is :term:`d.tracker_size`.
             t.disable = ‹target› ≫ 0
             t.enable = ‹target› ≫ 0
 
-        These commands control enabling or disabling the tracker. If a tracker is disabled, *rTorrent* will
-        stop trying to announce to it. ``t.is_usable`` is an alias for ``t.is_enabled``.
+        These commands control enabling or disabling the tracker.
+        If a tracker is disabled, *rTorrent* will stop trying to announce to it.
+        ``t.is_usable`` is an alias for ``t.is_enabled``.
 
     t.failed_counter
 
@@ -1561,8 +1568,10 @@ Index counting starts at ``0``, the array size is :term:`d.tracker_size`.
 
             t.failed_counter = ‹target› ≫ value ‹count›
 
-         This tracks the number of failed requests to the tracker. Note that this value resets to 0 if a
-         request succeeds. See also :term:`t.success_counter`
+        This tracks the number of failed requests to the tracker.
+        Note that this value resets to 0 if a request succeeds.
+
+        See also :term:`t.success_counter`
 
     t.failed_time_last
     t.failed_time_next
@@ -1572,9 +1581,11 @@ Index counting starts at ``0``, the array size is :term:`d.tracker_size`.
             t.failed_time_last = ‹target› ≫ value ‹seconds›
             t.failed_time_next = ‹target› ≫ value ‹seconds›
 
-         This tracks the last time a request failed, and when the next request is planned to happen.
-         *rTorrent* backs off failed requests exponentially, i.e. each time a request fails,
-         it doubles the interval until it tries again.
+        This tracks the last time a request failed,
+        and when the next request is planned to happen.
+        *rTorrent* backs off failed requests exponentially,
+        i.e. each time a request fails,
+        it doubles the interval until it tries again.
 
     t.group
 
@@ -1582,8 +1593,9 @@ Index counting starts at ``0``, the array size is :term:`d.tracker_size`.
 
             t.group = ‹target› ≫ value ‹group id›
 
-        As per _`BEP 12` , trackers can exist in a "group" with other trackers, and *rTorrent* will follow
-        the behavior as defined in the BEP. Up to 32 groups are supported, beginning with group 0.
+        As per `BEP 12`_, trackers can exist in a "group" with other trackers,
+        and *rTorrent* will follow the behavior as defined in the BEP.
+        Up to 32 groups are supported, beginning with group 0.
 
     t.id
 
@@ -1591,28 +1603,29 @@ Index counting starts at ``0``, the array size is :term:`d.tracker_size`.
 
             t.id = ‹target› ≫ string ‹tracker id›
 
-        If a previous HTTP tracker response contains the ``tracker id`` key, ``t.id`` will contain that value,
-        and it will be added as a parameter to any subsequent requests to that same tracker.
+        If a previous HTTP tracker response contains the ``tracker id`` key,
+        ``t.id`` will contain that value, and it will be added as a parameter
+        to any subsequent requests to that same tracker.
 
     t.is_busy
     t.is_open
 
-         .. code-block:: ini
+        .. code-block:: ini
 
             t.is_busy = ‹target› ≫ bool (0 or 1)
             t.is_open = ‹target› ≫ bool (0 or 1)
 
-        Returns true if the request is in the middle of processing, and false otherwise. Both commands are
-        identical.
+        Returns true if the request is in the middle of processing, and false otherwise.
+        These commands are identical.
 
     t.is_extra_tracker
 
-         .. code-block:: ini
+        .. code-block:: ini
 
             t.is_extra_tracker = ‹target› ≫ bool (0 or 1)
 
-         Returns true if the tracker was added via :term:`d.tracker.insert`, rather than existing in the
-         original metafile.
+        Returns true if the tracker was added via :term:`d.tracker.insert`,
+        rather than existing in the original metafile.
 
     t.latest_event
 
@@ -1622,12 +1635,12 @@ Index counting starts at ``0``, the array size is :term:`d.tracker_size`.
 
         Returns a value which indicates what the last event key sent the tracker was:
 
-        * ``0`` - None: a normal update request was sent
-        * ``1`` - ``completed``
-        * ``2`` - ``started``
-        * ``3`` - ``stopped``
-        * ``4`` - ``scrape``: This is isn't an actual event key the BitTorrent spec defines, instead this
-          indicates that the tracker is currently processing a scrape request.
+        * ``0 - none``: A normal update request was sent (empty key).
+        * ``1 - completed``
+        * ``2 - started``
+        * ``3 - stopped``
+        * ``4 - scrape``: This isn't an actual event key the BitTorrent spec defines,
+          instead this indicates that the tracker is currently processing a scrape request.
 
     t.latest_new_peers
     t.latest_sum_peers
@@ -1637,8 +1650,8 @@ Index counting starts at ``0``, the array size is :term:`d.tracker_size`.
             t.latest_sum_peers = ‹target› ≫ value ‹peers›
             t.latest_new_peers = ‹target› ≫ value ‹peers›
 
-        ``t.latest_sum_peers`` returns the total number of peers from the last announce, while
-        ``t.latest_new_peers`` returns the number of peers from the last announce which are new to *rTorrent*.
+        The command ``t.latest_sum_peers`` returns the total number of peers obtained with the last announce,
+        while ``t.latest_new_peers`` returns the amount of peers which were new to *rTorrent*.
 
     t.min_interval
     t.normal_interval
@@ -1687,7 +1700,7 @@ Index counting starts at ``0``, the array size is :term:`d.tracker_size`.
 
             t.success_counter = ‹target› ≫ value ‹count›
 
-         Similar to :term:`t.failed_counter`, this tracks the number of successful requests to the tracker.
+        Similar to :term:`t.failed_counter`, this tracks the number of successful requests to the tracker.
 
     t.success_time_last
     t.success_time_next
@@ -1697,8 +1710,8 @@ Index counting starts at ``0``, the array size is :term:`d.tracker_size`.
             t.success_time_last = ‹target› ≫ value ‹seconds›
             t.success_time_next = ‹target› ≫ value ‹seconds›
 
-         Similar to :term:`t.failed_time_last`, this tracks the last time a request succeeded, and when
-         the next planned request (assuming it will be successful) is planned to happen.
+        Similar to :term:`t.failed_time_last`, this tracks the last time a request succeeded, and when
+        the next planned request (assuming it will be successful) is planned to happen.
 
     t.type
 
@@ -1721,6 +1734,7 @@ Index counting starts at ``0``, the array size is :term:`d.tracker_size`.
         Returns the full URL of the tracker.
 
 .. _`BEP 12`: http://bittorrent.org/beps/bep_0012.html
+
 
 .. _load-commands:
 
