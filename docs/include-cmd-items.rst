@@ -769,12 +769,16 @@ See the hint at the start of this chapter regarding the (sometimes implicit) *ta
 
             * ``␣`` 0 *ALERT_NORMAL*
             * ``♺`` 1 *ALERT_NORMAL_CYCLING* (Tried all trackers)
-            * ``⚠`` 2 *ALERT_GENERIC*
-            * ``◔`` 3 *ALERT_TIMEOUT*
-            * ``⚡`` 4 *ALERT_CONNECT*
-            * ``↯`` 5 *ALERT_REQUEST*
-            * ``¿?`` 6 *ALERT_GONE*
-            * ``⨂`` 7 *ALERT_PERMS*
+            * ``ʘ`` 2 *ALERT_NORMAL_GHOST* (No data)
+            * ``⚠`` 3 *ALERT_GENERIC*
+            * ``◔`` 4 *ALERT_TIMEOUT*
+            * ``⚡`` 5 *ALERT_CONNECT*
+            * ``↯`` 6 *ALERT_REQUEST*
+            * ``¿?`` 7 *ALERT_GONE*
+            * ``⨂`` 8 *ALERT_PERMS* (Unauthorized etc.)
+            * ``⋫`` 9 *ALERT_DOWN* (Tracker is down)
+            * ``☡`` 10 *ALERT_DNS* (DNS resolving problems)
+
 
     d.mode
 
