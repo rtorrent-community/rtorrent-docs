@@ -281,7 +281,8 @@ Commands related to the operating system and the XMLRPC API.
     system.file.max_size
     system.file.max_size.set
 
-        **TODO**
+        See :term:`d.max_file_size`.
+
 
     system.file.split_size
     system.file.split_size.set
