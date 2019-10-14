@@ -26,8 +26,8 @@ To start items one by one, use this:
 
 .. code-block:: shell
 
-    while true; do rtcontrol --from-view stopped is_complete=y -/1 \
-                             --start --flush -qo name || break; sleep 2; done
+    while true; do rtcontrol --from-view stopped is_complete=y --select=1 --start --flush \
+                             --quiet --output-format=name || break; sleep 2; done
 
 When the bad item is started, the crash might be triggered immediately, or with some delay.
 Increase the sleep time if removing the last item shown (and possibly the one following it)
