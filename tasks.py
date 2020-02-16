@@ -11,7 +11,7 @@ import webbrowser
 
 from invoke import task
 
-SPHINX_AUTOBUILD_PORT = 8340
+SPHINX_AUTOBUILD_PORT = int(os.environ.get('SPHINX_AUTOBUILD_PORT', '8340'))
 
 
 def watchdog_pid(ctx):
