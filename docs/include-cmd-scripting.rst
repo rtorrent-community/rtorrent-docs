@@ -371,7 +371,46 @@ just like a cron job, but with a resolution of seconds.
 
     close_low_diskspace
 
-        **TODO**
+        .. code-block:: ini
+
+            close_low_diskspace = ‹limit› ≫ 0
+
+        This command goes through all active downloads
+        and checks if the storage of each of their files
+        has more free space left than the given limit.
+
+        By default, it is scheduled to run every 60 seconds and check for 500 MiB:
+
+        .. code-block:: ini
+
+            schedule2 = low_diskspace,5,60,((close_low_diskspace,500M))
+
+        Be aware that the check interval, the space limit,
+        and your maximal bandwidth should fit to each other.
+        Mathematically, `limit > interval * bandwidth + buffer` should be true,
+        with `buffer` being the space you *really* want to be left with
+        if things get tight.
+
+        .. important::
+
+            The above means that you should **always** replace the default schedule
+            by one that fits your individual situation.
+            Especially if your line is faster than 66 Mbit/s.
+
+        Items that fail the check are closed, set to hash-failed
+        (i.e. you cannot just start them anymore without a rehash),
+        and get a ``Low diskspace.`` message.
+
+        Use the following command to check what devices
+        your forcibly stopped items are stored on:
+
+        .. code-block:: shell
+
+            rtcontrol -qorealpath d_hashing_failed=1 \
+            | xargs --no-run-if-empty -d$'\n' df -h \
+            | sort -ru
+
+        See also :term:`d.free_diskspace`.
 
 
 .. _cmd-import:

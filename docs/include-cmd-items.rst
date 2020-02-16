@@ -572,6 +572,8 @@ See the hint at the start of this chapter regarding the (sometimes implicit) *ta
         In the usual case without symlinks and the like, it's the free space of the drive
         holding :term:`d.directory`.
 
+        See also :term:`close_low_diskspace`.
+
 
     d.group
     d.group.name
