@@ -370,14 +370,21 @@ just like a cron job, but with a resolution of seconds.
         **TODO**
 
     close_low_diskspace
+    close_low_diskspace.normal
+
+        .. rubric:: *close_low_diskspace.normal since rTorrent-PS 1.2 / rTorrent 0.9.9*
 
         .. code-block:: ini
 
             close_low_diskspace = ‹limit› ≫ 0
+            close_low_diskspace.normal = ‹limit› ≫ 0
 
         This command goes through all active downloads
         and checks if the storage of each of their files
         has more free space left than the given limit.
+        The ``*.normal`` variant skips download items
+        set to high priority, i.e. only stops items
+        with normal priority and below.
 
         By default, it is scheduled to run every 60 seconds and check for 500 MiB:
 
