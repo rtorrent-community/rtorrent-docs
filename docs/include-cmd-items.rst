@@ -294,7 +294,21 @@ See the hint at the start of this chapter regarding the (sometimes implicit) *ta
     d.create_link
     d.delete_link
 
-        **TODO**
+        .. code-block:: ini
+
+            d.create_link = ‹type›, ‹path›, ‹suffix› ≫ 0
+            d.delete_link = ‹type›, ‹path›, ‹suffix› ≫ 0
+
+        These can be used to reflect an item's state in the file system.
+
+        Creates or deletes a symbolic link. The link path is the concatenation
+        of **path**, a value depending on the selected **type**, and **suffix**.
+
+        Available types are:
+
+        * *base_path* uses the base path of the item,
+        * *base_filename* uses the base filename of the item,
+        * *tied* uses the path of the file the item is tied to, see :term:`d.tied_to_file`.
 
 
     d.delete_tied
