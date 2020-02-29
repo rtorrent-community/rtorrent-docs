@@ -1,2 +1,2 @@
 # requirements for use on "Read The Docs"
--r ../requirements.txt
+Sphinx==2.4.3
