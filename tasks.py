@@ -37,7 +37,7 @@ def docs(ctx, open_tab=False):
 
     print("\n*** Generating HTML doc ***\n")
     ctx.run('builtin cd docs'
-            ' && . {pwd}/.pyvenv/*/bin/activate'
+            ' && . {pwd}/.venv/bin/activate'
             ' && nohup {pwd}/docs/Makefile SPHINXBUILD="sphinx-autobuild -p {port:d}'
             '          -i \'.*\' -i \'*.log\' -i \'*.png\' -i \'*.txt\'" html >autobuild.log 2>&1 &'
             .format(port=SPHINX_AUTOBUILD_PORT, pwd=os.getcwd()), pty=False)
