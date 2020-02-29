@@ -5,13 +5,33 @@
 from __future__ import print_function, unicode_literals
 
 import os
+import sys
 import time
 import shutil
+import contextlib
+import subprocess
 import webbrowser
+
+try:
+    from pathlib import Path
+except ImportError:
+    from pathlib2 import Path
 
 from invoke import task
 
+
 SPHINX_AUTOBUILD_PORT = int(os.environ.get('SPHINX_AUTOBUILD_PORT', '8340'))
+
+
+@contextlib.contextmanager
+def pushd(folder):
+    """Context manager to temporarily change directory."""
+    cwd = os.getcwd()
+    try:
+        os.chdir(folder)
+        yield folder
+    finally:
+        os.chdir(cwd)
 
 
 def watchdog_pid(ctx):
@@ -25,7 +45,9 @@ def watchdog_pid(ctx):
     return pid
 
 
-@task(help={'open-tab': "Open docs in new browser tab after initial build"})
+@task(help={
+    'open-tab': "Open docs in new browser tab after initial build"
+})
 def docs(ctx, open_tab=False):
     """Start watchdog to build the Sphinx docs."""
     build_dir = 'docs/_build'
@@ -36,11 +58,12 @@ def docs(ctx, open_tab=False):
         shutil.rmtree(build_dir)
 
     print("\n*** Generating HTML doc ***\n")
-    ctx.run('builtin cd docs'
-            ' && . {pwd}/.venv/bin/activate'
-            ' && nohup {pwd}/docs/Makefile SPHINXBUILD="sphinx-autobuild -p {port:d}'
-            '          -i \'.*\' -i \'*.log\' -i \'*.png\' -i \'*.txt\'" html >autobuild.log 2>&1 &'
-            .format(port=SPHINX_AUTOBUILD_PORT, pwd=os.getcwd()), pty=False)
+    subprocess.check_call(
+        'command cd docs >/dev/null'
+        ' && . {pwd}/.venv/bin/activate'
+        ' && nohup {pwd}/docs/Makefile SPHINXBUILD="sphinx-autobuild -p {port:d}'
+        '          -i \'.*\' -i \'*.log\' -i \'*.png\' -i \'*.txt\'" html >autobuild.log 2>&1 &'
+        .format(port=SPHINX_AUTOBUILD_PORT, pwd=os.getcwd()), shell=True)
 
     for i in range(25):
         time.sleep(2.5)
@@ -58,7 +81,7 @@ def docs(ctx, open_tab=False):
 
 @task
 def stop(ctx):
-    "Stop Sphinx watchdog"
+    "Stop Sphinx watchdog."
     print("\n*** Stopping watchdog ***\n")
     for i in range(4):
         pid = watchdog_pid(ctx)
