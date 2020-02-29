@@ -20,6 +20,8 @@ like `ruTorrent`_, or command line clients like `pyrocore`_ and its ``rtcontrol`
 The :doc:`overview` chapter offers you a guided tour through this manual,
 or browse through the table of contents below to find what you're looking for.
 
+.. include:: include-contacts.rst
+
 If you like what is here but are missing something,
 the best way to fill that hole is to pour what you know into it.
 Every contribution counts, and instead of lamenting the situation,

@@ -38,15 +38,14 @@ The :doc:`cmd-ref` chapter lists all relevant XMLRPC and ‘private’ commands
 of *rTorrent* with a short explanation.
 
 
-Getting Help on IRC
--------------------
+Getting Interactive Help via Chat
+---------------------------------
 
-The `unofficial help & support channel for rTorrent`_ (`webchat`_) can
-be found on the `freenode.net IRC network`_.
+.. include:: include-contacts.rst
 
-.. _unofficial help & support channel for rTorrent: irc://irc.freenode.net/rtorrent
-.. _webchat: https://webchat.freenode.net/?channels=%23%23rtorrent
-.. _freenode.net IRC network: http://freenode.net/
+.. unofficial help & support channel for rTorrent: irc://irc.freenode.net/rtorrent
+.. webchat: https://webchat.freenode.net/?channels=%23%23rtorrent
+.. freenode.net IRC network: http://freenode.net/
 
 
 Web Resources Related to rTorrent
