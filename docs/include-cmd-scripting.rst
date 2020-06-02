@@ -281,6 +281,8 @@ often starting with a digit, ``!``, or ``~``, for ordering reasons.
 
         Download item was removed.
 
+        See also :term:`d.erase`.
+
     event.view.hide
     event.view.show
 
