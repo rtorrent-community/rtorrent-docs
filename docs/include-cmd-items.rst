@@ -574,7 +574,18 @@ See the hint at the start of this chapter regarding the (sometimes implicit) *ta
 
     d.erase
 
-        **TODO**
+        .. code-block:: ini
+
+            d.erase = ‹hash› ≫ 0
+
+        The item is marked as hash-failed (to invalidate it until it is totally gone) and closed.
+        Any associated session files are removed.
+        The :term:`event.download.erased` event is fired, and the item is removed from all views it is listed on.
+
+        The data stored for the item is *not* touched in any way.
+
+        See also :term:`d.close`, :term:`event.download.erased`.
+
 
     d.free_diskspace
 
