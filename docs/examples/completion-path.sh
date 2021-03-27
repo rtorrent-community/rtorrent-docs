@@ -39,6 +39,11 @@ set_target_path() {
     test -z "$target" && is_movie "$name" && target="Movies/$month" || :
     test -z "$target" -a -n "$display_name" && is_movie "$display_name" && target="Movies/$month" || :
 
+    # Prevent duplication at end of path
+    if test -n "$target" -a "$is_multi_file" -eq 1 -a "$name" = "$target_tail"; then
+        target_tail=""
+    fi
+
     # Append tail path if non-empty
     test -z "$target" -o -z "$target_tail" || target="$target/$target_tail"
 } # set_target_path
