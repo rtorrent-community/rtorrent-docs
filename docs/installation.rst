@@ -20,7 +20,7 @@ You might want to look in the “testing” or “experimental” repositories
 of your distribution, or alternatively install from source (see below).
 
  * The `rTorrent wiki <https://github.com/rakshasa/rtorrent/wiki#packages>`_ lists package names and installation commands for a lot of *Linux* distributions and other operating systems.
- * DEB packages of *rTorrent-PS* for Debian and Ubuntu are on `Bintray <https://bintray.com/pyroscope/rtorrent-ps/rtorrent-ps/>`_.
+ * DEB packages of *rTorrent-PS* for Debian and Ubuntu are on `GitHub <https://github.com/pyroscope/rtorrent-ps/releases/>`_.
  * *“Arch User Repository”* (AUR) PKGBUILDs maintained by `@xsmile <https://github.com/xsmile>`_ for
    `libtorrent-ps <https://aur.archlinux.org/packages/libtorrent-ps/>`_ and
    `rtorrent-ps <https://aur.archlinux.org/packages/rtorrent-ps/>`_.
