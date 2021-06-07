@@ -7,12 +7,24 @@
 # List of attributes passed by the 'completion_path' method
 arglist=( default session hash name directory base_path tied_to_file is_multi_file label display_name )
 
+# Helper to get the filesystem path for any path
+fs4path() {
+    local path="${1:?You MUST provide a path}"
+    df -P "$path" | tail -n1 | awk '{print $1;}'
+}
+
 # Determine target path (adapt this to your needs)
 set_target_path() {
     local month=$(date +'%Y-%m')
 
     # Only move data downloaded into a "work" directory
-    egrep >/dev/null "/work/" <<<"${base_path}/" || return
+    if egrep >/dev/null "/work/" <<<"${base_path}/"; then
+        # Make sure the target directory is on the same drive as "work", else leave it alone
+        work_dir=$(sed -re 's~(^.+/work/).*~\1~' <<<"${base_path}/")
+        test $(fs4path "$work_dir") == $(fs4path "$(dirname ${base_path})") || return
+    else
+        return  # no "work" component in data path (pre-determined path)
+    fi
 
     # "target_base" is used to complete a non-empty but relative "target" path
     target_base=$(sed -re 's~^(.*)/work/.*~\1/done~' <<<"${base_path}")
