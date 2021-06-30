@@ -949,12 +949,15 @@ See the hint at the start of this chapter regarding the (sometimes implicit) *ta
 
 
     d.tracker_announce
+    d.tracker_announce.force
+
+        .. versionadded:: 0.9.8 ``d.tracker_announce.force``
 
         .. code-block:: ini
 
             d.tracker_announce = ‹hash› ≫ 0
 
-        Manually triggers a tracker announce.
+        Manually triggers a tracker announce. The ``.force`` variant ignores the minimum interval set by the tracker.
 
 
     d.tracker_focus

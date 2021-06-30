@@ -523,6 +523,18 @@ Commands related to the operating system and the XMLRPC API.
             log.add_output = tracker_debug, tracelog
 
 
+    log.close
+
+        .. versionadded:: 0.9.8
+
+        .. code-block:: ini
+
+            log.close = string ‹name› ≫ 0
+
+        Removes all outputs from the named log, and closes the file.
+        To ‘close’ a log prior to 0.9.8, bind it to ``/dev/null``.
+
+
     log.execute
 
         .. code-block:: ini
@@ -587,7 +599,7 @@ Commands related to the operating system and the XMLRPC API.
         The core of the logging subsystem is implemented in ``torrent/utils/log`` of *libtorrent*.
 
         You can re-open existing logs in *rTorrent-PS* 1.1+ (and maybe in *rTorrent* 0.9.7+),
-        by just calling an open command with a new path. To ‘close’ one, bind it to ``/dev/null``.
+        by just calling an open command with a new path. To close one, see :term:`log.close`.
 
         Example:
 
@@ -599,7 +611,6 @@ Commands related to the operating system and the XMLRPC API.
         .. warning::
 
             Compressed log files do not seem to work, in version 0.9.6 at least.
-
 
     log.vmmap.dump
 

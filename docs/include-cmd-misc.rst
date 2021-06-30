@@ -191,9 +191,30 @@ These are ‘special’ and fall into no group.
 
 .. glossary::
 
+    try
+
+        .. versionadded:: 0.9.8
+
+        .. code-block:: ini
+
+            try = string ‹command› ≫ 0
+
+        This command catches any input errors, and logs them to ``rpc_events``.
+
+        Example:
+
+        .. code-block:: ini
+
+            log.open_file=rpc,rpc.log,rpc_events
+            try="print=(system.client_version)"
+            try="print=(system.client_versio)"
+
+        Both ``try`` lines will return ``0``, but the second line has a typo
+        and will not work, which will trigger an error message in ``rpc.log``.
+
     directory.watch.added
 
-        .. rubric:: *since rTorrent 0.9.7*
+        .. versionadded:: 0.9.7
 
         .. code-block:: ini
 
