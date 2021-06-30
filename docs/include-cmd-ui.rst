@@ -269,6 +269,13 @@ Commands in this group control aspects of the `curses` UI.
 
         A console message is shown if nothing is found in the current view, or if the view is empty.
 
+    ui.input.history.clear
+    ui.input.history.size
+    ui.input.history.size.set
+
+        .. versionadded:: 0.9.8
+
+        **TODO**
 
     ui.style.progress
     ui.style.progress.set
@@ -277,6 +284,26 @@ Commands in this group control aspects of the `curses` UI.
 
         .. deprecated:: 1.1 rTorrent-PS *canvas v2* made these obsolete
 
+    ui.throttle.global.step.large
+    ui.throttle.global.step.large.set
+    ui.throttle.global.step.medium
+    ui.throttle.global.step.medium.set
+    ui.throttle.global.step.small
+    ui.throttle.global.step.small.set
+
+        .. versionadded:: 0.9.8
+
+        **TODO**
+
+    view.filter.temp
+    view.filter.temp.excluded
+    view.filter.temp.excluded.set
+    view.filter.temp.log
+    view.filter.temp.log.set
+
+        .. versionadded:: 0.9.8
+
+        **TODO**
 
 .. _`Customizing the Display Layout`: https://rtorrent-ps.readthedocs.io/en/latest/setup.html#custom-layout
 .. _`color scheme for 256 xterm colors`: https://github.com/pyroscope/pyrocore/blob/master/src/pyrocore/data/config/color-schemes/default-256.rc#L1

@@ -62,12 +62,21 @@
 
 
     method.insert.value
+    method.insert.bool
+    method.insert.string
+    method.insert.list
+
+        .. versionadded:: 0.9.8 ``.bool``, ``.string``, and ``.list``
 
         .. code-block:: ini
 
-            method.insert.value = ‹name›, ‹default› ≫ 0
+            method.insert.value = ‹name›, value ‹default› ≫ 0
+            method.insert.bool = ‹name›, bool ‹default› ≫ 0
+            method.insert.string = ‹name›, string ‹default› ≫ 0
+            method.insert.list = ‹name›, list ‹default› ≫ 0
 
-        Defines a value that you can query and set, just like with any built-in value.
+        Defines a variable that you can query and set, just like with any built-in variable.
+        Each method corresponds with its object type (see :ref:`object-types` for more information).
 
         The example shows how to do optional logging for some new command you define,
         and also how to split a complicated command into steps using the ``multi`` method type.
@@ -283,10 +292,19 @@ often starting with a digit, ``!``, or ``~``, for ordering reasons.
 
         See also :term:`d.erase`.
 
+    event.system.shutdown
+    event.system.startup_done
+
+        .. versionadded:: 0.9.8
+
+        These events are called shortly before rtorrent starts up/shut downs. For ``startup_done``, this means after
+        the config, command line options and session files are loaded. For ``shutdown``, this means before all session
+        files are saved (among other things).
+
     event.view.hide
     event.view.show
 
-        .. rubric:: *since rTorrent-PS 1.1 / rTorrent 0.9.8*
+        .. versionadded:: 0.9.8 and rTorrent-PS 1.1
 
         .. code-block:: ini
 
@@ -664,6 +682,29 @@ Conditional Operators
         ``((cat))`` is the command that returns that empty string we want to compare against.
         The second filter selects items that have the special unlimited throttle ``NULL`` set.
 
+    match
+
+        .. versionadded:: 0.9.8
+
+        .. code-block:: ini
+
+            match = list {‹cmd›, ‹regexp›} ≫ bool (0 or 1)
+
+        ``match`` takes a 2-element list, of a command that returns a string, and a regexp to compare
+        that string to. If it's a match, it returns ``1``, otherwise ``0``. Note that it expects the entire
+        string to match the regex.
+
+        Example:
+
+        .. code-block:: console
+
+            $ # Note that the leading [ is how rtxmlrpc denotes a list
+            $ rtxmlrpc match '' '[cat=foobar,.*bar'
+            1
+            $ rtxmlrpc match '' '[cat=foo,.*bar'
+            0
+            $ rtxmlrpc match '' '[cat=barfoo,.*bar'
+            0
 
     elapsed.greater
     elapsed.less
@@ -675,7 +716,7 @@ Conditional Operators
 
         Compare time elapsed since a given timestamp against an interval in seconds.
         The timestamps are UNIX ones, like created by :term:`system.time_seconds`.
-        The result is ``false`` if the timestramp is empty / zero.
+        The result is ``0`` if the timestramp is empty / zero.
 
         .. rubric:: Example
 
