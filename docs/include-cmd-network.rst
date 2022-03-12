@@ -8,15 +8,21 @@
     network.bind_address
     network.bind_address.set
 
-        **TODO**
+       .. code-block:: ini
+
+           network.bind_address ≫ ‹seconds›
+           network.bind_address.set = ‹seconds› ≫ 0
+
+       Allows binding to a specific interface. This option can only be set at
+       startup.
 
     network.http.dns_cache_timeout
     network.http.dns_cache_timeout.set
 
         .. code-block:: ini
 
-           network.http.dns_cache_timeout.set = ‹seconds› ≫ 0
            network.http.dns_cache_timeout ≫ ‹seconds›
+           network.http.dns_cache_timeout.set = ‹seconds› ≫ 0
 
         Controls the `DNS cache expiry <https://curl.haxx.se/libcurl/c/CURLOPT_DNS_CACHE_TIMEOUT.html>`_
         (in seconds) for HTTP requests. The default is 60 seconds.
@@ -46,43 +52,114 @@
     network.http.proxy_address
     network.http.proxy_address.set
 
-        **TODO**
+        .. code-block:: ini
+
+           network.http.proxy_address ≫  <address>
+           network.http.proxy_address.set = <address> ≫ 0
+
+        Controls the HTTP proxy for announcements. See the
+        `curl documentation <https://curl.se/docs/manpage.html#-x>`_
+        for more information.
+
 
     network.http.cacert
     network.http.cacert.set
     network.http.capath
     network.http.capath.set
 
-        **TODO**
+        .. code-block:: ini
+
+            network.http.cacert ≫  <file>
+            network.http.cacert.set = <file> ≫ 0
+            network.http.capath ≫  <path>
+            network.http.capath.set = <path> ≫ 0
+
+        Allows for controlling which certificates or certificate paths
+        are used for validating HTTPS connections. By default the system
+        certificates are used, so this option is normally only needed
+        for sites that used self-signed or non-standard certificates.
+
+        See the `curl documentation <https://curl.se/docs/manpage.html#--cacert>`_
+        for more information.
 
     network.http.ssl_verify_host
     network.http.ssl_verify_host.set
     network.http.ssl_verify_peer
     network.http.ssl_verify_peer.set
 
-        **TODO**
+         .. code-block:: ini
+
+            network.http.ssl_verify_host ≫ <bool> (0 or 1)
+            network.http.ssl_verify_host.set = <bool> (0 or 1) ≫ 0
+            network.http.ssl_verify_peer ≫ <bool> (0 or 1)
+            network.http.ssl_verify_peer.set = <bool> (0 or 1) ≫ 0
+
+         Determines if how HTTPS connections are validated.
+         By default, both the peer and the host are fully validated.
+         See the curl documention for
+         `SSL_VERIFYHOST <https://manpages.ubuntu.com/manpages/jammy/en/man3/CURLOPT_SSL_VERIFYHOST.3.html>`_
+         and
+         `SSL_VERIFYPEER <https://manpages.ubuntu.com/manpages/jammy/en/man3/CURLOPT_SSL_VERIFYPEER.3.html>`_
+         for more information.
 
     network.listen.backlog
     network.listen.backlog.set
+
+        .. code-block:: ini
+
+           network.listen.backlog ≫ value <max>
+           network.listen.backlog.set = value <max> ≫ 0
+
+        Sets the max number of pending TCP connections allowed. This defaults to
+        SOMAXCONN, which is 4096 on Linux 5.4+. Note that this is *not* a limit
+        on how many peers can actively connect.
+
     network.listen.port
 
-        **TODO**
+        .. code-block:: ini
+
+           network.listen.port = <port> ≫ 0
+
+        Allows controlling what is reported as the incoming port to the
+        tracker. This defaults to whatever port is picked from
+        :term:`network.port_range`.
 
     network.local_address
     network.local_address.set
 
-        **TODO**
+        .. code-block:: ini
+
+           network.local_address ≫ <address>
+           network.local_address.set = <address> ≫ 0
+
+        This allows binding to a specific network interface. By default it is
+        blank, meaning it will bind to all network interfaces (i.e. ``0.0.0.0``).
 
     network.max_open_files
     network.max_open_files.set
 
-        **TODO**
+         .. code-block:: ini
+
+            network.max_open_files ≫ value <max>
+            network.max_open_files.set = value <max> ≫ 0
+
+        Controls the max number of open files allowed by the internal file
+        manager. By default this is calculated dynamically based on the ``ulimit``.
 
     network.max_open_sockets
     network.max_open_sockets.set
     network.open_sockets
 
-        **TODO**
+        .. code-block:: ini
+
+           network.max_open_sockets ≫ value <max>
+           network.max_open_sockets.set = value <max> ≫ 0
+           network.open_sockets ≫ value <active>
+
+        This controls the maximum number of open sockets allowed by
+        the internal connection manager. By default this is calculated
+        dynamically based on ``ulimit`` settings. ``network.open_sockets`` will return
+        the number of actively open sockets controlled by this setting.
 
     network.port_open
     network.port_open.set
@@ -91,12 +168,33 @@
     network.port_range
     network.port_range.set
 
-        **TODO**
+        .. code-block:: ini
+
+           network.port_open ≫ <bool> (0 or 1)
+           network.port_open.set = <bool> (0 or 1) ≫ 0
+           network.port_random ≫ <bool> (0 or 1)
+           network.port_random.set = <bool> (0 or 1) ≫ 0
+           network.port_range ≫ <range>
+           network.port_range.set = <range> ≫ 0
+
+        This set of options controls how the incoming port is picked.
+        ``network.port_open`` allows for disabling the port entirely,
+        while ``network.port_range`` defines the range of ports rTorrent will
+        consider for use. If ``network.port_random`` is false, the range will
+        be scanned in sequence until a useable one is found. If no suitable
+        ports are found, rTorrent will fail to start.
 
     network.proxy_address
     network.proxy_address.set
 
-        **TODO**
+        .. code-block:: ini
+
+           network.proxy_address ≫  <address>
+           network.proxy_address.set = <address> ≫ 0
+
+        Controls the proxy for peer connections. This uses the CONNECT
+        HTTP call to set up the proxied connection, so the target
+        must support proxying with that method.
 
     network.receive_buffer.size
     network.receive_buffer.size.set
@@ -118,7 +216,7 @@
         (``wmem_max`` for sending).
 
         See the `tuning guide <https://github.com/rakshasa/rtorrent/wiki/Performance-Tuning#networking-tweaks>`_
-        for tweaking these values
+        for tweaking these values.
 
 
     network.scgi.dont_route
@@ -127,7 +225,7 @@
         .. code-block:: ini
 
            network.scgi.dont_route ≫ bool (0 or 1)
-           network.scgi.dont_route.set = ‹bool› ≫ 0
+           network.scgi.dont_route.set = ‹bool› (0 or 1) ≫ 0
 
         Enable / disable routing on SCGI connections,
         directly calling `setsockopt <https://linux.die.net/man/3/setsockopt>`_
