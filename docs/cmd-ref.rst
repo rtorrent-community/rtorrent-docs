@@ -40,7 +40,7 @@ The following are similar, but incomplete resources:
 -  `wikia.com Reference`_
 
 .. _PyroScope's reference: https://github.com/pyroscope/pyroscope/blob/wiki/RtXmlRpcReference.md
-.. _wikia.com Reference: http://scratchpad.wikia.com/wiki/RTorrentCommands
+.. _wikia.com Reference: https://scratchpad.wikia.com/wiki/RTorrentCommands
 
 
 Download Items and Attributes

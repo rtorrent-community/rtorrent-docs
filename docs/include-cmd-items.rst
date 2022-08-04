@@ -1506,9 +1506,9 @@ They can also be called directly, but you need to pass `‹infohash›:p‹peerh
 
         Returns the rate and total of the bytes you are uploading to the peer.
 
-.. _`BEP 5`: http://www.bittorrent.org/beps/bep_0005.html
-.. _`BEP 10`: http://www.bittorrent.org/beps/bep_0010.html
-.. _`BEP 20`: http://www.bittorrent.org/beps/bep_0020.html
+.. _`BEP 5`: https://www.bittorrent.org/beps/bep_0005.html
+.. _`BEP 10`: https://www.bittorrent.org/beps/bep_0010.html
+.. _`BEP 20`: https://www.bittorrent.org/beps/bep_0020.html
 .. _`percent encoded`: https://tools.ietf.org/html/rfc3986#section-2.1
 
 .. _t-commands:
@@ -1525,10 +1525,10 @@ Index counting starts at ``0``, the array size is :term:`d.tracker_size`.
 .. code-block:: console
 
     $ rtxmlrpc --repr t.multicall DDEE5CB75C12F3165EF79A12A5CD6158BEF029AD '' t.url=
-    [['http://torrent.ubuntu.com:6969/announce'],
-     ['http://ipv6.torrent.ubuntu.com:6969/announce']]
+    [['https://torrent.ubuntu.com:6969/announce'],
+     ['https://ipv6.torrent.ubuntu.com:6969/announce']]
     $ rtxmlrpc --repr t.url DDEE5CB75C12F3165EF79A12A5CD6158BEF029AD:t0
-    'http://torrent.ubuntu.com:6969/announce'
+    'https://torrent.ubuntu.com:6969/announce'
 
 .. glossary::
 
@@ -1764,7 +1764,7 @@ Index counting starts at ``0``, the array size is :term:`d.tracker_size`.
 
         Returns the full URL of the tracker.
 
-.. _`BEP 12`: http://bittorrent.org/beps/bep_0012.html
+.. _`BEP 12`: https://www.bittorrent.org/beps/bep_0012.html
 
 
 .. _load-commands:

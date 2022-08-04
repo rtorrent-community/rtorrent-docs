@@ -118,16 +118,11 @@ including the current bleeding edge of development *(git HEAD)*, or any “relea
         Guide to install *rtorrent*, *ruTorrent*, *Sonarr*, and *CouchPotato* on *Ubuntu*,
         proxied by *Apache httpd*.
 
-    `Installation Guide (JES.SC) <https://jes.sc/kb/rTorrent+ruTorrent-Seedbox-Guide.php>`_
-
-        A single-page, comprehensive guide to take you step-by-step through installation and configuration
-        of *rTorrent* and *ruTorrent*.
-
-    `Installation How-To (LinOxide) <http://linoxide.com/ubuntu-how-to/setup-rtorrent-rutorrent/>`_
+    `Installation How-To (LinOxide) <https://linoxide.com/ubuntu-how-to/setup-rtorrent-rutorrent/>`_
 
         How to install / setup *rTorrent* and *ruTorrent* on *CentOS* or *Ubuntu*.
 
-    `Using rtorrent on Linux like a pro <http://ahotech.com/2010/06/30/tutorial-using-rtorrent-on-linux-like-a-pro/>`_
+    `Using rtorrent on Linux like a pro <https://web.archive.org/web/20170614105017/https://ahotech.com/2010/06/30/tutorial-using-rtorrent-on-linux-like-a-pro>`_
 
         An oldie (originally from 2010), but still good.
 

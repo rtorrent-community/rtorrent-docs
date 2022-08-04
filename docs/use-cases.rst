@@ -148,7 +148,7 @@ Install the full script by calling these commands:
     wget $gh_raw/master/docs/examples/rename2tied.sh -O $_/rename2tied.sh
     chmod a+rx $_
 
-Note that you also **must** have `pyrocore <http://pyrocore.readthedocs.io/>`_ installed,
+Note that you also **must** have `pyrocore <https://pyrocore.readthedocs.io/>`_ installed,
 so that the ``rtcontrol`` and ``rtxmlrpc`` commands are available.
 
 This is the configuration snippet that binds calling the script to the ``R`` key.
@@ -318,6 +318,6 @@ Run such a script very regularly (via ``cron``),
 to enforce the bandwidth rules continuously.
 
 
-.. _`throttling when other computers are visible on the network`: http://pyrocore.readthedocs.io/en/latest/advanced.html#global-throttling-when-other-computers-are-up
+.. _`throttling when other computers are visible on the network`: https://pyrocore.readthedocs.io/en/latest/advanced.html#global-throttling-when-other-computers-are-up
 
 .. END cookbook
