@@ -32,8 +32,5 @@ test -n "$VENV_NAME" || VENV_NAME="$(basename $(builtin cd $(dirname "$SCRIPTNAM
 test -x ".venv/bin/python" || ${PYTHON} -m venv --prompt "$VENV_NAME" ".venv"
 . ".venv/bin/activate"
 
-for basepkg in pip setuptools wheel; do
-    pip install -U $basepkg
-done
-
-pip install -r docs/requirements.txt
+pip install -U pip setuptools wheel
+pip install -r requirements.txt
