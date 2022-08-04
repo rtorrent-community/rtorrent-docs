@@ -1,11 +1,9 @@
 # requirements for building the docs locally
 
 # General tools
-bpython==0.18
 invoke==1.4.1
-pip-upgrader
 
 # Sphinx
 -r docs/requirements.txt
-sphinx-rtd-theme==0.4.3
-sphinx-autobuild==0.7.1
+sphinx-rtd-theme==1.0.0
+sphinx-autobuild==2021.3.14
