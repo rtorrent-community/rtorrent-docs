@@ -1044,7 +1044,7 @@ see the ``math.sub`` examples below.
     math.div
     math.mod
 
-        Basic arithmetic operators (+, -, *, /, %).
+        Basic arithmetic operators (+, -, \*, /, %).
 
         These share the same code, so the errors shown in the following examples
         usually apply to all commands, and are not repeated for each operator.
