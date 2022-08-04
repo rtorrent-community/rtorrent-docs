@@ -86,7 +86,7 @@ In addition to the commands listed here, `pyrocore` also defines :term:`d.data_p
 
     d.session_file
 
-        Return path to an items's session file.
+        Return path to an item's session file.
 
         .. rubric:: Definition
 

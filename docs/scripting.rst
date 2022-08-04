@@ -242,7 +242,7 @@ Advanced Concepts
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 A multicall applies a given list of commands repeatedly on a set of objects,
-passing each object to the command calls and collecting the results in a 2-dimensinal array
+passing each object to the command calls and collecting the results in a 2-dimensional array
 (a list of lists).
 Each row is as long as the list of commands,
 and there are as many rows as objects.
@@ -346,7 +346,7 @@ the :ref:`generated index <genindex>` can help you to quickly find them by their
 
 .. rubric:: Command Targets
 
-All XMLPPC commands (with a few exceptions like :term:`system.listMethods`)
+All XMLRPC commands (with a few exceptions like :term:`system.listMethods`)
 take an info hash as the first argument when called over the API,
 to uniquely identify the *target* object.
 ‘Target’ is also the term used for that first parameter in error messages like

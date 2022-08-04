@@ -1750,7 +1750,7 @@ Index counting starts at ``0``, the array size is :term:`d.tracker_size`.
 
             t.type = ‹target› ≫ value ‹type id›
 
-        There are 3 trackers types, each corresponing to the following values:
+        There are 3 trackers types, each corresponding to the following values:
 
         * ``1`` - HTTP
         * ``2`` - UDP

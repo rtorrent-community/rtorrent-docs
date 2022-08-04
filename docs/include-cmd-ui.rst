@@ -212,7 +212,7 @@ Commands in this group control aspects of the `curses` UI.
         The ``ui.column.is_hidden`` command allows to query the visibility of a column,
         and the last command returns a list of index values for all hidden columns.
 
-        The hiddden state is *not* persisted over client restarts.
+        The hidden state is *not* persisted over client restarts.
         Also note that some columns are auto-hidden in case the terminal gets too narrow
         to show all of them.
 
