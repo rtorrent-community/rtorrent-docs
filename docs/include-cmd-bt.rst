@@ -242,7 +242,7 @@ See the Github wiki for an example of `enabling DHT in rTorrent`_.
 
         **TODO** This does not appear to be in use.
 
-.. _`madvise`: http://man7.org/linux/man-pages/man2/madvise.2.html
+.. _`madvise`: https://man7.org/linux/man-pages/man2/madvise.2.html
 .. _`completed torrents not announcing properly`: https://github.com/rakshasa/rtorrent/issues/437
 
 .. _protocol-commands:
@@ -309,7 +309,7 @@ See the Github wiki for an example of `enabling DHT in rTorrent`_.
 
 .. _`peer exchange`: https://en.wikipedia.org/wiki/Peer_exchange
 
-.. _`BitTorrent protocol encryption`: http://en.wikipedia.org/wiki/BitTorrent_protocol_encryption
+.. _`BitTorrent protocol encryption`: https://en.wikipedia.org/wiki/BitTorrent_protocol_encryption
 
 
 .. _throttle-commands:

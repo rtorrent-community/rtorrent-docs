@@ -58,14 +58,14 @@ This reduces the potential of merge conflicts and rework,
 and also makes reviews take a manageable amount of time.
 
 
-.. _`Sphinx tool`: http://www.sphinx-doc.org/
-.. _`reStructuredText markup`: http://docutils.sourceforge.net/rst.html
+.. _`Sphinx tool`: https://www.sphinx-doc.org/
+.. _`reStructuredText markup`: https://docutils.sourceforge.io/rst.html
 .. _`CC-BY-SA-4.0`: https://creativecommons.org/licenses/by-sa/4.0/
-.. _`Sphinx reStructuredText Primer`: http://www.sphinx-doc.org/en/stable/rest.html
+.. _`Sphinx reStructuredText Primer`: https://www.sphinx-doc.org/en/stable/rest.html
 .. _`built-in editor`: https://help.github.com/articles/editing-files-in-your-repository/
 .. _`project's README`: https://github.com/rtorrent-community/rtorrent-docs#how-to-build-the-handbook-locally
 .. _`GitHub help`: https://help.github.com/articles/proposing-changes-to-your-work-with-pull-requests/
 .. _`open a pull request`: https://github.com/rtorrent-community/rtorrent-docs/pulls
 .. _`issue tracker`: https://github.com/rtorrent-community/rtorrent-docs/issues
 .. _`Mastering Issues`: https://guides.github.com/features/issues/
-.. _`contribution-guide.org`: http://www.contribution-guide.org/
+.. _`contribution-guide.org`: https://www.contribution-guide.org/

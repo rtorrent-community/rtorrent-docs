@@ -24,7 +24,7 @@ of your distribution, or alternatively install from source (see below).
  * *“Arch User Repository”* (AUR) PKGBUILDs maintained by `@xsmile <https://github.com/xsmile>`_ for
    `libtorrent-ps <https://aur.archlinux.org/packages/libtorrent-ps/>`_ and
    `rtorrent-ps <https://aur.archlinux.org/packages/rtorrent-ps/>`_.
-   See also the *Arch Linux* `wiki page <https://wiki.archlinux.org/index.php/RTorrent#Installation>`_.
+   See also the *Arch Linux* `wiki page <https://wiki.archlinux.org/title/RTorrent#Installation>`_.
 
 
 Automated Installation
@@ -46,7 +46,7 @@ If you want to run *ruTorrent*, the default version of *PHP* is very important (
 
         This will install *rTorrent-PS*, *pyrocore*, and related software onto any remote dedicated server or VPS with root access, running *Debian* or a Debian-like OS. It does so via *Ansible*, which is in many ways superior to the usual *“call a bash script to set up things once and never be able to update them again”*, since you can run this setup repeatedly to either fix problems, or to install upgrades and new features added to the project's repository.
 
-    `QuickBox <https://github.com/QuickBox>`_ and `Swizzin <https://github.com/liaralabs/swizzin>`_
+    `QuickBox <https://github.com/QuickBox>`_ and `Swizzin <https://github.com/swizzin/swizzin>`_
 
         *bash + Javascript*
 
@@ -90,7 +90,7 @@ If you want to run *ruTorrent*, the default version of *PHP* is very important (
 
         Seedbox installation script for *Ubuntu* and *Debian* systems.
 
-    `Kerwood <https://github.com/Kerwood/rtorrent.auto.install>`_
+    `Kerwood <https://github.com/Kerwood/Rtorrent-Auto-Install>`_
 
         *bash · Debian Jessie + Wheezy · Raspian*
 
@@ -118,16 +118,7 @@ including the current bleeding edge of development *(git HEAD)*, or any “relea
         Guide to install *rtorrent*, *ruTorrent*, *Sonarr*, and *CouchPotato* on *Ubuntu*,
         proxied by *Apache httpd*.
 
-    `Installation Guide (JES.SC) <https://jes.sc/kb/rTorrent+ruTorrent-Seedbox-Guide.php>`_
-
-        A single-page, comprehensive guide to take you step-by-step through installation and configuration
-        of *rTorrent* and *ruTorrent*.
-
-    `Installation How-To (LinOxide) <http://linoxide.com/ubuntu-how-to/setup-rtorrent-rutorrent/>`_
-
-        How to install / setup *rTorrent* and *ruTorrent* on *CentOS* or *Ubuntu*.
-
-    `Using rtorrent on Linux like a pro <http://ahotech.com/2010/06/30/tutorial-using-rtorrent-on-linux-like-a-pro/>`_
+    `Using rtorrent on Linux like a pro <https://web.archive.org/web/20170614105017/https://ahotech.com/2010/06/30/tutorial-using-rtorrent-on-linux-like-a-pro>`_
 
         An oldie (originally from 2010), but still good.
 
@@ -141,6 +132,6 @@ rTorrent Distributions
 
         A *rTorrent* distribution (not a fork of it), in form of a set of patches that improve the user experience and stability of official *rTorrent* releases. The notable additions are the more condensed ncurses UI with colorization and a network bandwidth graph, and a default configuration providing many new features, based in part on an extended command set.
 
-    `rTorrent-PS-CH <https://github.com/chros73/rtorrent-ps_setup/wiki>`_
+    `rTorrent-PS-CH <https://github.com/chros73/rtorrent-ps-ch_setup/wiki>`_
 
         This puts more patches and a different default configuration on top of *rTorrent-PS*. It also tries to work with the current git HEAD of *rTorrent*, which *rTorrent-PS* does not.

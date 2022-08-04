@@ -37,10 +37,10 @@ The :ref:`generated index <genindex>` also lists all the command names.
 The following are similar, but incomplete resources:
 
 -  `PyroScope's reference`_
--  `wikia.com Reference`_
+-  `Fandom.com Reference`_
 
 .. _PyroScope's reference: https://github.com/pyroscope/pyroscope/blob/wiki/RtXmlRpcReference.md
-.. _wikia.com Reference: http://scratchpad.wikia.com/wiki/RTorrentCommands
+.. _Fandom.com Reference: https://scratchpad.fandom.com/wiki/RTorrentCommands
 
 
 Download Items and Attributes

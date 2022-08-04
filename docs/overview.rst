@@ -45,7 +45,7 @@ Getting Interactive Help via Chat
 
 .. unofficial help & support channel for rTorrent: irc://irc.freenode.net/rtorrent
 .. webchat: https://webchat.freenode.net/?channels=%23%23rtorrent
-.. freenode.net IRC network: http://freenode.net/
+.. freenode.net IRC network: https://freenode.net/
 
 
 Web Resources Related to rTorrent
@@ -56,8 +56,8 @@ Here is a list of web links to related information:
 * `rtorrent GitHub project <https://github.com/rakshasa/rtorrent/>`_
 * `libtorrent GitHub project <https://github.com/rakshasa/libtorrent>`_
 * `rTorrent Community GitHub organization <https://rtorrent-community.github.io/>`_
-* `Arch Wiki rTorrent page <https://wiki.archlinux.org/index.php/RTorrent>`_
-* `rTorrent Quick Reference Card <http://ciux.org/rtorrent_ref.pdf>`_ (PDF)
+* `Arch Wiki rTorrent page <https://wiki.archlinux.org/title/RTorrent>`_
+* `rTorrent Quick Reference Card <https://ciux.org/rtorrent_ref.pdf>`_ (PDF)
 
 .. * ` <>`_
 .. END overview
