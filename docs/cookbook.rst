@@ -32,7 +32,7 @@ and its configuration in particular.
 
 .. _`RPC Migration 0.9`: https://github.com/rakshasa/rtorrent/wiki/RPC-Migration-0.9
 .. _`sed script`: https://github.com/rakshasa/rtorrent/blob/master/doc/scripts/update_commands_0.9.sed
-.. _`ArchLinux wiki page`: https://wiki.archlinux.org/index.php/Rtorrent
+.. _`ArchLinux wiki page`: https://wiki.archlinux.org/title/Rtorrent
 
 
 .. _rtorrent-basics:

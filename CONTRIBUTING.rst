@@ -59,7 +59,7 @@ and also makes reviews take a manageable amount of time.
 
 
 .. _`Sphinx tool`: https://www.sphinx-doc.org/
-.. _`reStructuredText markup`: http://docutils.sourceforge.net/rst.html
+.. _`reStructuredText markup`: https://docutils.sourceforge.io/rst.html
 .. _`CC-BY-SA-4.0`: https://creativecommons.org/licenses/by-sa/4.0/
 .. _`Sphinx reStructuredText Primer`: https://www.sphinx-doc.org/en/stable/rest.html
 .. _`built-in editor`: https://help.github.com/articles/editing-files-in-your-repository/

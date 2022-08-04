@@ -56,7 +56,7 @@ Here is a list of web links to related information:
 * `rtorrent GitHub project <https://github.com/rakshasa/rtorrent/>`_
 * `libtorrent GitHub project <https://github.com/rakshasa/libtorrent>`_
 * `rTorrent Community GitHub organization <https://rtorrent-community.github.io/>`_
-* `Arch Wiki rTorrent page <https://wiki.archlinux.org/index.php/RTorrent>`_
+* `Arch Wiki rTorrent page <https://wiki.archlinux.org/title/RTorrent>`_
 * `rTorrent Quick Reference Card <https://ciux.org/rtorrent_ref.pdf>`_ (PDF)
 
 .. * ` <>`_

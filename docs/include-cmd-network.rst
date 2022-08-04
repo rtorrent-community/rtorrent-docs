@@ -18,7 +18,7 @@
            network.http.dns_cache_timeout.set = ‹seconds› ≫ 0
            network.http.dns_cache_timeout ≫ ‹seconds›
 
-        Controls the `DNS cache expiry <https://curl.haxx.se/libcurl/c/CURLOPT_DNS_CACHE_TIMEOUT.html>`_
+        Controls the `DNS cache expiry <https://curl.se/libcurl/c/CURLOPT_DNS_CACHE_TIMEOUT.html>`_
         (in seconds) for HTTP requests. The default is 60 seconds.
 
         Set to zero to completely disable caching, or set to -1 to
