@@ -569,7 +569,8 @@ See the hint at the start of this chapter regarding the (sometimes implicit) *ta
         which means that these are not hard limits, but are instead goals that *rTorrent* will try to reach.
 
         ``0`` means unlimited, and while ``d.downloads_max`` can be set to less than
-        ``d.downloads_min``, *rTorrent* will then use ``d.downloads_min`` as the maximum instead.
+        ``d.downloads_min``, *rTorrent* will then use ``d.downloads_min`` as the maximum instead. The
+        default values are controlled by :term:`throttle.min_downloads` and :term:`throttle.max_downloads`.
 
 
     d.erase
@@ -826,6 +827,7 @@ See the hint at the start of this chapter regarding the (sometimes implicit) *ta
     d.peers_accounted
     d.peers_complete
     d.peers_connected
+    d.peers_not_connected
 
         **TODO**
 
@@ -833,9 +835,27 @@ See the hint at the start of this chapter regarding the (sometimes implicit) *ta
     d.peers_max.set
     d.peers_min
     d.peers_min.set
-    d.peers_not_connected
 
-        **TODO**
+        .. code-block:: ini
+
+            d.peer_max = ‹hash› ≫ value
+            d.peer_max.set = ‹hash›, value ‹max› ≫ 0
+            d.peer_min = ‹hash› ≫ value
+            d.peer_min.set = ‹hash›, value ‹min› ≫ 0
+
+        If both:
+
+        * the number of available peers is less than ``d.peers_min``
+        * the number of available peers + any active handshake attempts is less than ``d.peers_max``
+
+        Then *rTorrent* will attempt to start a handshake attempt with a new peer at random until
+        either condition is unmet.
+
+        Simply put, this specifies the upper and lower bound for the number of peers
+        *rTorrent* will try to connect to. Note that this does not effect inbound connection attempts.
+
+        ``d.peer_max`` and ``d.peer_min`` default to the values of :term:`throttle.min_peers.normal`
+        and :term:`throttle.max_peers.normal` respectively when the item is first created.
 
     d.priority
     d.priority.set
