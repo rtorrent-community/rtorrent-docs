@@ -446,16 +446,31 @@ and the amount of peers requested in tracker announces.
 
         **TODO**
 
-    throttle.max_peers.normal
-    throttle.max_peers.normal.set
-    throttle.max_peers.seed
-    throttle.max_peers.seed.set
     throttle.min_peers.normal
     throttle.min_peers.normal.set
+    throttle.max_peers.normal
+    throttle.max_peers.normal.set
     throttle.min_peers.seed
     throttle.min_peers.seed.set
+    throttle.max_peers.seed
+    throttle.max_peers.seed.set
 
-        **TODO**
+        These control the default values for :term:`d.peers_max` and :term:`d.peers_min`
+        when an item is either incomplete (``.normal``) or complete (``.seed``). See those
+        terms for a detailed explanation of how the value affect items.
+
+        If ``throttle.min/max_peers.seed`` is less than ``0``, it will use the same value
+        as ``throttle.min/max_peeers.normal``.
+
+        Default values:
+
+        .. csv-table::
+
+            throttle.min_peers.normal,100
+            throttle.max_peers.normal,200
+            throttle.min_peers.seed,-1
+            throttle.max_peers.seed,-1
+
 
     throttle.unchoked_downloads
     throttle.unchoked_uploads
