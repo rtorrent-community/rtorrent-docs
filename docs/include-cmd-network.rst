@@ -35,7 +35,7 @@
            network.http.max_open ≫ value ‹max›
            network.http.max_open.set = ‹max› ≫ 0
 
-        ``network.http.current_open`` returns the number of currently opened HTTTP connections,
+        ``network.http.current_open`` returns the number of currently opened HTTP connections,
         and ``network.http.max_open`` determines the upper limit for simultaneous HTTP connections.
 
         Be wary of setting this too high, as even if your connection can support

@@ -440,7 +440,7 @@ Importing Script Files
         Both of these commands open the given file
         and execute the contained commands, one per logical line.
 
-        Physical ines can be continued by escaping the line end with ``\``.
+        Physical lines can be continued by escaping the line end with ``\``.
         The maximum length is 4096 bytes.
 
         Lines beginning with ``#`` are comments.
@@ -675,7 +675,7 @@ Conditional Operators
 
         Compare time elapsed since a given timestamp against an interval in seconds.
         The timestamps are UNIX ones, like created by :term:`system.time_seconds`.
-        The result is ``false`` if the timestramp is empty / zero.
+        The result is ``false`` if the timestamp is empty / zero.
 
         .. rubric:: Example
 
@@ -973,7 +973,7 @@ String Functions
         ``string.map`` scans a list of replacement pairs for an ``old`` text that matches
         *all* of the given string, and replaces it by ``new``.
 
-        ``string.replace`` substitutes any occurence of the old text by the new one.
+        ``string.replace`` substitutes any occurrence of the old text by the new one.
 
         .. rubric:: Examples
 
@@ -1044,7 +1044,7 @@ see the ``math.sub`` examples below.
     math.div
     math.mod
 
-        Basic arithmetic operators (+, -, *, /, %).
+        Basic arithmetic operators (+, -, \*, /, %).
 
         These share the same code, so the errors shown in the following examples
         usually apply to all commands, and are not repeated for each operator.

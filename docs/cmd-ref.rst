@@ -102,8 +102,6 @@ TODO (Groups)
     directory.default
     directory.default.set
     directory
-    encoding.add
-    encoding_list
 
         **TODO**
 
@@ -173,8 +171,10 @@ TODO (singles)
     connection_leech
     connection_seed
     download_rate
+    encoding.add
     encoding_list
     encryption
+    group.seeding.ratio.command
     ip
     key_layout
     max_downloads
@@ -196,11 +196,11 @@ TODO (singles)
     proxy_address
     scgi_local
     scgi_port
-    torrent_list_layout
     upload_rate
     fi.filename_last
     fi.is_file
     file.append
+    file.prioritize_toc
     keys.layout
     keys.layout.set
 
